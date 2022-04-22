@@ -4,6 +4,8 @@ class Translate extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "add": "Add",
+          "category": "Category",
           "menu": "Menu",
           "login": "Login",
           "register": "Register",
@@ -17,8 +19,11 @@ class Translate extends Translations {
           "password": "Password",
           "confirm password": "Confirm Password",
           'tabwa french dictionnary': 'Tabwa French Dictionnary',
+          "word": "Word or expression",
         },
         'fr_FR': {
+          "add": "Ajouter",
+          "category": "Catégorie",
           "menu": "Menu",
           "login": "Se connecter",
           "register": "S'inscrire",
@@ -32,6 +37,7 @@ class Translate extends Translations {
           "password": "Mot de passe",
           "confirm password": "Confirmer le mot de passe",
           'tabwa french dictionnary': 'Dictionnaire Tabwa Français',
+          "word": "Mot ou expression",
         }
       };
 }

@@ -17,4 +17,10 @@ class WordsService extends GetxService {
     // logcat("You are in WordsService");
     words.value = await Word.getAll();
   }
+
+  void addWord(Map<String, dynamic> word) async {
+    await Word.add(word);
+    getAll();
+    Get.back();
+  }
 }

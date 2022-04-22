@@ -8,11 +8,13 @@ class AuthController extends GetxController {
   var user = Rxn<User>();
 
   login(Map<String, dynamic> creds) async {
-    await User.login(creds);
+    User? u = await User.login(creds);
+    if (u != null) Get.back();
   }
 
   register(Map<String, dynamic> user) async {
-    await User.register(user);
+    User? u = await User.register(user);
+    if (u != null) Get.back();
   }
 
   @override
@@ -20,11 +22,11 @@ class AuthController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     GetStorage().listenKey('token', (value) {
-      logcat("token: $value");
+      //   logcat("token: $value");
     });
     GetStorage().listenKey('user', (value) {
       user.value = User.fromMap(value);
-      logcat("user: ${user.value.toString()}");
+      // logcat("user: ${user.value.toString()}");
     });
   }
 }

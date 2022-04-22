@@ -7,4 +7,7 @@ class WordsApi {
   static final GetConnect _gc = GetConnect();
 
   static Future<dynamic> getAll() => _gc.get(WORDS_URL);
+
+  static Future<dynamic> add(String token, Map<String, dynamic> word) =>
+      _gc.post(WORDS_URL, word, headers: headers(token: token));
 }

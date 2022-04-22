@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/app/models/translation.dart';
 import 'package:tabwa_french/system/database/words_api.dart';
 
@@ -114,5 +115,15 @@ class Word {
     vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
 
     return vv;
+  }
+
+  static Future<Word?> add(Map<String, dynamic> word) async {
+    // logcat(word.toString());
+    String token = GetStorage().read("token");
+    Response ddd = await WordsApi.add(token, word);
+    // logcat(ddd.body.toString());
+    // logcat(ddd.body['data'].toString());
+
+    return null;
   }
 }

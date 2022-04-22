@@ -40,6 +40,12 @@ class _MyHomePageState extends State<HomeScreen> {
           const SizedBox(width: 10),
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/add-word');
+        },
+        child: const Icon(Icons.add),
+      ),
       body: Obx(() {
         return ListView.builder(
           itemBuilder: (context, index) {

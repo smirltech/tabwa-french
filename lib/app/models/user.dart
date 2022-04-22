@@ -36,7 +36,7 @@ class User {
   static Future<User?> login(Map<String, dynamic> creds) async {
     Response response = await AuthApi.login(creds);
     if (response.body['statusCode'] == 200) {
-      logcat('login response: ${response.body['data']}');
+      // logcat('login response: ${response.body['data']}');
       snackItOld(response.body['message']);
       GetStorage().write('token', response.body['data']['token']);
 
@@ -44,7 +44,7 @@ class User {
       GetStorage().write('user', u.toMap());
       return u;
     } else {
-      logcat('User login failed');
+      //  logcat('User login failed');
       snackItOld(response.body['message']);
       return null;
     }
@@ -52,9 +52,9 @@ class User {
 
   static Future<User?> register(Map<String, dynamic> user) async {
     Response response = await AuthApi.register(user);
-    logcat('register response 0 : ${response.body}');
+    //logcat('register response 0 : ${response.body}');
     if (response.body['statusCode'] == 200) {
-      logcat('register response: ${response.body['data']}');
+      // logcat('register response: ${response.body['data']}');
       snackItOld(response.body['message']);
       GetStorage().write('token', response.body['data']['token']);
 
@@ -62,7 +62,7 @@ class User {
       GetStorage().write('user', u.toMap());
       return u;
     } else {
-      logcat('User registration failed');
+      // logcat('User registration failed');
       //snackItOld("ERROR : ${response.body['data']}");
       snackItOld(
           "ERROR : soit l'email est pris, soit les mots de passe ne sont pas identiques");
