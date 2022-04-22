@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/routes.dart';
+
 class MainMenu extends StatelessWidget {
   const MainMenu({Key? key}) : super(key: key);
 
@@ -8,7 +10,7 @@ class MainMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu'),
+        title: Text('menu'.tr),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -52,7 +54,8 @@ class MainMenu extends StatelessWidget {
                     leading: const Icon(Icons.login),
                     title: Text('login'.tr),
                     onTap: () {
-                      // Navigator.pushNamed(context, '/home');
+                      Get.back();
+                      Get.toNamed(Routes.login);
                     },
                   ),
                 ),
@@ -61,7 +64,8 @@ class MainMenu extends StatelessWidget {
                     leading: const Icon(Icons.person_add_alt),
                     title: Text('register'.tr),
                     onTap: () {
-                      // Navigator.pushNamed(context, '/home');
+                      Get.back();
+                      Get.toNamed(Routes.register);
                     },
                   ),
                 ),

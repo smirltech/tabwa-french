@@ -108,7 +108,9 @@ class Word {
     Response ddd = await WordsApi.getAll();
     //logcat(ddd.body.toString());
     //logcat(ddd.body['data'].toString());
-    vv = Word.listFromMap(ddd.body['data']);
+    try {
+      vv = Word.listFromMap(ddd.body['data']);
+    } on Exception catch (e) {}
     vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
 
     return vv;

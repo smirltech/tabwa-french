@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.4
   get: ^4.6.1
   get_storage: ^2.0.3
+  fl_toast: ^3.1.0
 
 dev_dependencies:
   flutter_test:

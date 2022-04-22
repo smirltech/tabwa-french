@@ -6,7 +6,17 @@ const String BASE_URL = _online ? _ONLINE_BASE_URL : _OFFLINE_BASE_URL;
 // USERS
 const String USER_URL = BASE_URL + "";
 const String LOGIN = USER_URL + "/login";
-const String REGISTER = USER_URL + "/regiser";
+const String REGISTER = USER_URL + "/register";
 
 // WORDS
 const String WORDS_URL = BASE_URL + "/words";
+
+// HEADERS
+
+Map<String, String> headers({String? token}) {
+  return {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Bearer $token",
+  };
+}

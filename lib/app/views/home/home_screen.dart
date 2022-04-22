@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tabwa_french/app/controllers/words_controller.dart';
+import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/app/views/home/components/main_menu.dart';
+import 'package:tabwa_french/system/configs/configs.dart';
 
 import '../../models/translation.dart';
 import '../../models/word.dart';
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomeScreen> {
-  final WordsController _wordsController = Get.find<WordsController>();
+  final WordsService _wordsService = Get.find<WordsService>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +30,11 @@ class _MyHomePageState extends State<HomeScreen> {
                 transitionCurve: Curves.linearToEaseOut);
           },
         ),
-        title: Text("tabwa french dictionnary".tr),
+        title: Text(APP_NAME),
         actions: [
           CircleAvatar(
             child: Obx(() {
-              return Text(_wordsController.words.length.toString());
+              return Text(_wordsService.words.length.toString());
             }),
           ),
           const SizedBox(width: 10),
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<HomeScreen> {
       body: Obx(() {
         return ListView.builder(
           itemBuilder: (context, index) {
-            Word word = _wordsController.words[index];
+            Word word = _wordsService.words[index];
             List<Translation> _translations = word.translations;
             String _traa = "";
             if (_translations.isNotEmpty) {
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<HomeScreen> {
               ),
             );
           },
-          itemCount: _wordsController.words.length,
+          itemCount: _wordsService.words.length,
         );
       }),
     );

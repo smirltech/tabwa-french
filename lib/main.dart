@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tabwa_french/app/controllers/words_controller.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/lang/translate.dart';
 
-void main() {
+import 'app/controllers/controllers.dart';
+import 'app/routes/routes.dart';
+import 'app/services/services.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await GetStorage.init();
+  await Services.init();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key) {
-    Get.put(WordsController());
+    Controllers.init();
   }
 
   // This widget is the root of your application.
@@ -21,13 +29,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: DEBUG_MODE,
       enableLog: DEBUG_MODE,
-      locale: const Locale('en', 'US'),
+      locale: const Locale('fr', 'FR'),
       fallbackLocale: const Locale('en', 'US'),
       translations: Translate(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      initialRoute: Routes.home,
+      getPages: Routes.routes,
     );
   }
 }
