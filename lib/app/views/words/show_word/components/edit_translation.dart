@@ -23,6 +23,7 @@ class EditTranslation extends StatelessWidget {
   EditTranslation({Key? key, required this.translaty}) : super(key: key) {
     translation = {
       'id': translaty.id,
+      "user_id": _authController.user.value!.id,
       "type_id": translaty.type_id,
       "translation": translaty.translation,
       "example": translaty.example,
