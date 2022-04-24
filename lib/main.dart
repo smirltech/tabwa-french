@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: APP_NAME,
       debugShowCheckedModeBanner: DEBUG_MODE,
       enableLog: DEBUG_MODE,
       locale: const Locale('fr', 'FR'),

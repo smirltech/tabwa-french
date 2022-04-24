@@ -27,5 +27,20 @@ snackItOld(
   SnackBar sb = SnackBar(
     content: Text(message),
   );
-  ScaffoldMessenger.of(Get.context!).showSnackBar(sb);
+  try {
+    if (Get.context != null) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(sb);
+    }
+  } on Exception catch (e) {}
+}
+
+InputDecoration roundedTextInputDecoration(
+    {String? hintText, String? labelText}) {
+  return InputDecoration(
+    hintText: hintText,
+    labelText: labelText,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  );
 }

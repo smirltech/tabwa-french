@@ -2,33 +2,42 @@ import 'dart:convert';
 
 import 'dart:developer';
 
+import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:tabwa_french/app/models/type.dart';
+import 'package:tabwa_french/system/database/translations_api.dart';
+
 class Translation {
   int id;
   String translation;
   String example;
   String example_translation;
-  String type;
+
   String created_at;
   String updated_at;
   String user;
   String updater;
+  String type;
+  String type_id;
 
   Translation({
     this.id = 0,
     this.translation = '',
     this.example = '',
     this.example_translation = '',
-    this.type = '',
     this.created_at = '',
     this.updated_at = '',
     this.user = '',
     this.updater = '',
+    this.type = '',
+    this.type_id = '',
   });
 
   factory Translation.fromMap(dynamic map) {
     //  if (null == map) return null;
     // var temp;
     var t = map['type'] is Map ? map['type']['type'] : '';
+    var ti = map['type'] is Map ? map['type']['id'] : '';
     var n =
         (map['user'] != null && map['user'] is Map) ? map['user']['name'] : '';
     var u = (map['updater'] != null && map['updater'] is Map)
@@ -45,6 +54,7 @@ class Translation {
       user: n.toString(),
       updater: u.toString(),
       type: t.toString(),
+      type_id: ti.toString(),
     );
   }
 
@@ -64,5 +74,26 @@ class Translation {
       _l.add(Translation.fromMap(e));
     });
     return _l;
+  }
+
+  static Future<Translation?> add(Map<String, dynamic> translation) async {
+    // logcat(word.toString());
+    String token = GetStorage().read("token");
+    Response ddd = await TranslationsApi.add(token, translation);
+    // logcat(ddd.body.toString());
+    // logcat(ddd.body['data'].toString());
+
+    return null;
+  }
+
+  static Future<Translation?> edit(
+      Map<String, dynamic> translation, int id) async {
+    // logcat(word.toString());
+    String token = GetStorage().read("token");
+    Response ddd = await TranslationsApi.edit(token, translation, id);
+    // logcat(ddd.body.toString());
+    // logcat(ddd.body['data'].toString());
+
+    return null;
   }
 }

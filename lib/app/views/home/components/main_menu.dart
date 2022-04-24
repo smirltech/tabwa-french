@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tabwa_french/system/helpers/log_cat.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../../routes/routes.dart';
 
 class MainMenu extends StatelessWidget {
-  const MainMenu({Key? key}) : super(key: key);
+  MainMenu({Key? key}) : super(key: key);
+  final AuthController _authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,8 @@ class MainMenu extends StatelessWidget {
               title: Text('profile'.tr),
               onTap: () {
                 // Navigator.pushNamed(context, '/home');
+                Get.back();
+                Get.toNamed(Routes.profile);
               },
             ),
             ListTile(
@@ -37,6 +42,8 @@ class MainMenu extends StatelessWidget {
               title: Text('settings'.tr),
               onTap: () {
                 // Navigator.pushNamed(context, '/home');
+                Get.back();
+                Get.toNamed(Routes.settings);
               },
             ),
             ListTile(
@@ -48,36 +55,44 @@ class MainMenu extends StatelessWidget {
             ),
             const Spacer(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Flexible(
-                  child: ListTile(
-                    leading: const Icon(Icons.login),
-                    title: Text('login'.tr),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Routes.login);
-                    },
+                Builder(builder: (context) {
+                  if (_authController.user.value != null) {
+                    return Flexible(
+                      child: IconButton(
+                        tooltip: "logout".tr,
+                        icon: const Icon(Icons.logout),
+                        onPressed: () {
+                          logcat("dododod");
+                          _authController.logout();
+                        },
+                      ),
+                    );
+                  } else {
+                    return Flexible(
+                      child: IconButton(
+                        tooltip: "login".tr,
+                        icon: const Icon(Icons.login),
+                        onPressed: () {
+                          // Get.back();
+                          logcat("heheheh");
+                          Get.toNamed(Routes.login);
+                        },
+                      ),
+                    );
+                  }
+                }),
+                if (_authController.user.value == null)
+                  Flexible(
+                    child: IconButton(
+                      tooltip: "register".tr,
+                      icon: const Icon(Icons.person_add_alt),
+                      onPressed: () {
+                        Get.toNamed(Routes.register);
+                      },
+                    ),
                   ),
-                ),
-                Flexible(
-                  child: ListTile(
-                    leading: const Icon(Icons.person_add_alt),
-                    title: Text('register'.tr),
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(Routes.register);
-                    },
-                  ),
-                ),
-                Flexible(
-                  child: ListTile(
-                    leading: const Icon(Icons.logout),
-                    title: Text('logout'.tr),
-                    onTap: () {
-                      // Navigator.pushNamed(context, '/home');
-                    },
-                  ),
-                ),
               ],
             ),
           ],

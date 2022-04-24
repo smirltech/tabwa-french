@@ -107,12 +107,20 @@ class Word {
   static Future<List<Word>> getAll() async {
     List<Word> vv = [];
     Response ddd = await WordsApi.getAll();
-    //logcat(ddd.body.toString());
-    //logcat(ddd.body['data'].toString());
+    //logcat("DODODOD : " + ddd.body.toString());
+    // logcat(ddd.body['data'].toString());
     try {
-      vv = Word.listFromMap(ddd.body['data']);
-    } on Exception catch (e) {}
-    vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+      if (ddd.body != null) vv = Word.listFromMap(ddd.body?['data']);
+    } on Exception catch (e) {
+      logcat("WORD GETALL => " + e.toString());
+    }
+    if (vv.isNotEmpty) {
+      vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+      GetStorage().write('words', ddd.body?['data']);
+    } else {
+      vv = Word.listFromMap(GetStorage().read('words'));
+      vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+    }
 
     return vv;
   }
@@ -121,6 +129,16 @@ class Word {
     // logcat(word.toString());
     String token = GetStorage().read("token");
     Response ddd = await WordsApi.add(token, word);
+    // logcat(ddd.body.toString());
+    // logcat(ddd.body['data'].toString());
+
+    return null;
+  }
+
+  static Future<Word?> edit(Map<String, dynamic> word, int id) async {
+    // logcat(word.toString());
+    String token = GetStorage().read("token");
+    Response ddd = await WordsApi.edit(token, word, id);
     // logcat(ddd.body.toString());
     // logcat(ddd.body['data'].toString());
 

@@ -1,4 +1,4 @@
 import 'package:get/get.dart';
 
-const bool DEBUG_MODE = true;
-final String APP_NAME = "tabwa french dictionnary".tr;
+const bool DEBUG_MODE = false;
+final String APP_NAME = "Tabwa French Dictionnary".tr;

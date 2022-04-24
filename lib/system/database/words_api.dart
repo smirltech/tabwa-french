@@ -10,4 +10,8 @@ class WordsApi {
 
   static Future<dynamic> add(String token, Map<String, dynamic> word) =>
       _gc.post(WORDS_URL, word, headers: headers(token: token));
+
+  static Future<dynamic> edit(
+          String token, Map<String, dynamic> word, int id) =>
+      _gc.put(WORDS_URL + "/$id", word, headers: headers(token: token));
 }

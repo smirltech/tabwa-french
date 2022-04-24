@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
+import 'package:tabwa_french/app/controllers/translations_controller.dart';
+import 'package:tabwa_french/app/controllers/types_controller.dart';
 
 class Controllers {
   /*
@@ -7,5 +9,7 @@ class Controllers {
   */
   static Future<void> init() async {
     Get.put<AuthController>(AuthController());
+    Get.put<TypesController>(TypesController());
+    Get.put<TranslationsController>(TranslationsController());
   }
 }
