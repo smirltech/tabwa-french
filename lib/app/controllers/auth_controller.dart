@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
@@ -7,6 +8,12 @@ import '../models/user.dart';
 
 class AuthController extends GetxController {
   var user = Rxn<User>();
+  var themy = "system".obs;
+
+  void storeTheme(String theme) {
+    // themy.value = theme;
+    GetStorage().write("themy", theme);
+  }
 
   login(Map<String, dynamic> creds) async {
     User? u = await User.login(creds);
@@ -52,6 +59,16 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    GetStorage().writeIfNull('themy', themy.value);
+    themy.value = GetStorage().read('themy');
+    GetStorage().listenKey('themy', (value) {
+      themy.value = value;
+      Get.changeThemeMode(value == 'dark'
+          ? ThemeMode.dark
+          : value == 'light'
+          ? ThemeMode.light
+          : ThemeMode.system);
+    });
 
     GetStorage().listenKey('token', (value) {
       //   logcat("token: $value");

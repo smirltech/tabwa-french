@@ -5,6 +5,9 @@ class Translate extends Translations {
   Map<String, Map<String, String>> get keys => {
         'en_US': {
           "add": "Add",
+          "word": "Word",
+          "words": "Words",
+          "the dictionnary has": "The dictionnary has",
           "search": "Search",
           "added": "Added",
           "added by": "Added by",
@@ -40,7 +43,7 @@ class Translate extends Translations {
           "password": "Password",
           "confirm password": "Confirm Password",
           'tabwa french dictionnary': 'Tabwa French Dictionnary',
-          "word": "Word or expression",
+          "word or expression": "Word or expression",
           "user initiate login successfully":
               "User initiate login successfully",
           "user is connected now": "User is connected now",
@@ -54,6 +57,9 @@ class Translate extends Translations {
         'fr_FR': {
           "add": "Ajouter",
           "search": "Rechercher",
+          "word": "Mot",
+          "words": "Mots",
+          "the dictionnary has": "Le dictionnaire a",
           "added": "Ajouté",
           "added by": "Ajouté par",
           "add word": "Ajouter un mot",
@@ -88,7 +94,7 @@ class Translate extends Translations {
           "password": "Mot de passe",
           "confirm password": "Confirmer le mot de passe",
           'tabwa french dictionnary': 'Dictionnaire Tabwa Français',
-          "word": "Mot ou expression",
+          "word or expression": "Mot ou expression",
           "user initiate login successfully": "Vous avez initié la connexion",
           "user is connected now": "Vous êtes maintenant connecté",
           "user connection failed":

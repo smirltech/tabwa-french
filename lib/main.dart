@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/lang/translate.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import 'app/controllers/controllers.dart';
 import 'app/routes/routes.dart';
@@ -20,7 +21,15 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key) {
     Controllers.init();
+    var _themy = GetStorage().read('themy') ?? themy;
+    themy = _themy == 'dark'
+        ? ThemeMode.dark
+        : _themy == 'light'
+            ? ThemeMode.light
+            : ThemeMode.system;
   }
+
+  var themy = ThemeMode.system;
 
   // This widget is the root of your application.
   @override
@@ -32,9 +41,9 @@ class MyApp extends StatelessWidget {
       locale: const Locale('fr', 'FR'),
       fallbackLocale: const Locale('en', 'US'),
       translations: Translate(),
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeSetting.getTheme(false),
+      darkTheme: ThemeSetting.getTheme(true),
+      themeMode: themy,
       initialRoute: Routes.home,
       getPages: Routes.routes,
     );

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smirl_version_checker/nv/version_checker.dart';
+import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/app/views/home/components/main_menu.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 
 class _MyHomePageState extends State<HomeScreen> {
   final WordsService _wordsService = Get.find<WordsService>();
+  final AuthController _authController = Get.find<AuthController>();
 
   initState() {
     super.initState();
@@ -84,26 +86,34 @@ class _MyHomePageState extends State<HomeScreen> {
           placeholder: "search".tr,
         ),
         actions: [
-          Obx(() {
-            return Text(
-                _wordsService.categorie.value.substring(0, 1).toUpperCase(),
-                style:
-                    TextStyle(fontSize: getShortSide(18), color: Colors.white));
-          }),
-          CircleAvatar(
+          Center(
             child: Obx(() {
-              return Text(_wordsService.filteredWords.length.toString());
+              return Text(
+                  _wordsService.categorie.value.substring(0, 1).toUpperCase(),
+                  style: TextStyle(
+                      fontSize: getShortSide(18), color: Colors.white));
+            }),
+          ).paddingOnly(right: 5),
+          Center(
+            child: Obx(() {
+              int cnt = 0;
+              try {
+                cnt = _wordsService.filteredWords.value.length;
+              } on Exception catch (_) {}
+              return Text(cnt.toString());
             }),
           ),
           const SizedBox(width: 10),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed('/add-word');
-        },
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: (_authController.user.value == null)
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                Get.toNamed('/add-word');
+              },
+              child: const Icon(Icons.add),
+            ),
       body: Obx(() {
         if (_wordsService.isLoading.isTrue) {
           return Center(
@@ -123,7 +133,15 @@ class _MyHomePageState extends State<HomeScreen> {
           );
         } else if (_wordsService.filteredWords.isEmpty) {
           return Center(
-            child: Text('no words or expressions yet'.tr),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('no words or expressions yet'.tr),
+                Text('the dictionnary has'.tr +
+                    ' ${_wordsService.words.length} ' +
+                    '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),
+              ],
+            ),
           );
         }
         return ListView.builder(
