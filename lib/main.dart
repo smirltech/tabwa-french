@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/lang/translate.dart';
@@ -10,8 +11,11 @@ import 'app/controllers/controllers.dart';
 import 'app/routes/routes.dart';
 import 'app/services/services.dart';
 
+late PackageInfo PACKAGE_INFO;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  PACKAGE_INFO = await PackageInfo.fromPlatform();
 
   await GetStorage.init();
   await Services.init();

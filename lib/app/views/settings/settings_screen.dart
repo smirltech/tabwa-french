@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
+import 'package:tabwa_french/system/helpers/sizes.dart';
 
 import '../../../system/helpers/helpers.dart';
 import '../../services/words_service.dart';
@@ -51,7 +52,11 @@ class SettingsScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text('Settings'),
+            Text(
+              'settings'.tr,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: getShortSide(14.0)),
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {

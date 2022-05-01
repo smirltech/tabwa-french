@@ -36,7 +36,6 @@ class ShowWordScreen extends StatelessWidget {
           slivers: [
             SliverToBoxAdapter(
               child: Card(
-                //  color: Colors.grey[200],
                 child: SizedBox(
                   width: double.infinity,
                   child: Padding(
@@ -52,7 +51,6 @@ class ShowWordScreen extends StatelessWidget {
                                   child: Text(
                                     _wordsService.word.value!.word,
                                     style: const TextStyle(
-                                      // color: Colors.black,
                                       fontSize: ThemeSetting.normal,
                                     ),
                                   ),
@@ -123,7 +121,6 @@ class ShowWordScreen extends StatelessWidget {
                                             child: Text(
                                               tranz.translation,
                                               style: const TextStyle(
-                                                //  color: Colors.black,
                                                 fontSize: ThemeSetting.normal,
                                               ),
                                             ),
@@ -152,7 +149,6 @@ class ShowWordScreen extends StatelessWidget {
                                             child: Text(
                                               tranz.example,
                                               style: const TextStyle(
-                                                //  color: Colors.black,
                                                 fontSize: ThemeSetting.small,
                                               ),
                                             ),

@@ -6,6 +6,7 @@ import 'package:tabwa_french/app/views/settings/settings_screen.dart';
 import 'package:tabwa_french/app/views/words/add_word/add_word_screen.dart';
 import 'package:tabwa_french/app/views/words/show_word/show_word_screen.dart';
 
+import '../views/about/about_screen.dart';
 import '../views/auth/login/login_screen.dart';
 import '../views/auth/register/register_screen.dart';
 
@@ -17,6 +18,7 @@ class Routes {
   static String showWord = '/show-word';
   static String profile = '/profile';
   static String settings = '/settings';
+  static String about = '/about';
 
   static List<GetPage> routes = [
     GetPage(
@@ -52,6 +54,10 @@ class Routes {
     GetPage(
       name: settings,
       page: () => SettingsScreen(),
+    ),
+    GetPage(
+      name: about,
+      page: () => AboutScreen(),
     ),
   ];
 }
