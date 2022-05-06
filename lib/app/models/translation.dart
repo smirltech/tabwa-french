@@ -7,6 +7,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/app/models/type.dart';
 import 'package:tabwa_french/system/database/translations_api.dart';
 
+import '../../system/helpers/log_cat.dart';
+
 class Translation {
   int id;
   String translation;
@@ -91,7 +93,7 @@ class Translation {
     // logcat(word.toString());
     String token = GetStorage().read("token");
     Response ddd = await TranslationsApi.edit(token, translation, id);
-    // logcat(ddd.body.toString());
+    logcat(ddd.body.toString());
     // logcat(ddd.body['data'].toString());
 
     return null;

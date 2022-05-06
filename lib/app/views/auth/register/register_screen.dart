@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 
-import '../../../system/helpers/helpers.dart';
-import '../../../system/helpers/sizes.dart';
+import '../../../../system/helpers/helpers.dart';
+import '../../../../system/helpers/sizes.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -56,6 +56,7 @@ class RegisterScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
                 initialValue: user['email'],
+                keyboardType: TextInputType.emailAddress,
                 onChanged: (value) {
                   user['email'] = value;
                 },
@@ -66,6 +67,7 @@ class RegisterScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
                 initialValue: user['password'],
+                obscureText: true,
                 onChanged: (value) {
                   user['password'] = value;
                 },
@@ -77,6 +79,7 @@ class RegisterScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
                 initialValue: user['c_password'],
+                obscureText: true,
                 onChanged: (value) {
                   user['c_password'] = value;
                 },

@@ -88,6 +88,22 @@ class WordsService extends GetxService {
     words.value
         .sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
     if (word.value != null) updateActiveWord();
+    /*   if (words.value != null) {
+      if (searchedWord.value.length > 0) {
+        filteredWords.value = words.value
+            .where(
+              (element) =>
+                  element.word.toLowerCase().contains(
+                        searchedWord.value.toLowerCase(),
+                      ) &&
+                  element.categorie.toLowerCase() ==
+                      categorie.value.toLowerCase(),
+            )
+            .toList();
+      } else {
+        filteredWords.clear();
+      }
+    }*/
     isLoading.value = false;
   }
 

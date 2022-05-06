@@ -4,7 +4,7 @@ import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 
-import '../../../system/helpers/sizes.dart';
+import '../../../../system/helpers/sizes.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -43,6 +43,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
                 initialValue: creds['email'],
+                keyboardType: TextInputType.emailAddress,
                 onChanged: (value) {
                   creds['email'] = value;
                 },
@@ -53,6 +54,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
                 initialValue: creds['password'],
+                obscureText: true,
                 onChanged: (value) {
                   creds['password'] = value;
                 },
