@@ -1,12 +1,15 @@
 const bool _online = true;
+const bool ON_EMULATOR = false;
 const String _OFFLINE_BASE_URL = "http://tabwa.test/api";
-const String _ONLINE_BASE_URL = "http://tabwa.smirltech.com/api";
+const String _ONLINE_BASE_URL = ON_EMULATOR
+    ? "http://tabwa.smirltech.com/api"
+    : "https://tabwa.smirltech.com/api";
 const String BASE_URL = _online ? _ONLINE_BASE_URL : _OFFLINE_BASE_URL;
 
 // USERS
-const String USER_URL = BASE_URL + "";
-const String LOGIN = USER_URL + "/login";
-const String REGISTER = USER_URL + "/register";
+const String USER_URL = BASE_URL + "/users";
+const String LOGIN = BASE_URL + "/login";
+const String REGISTER = BASE_URL + "/register";
 
 // WORDS
 const String WORDS_URL = BASE_URL + "/words";
@@ -17,11 +20,15 @@ const String TYPES_URL = BASE_URL + "/types";
 // TRANSLATIONS
 const String TRANSLATIONS_URL = BASE_URL + "/translations";
 
+// TRANSLATIONS
+const String ADD_AUDIO = BASE_URL + "/audio_add";
+
 // HEADERS
 
-Map<String, String> headers({String? token}) {
+Map<String, String> headers(
+    {String? token, String contentType = "application/json"}) {
   return {
-    "Content-Type": "application/json",
+    "Content-Type": contentType,
     "Accept": "application/json",
     "Authorization": "Bearer $token",
   };

@@ -10,6 +10,7 @@ class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('menu'.tr),
       ),
@@ -39,6 +40,14 @@ class MainMenu extends StatelessWidget {
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.settings);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.privacy_tip_outlined),
+              title: Text('privacy policy'.tr),
+              onTap: () {
+                Get.back();
+                Get.toNamed(Routes.privacy);
               },
             ),
             ListTile(

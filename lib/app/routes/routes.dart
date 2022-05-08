@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/middlewares/auth_middleware.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
+import 'package:tabwa_french/app/views/privacy/privacy_screen.dart';
 import 'package:tabwa_french/app/views/profile/profile_screen.dart';
 import 'package:tabwa_french/app/views/settings/settings_screen.dart';
 import 'package:tabwa_french/app/views/words/add_word/add_word_screen.dart';
@@ -19,6 +20,7 @@ class Routes {
   static String profile = '/profile';
   static String settings = '/settings';
   static String about = '/about';
+  static String privacy = '/privacy';
 
   static List<GetPage> routes = [
     GetPage(
@@ -58,6 +60,10 @@ class Routes {
     GetPage(
       name: about,
       page: () => AboutScreen(),
+    ),
+    GetPage(
+      name: privacy,
+      page: () => PrivacyScreen(),
     ),
   ];
 }

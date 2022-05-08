@@ -11,6 +11,7 @@ class Translate extends Translations {
           "search": "Search",
           "added": "Added",
           "added by": "Added by",
+          "word is required": "Word is required",
           "you're not logged in": "You're not logged in",
           "primary dictionnary": "Primary dictionnary",
           "add word": "Add word",
@@ -40,6 +41,7 @@ class Translate extends Translations {
           "type": "Type",
           "optional": "Optional",
           "example": "Example",
+          "word already exists": "Word already exists",
           "example translation": "Translation of the example",
           "password": "Password",
           "confirm password": "Confirm Password",
@@ -59,6 +61,12 @@ class Translate extends Translations {
               "and it can grow as quickly as you want in a very short period of time",
           "about this app statement":
               "The purpose of this app is to provide out Tabwa community with a dictionnary of words and expressions in Tabwa and French. The dictionary data is open for contribution, and enrichment. The app is not affiliated with no organisation whatsoever. It is an effort to protect tabwa culture and share to the younger community disseminated all over the world",
+          "no word or expression found from searched term":
+              "No word or expression found from searched term",
+          "policy": "Policy",
+          "terms": "Terms",
+          "privacy": "Privacy",
+          "privacy policy": "Privacy Policy",
         },
         'fr_FR': {
           "add": "Ajouter",
@@ -71,6 +79,8 @@ class Translate extends Translations {
           "add word": "Ajouter un mot",
           "new word": "Nouveau mot",
           "edit": "Modifier",
+          "word already exists": "Mot ou expression déjà existant",
+          "word is required": "Le mot ou l'expression est requis",
           "the app currently contains": "L'application contient",
           "edit translation": "Modifier la traduction",
           "primary dictionnary": "Dictionnaire principal",
@@ -117,6 +127,12 @@ class Translate extends Translations {
               "et elle peut grandir comme vous le souhaitez dans un court laps de temps",
           "about this app statement":
               "L'objectif de cette application est de fournir à la communauté Tabwa un dictionnaire de mots et expressions en Tabwa et en Français. Les données du dictionnaire sont ouvertes pour contribution et enrichissement. L'application n'est pas affiliée à aucune organisation. C'est une tentative de protéger la culture Tabwa et de partager à la communauté des jeunes déplacés dans le monde",
+          "no word or expression found from searched term":
+              "Aucun mot ou expression trouvé du terme cherché",
+          "policy": "Politique",
+          "terms": "Conditions",
+          "privacy": "Confidentialité",
+          "privacy policy": "Politique de confidentialité",
         }
       };
 }

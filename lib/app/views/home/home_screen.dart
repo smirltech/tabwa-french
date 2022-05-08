@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smirl_version_checker/nv/version_checker.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/app/views/home/components/main_menu.dart';
-import 'package:tabwa_french/system/configs/configs.dart';
-import 'package:tabwa_french/system/helpers/log_cat.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
-import '../../../system/helpers/pull_to_refresh.dart';
 import '../../models/translation.dart';
 import '../../models/word.dart';
 import '../../routes/routes.dart';
@@ -27,18 +25,8 @@ class _MyHomePageState extends State<HomeScreen> {
   final WordsService _wordsService = Get.find<WordsService>();
   final AuthController _authController = Get.find<AuthController>();
 
-  final PullToRefreshController _controller = PullToRefreshController();
-
   initState() {
     super.initState();
-    _controller.addListener(() async {
-      if (_controller.endPulling) {
-        // simulate a long running task
-        _wordsService.getAll();
-        await 1.delay();
-        _controller.setLoaded();
-      }
-    });
 
     final newVersion = VersionChecker(
       iOSId: 'org.smirl.tabwa_french',
@@ -60,18 +48,20 @@ class _MyHomePageState extends State<HomeScreen> {
 
   advancedStatusCheck(VersionChecker newVersion) async {
     final status = await newVersion.getVersionStatus();
+
     if (status != null && status.canUpdate) {
-      debugPrint(status.releaseNotes);
-      debugPrint(status.appStoreLink);
-      debugPrint(status.localVersion);
-      debugPrint(status.storeVersion);
-      debugPrint(status.canUpdate.toString());
+      final releaseNotes = status.releaseNotes!.replaceAll(";", ";\n");
+      // debugPrint(status.releaseNotes);
+      // debugPrint(status.appStoreLink);
+      // debugPrint(status.localVersion);
+      // debugPrint(status.storeVersion);
+      // debugPrint(status.canUpdate.toString());
       newVersion.showUpdateDialog(
         context: context,
         versionStatus: status,
         //  allowDismissal: false,
         dialogTitle: "Nouvelle version disponible : ${status.storeVersion}",
-        dialogText: "NOTES:\n${status.releaseNotes}",
+        dialogText: "NOTES:\n${releaseNotes}",
       );
     }
   }
@@ -80,6 +70,7 @@ class _MyHomePageState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.menu),
@@ -130,71 +121,107 @@ class _MyHomePageState extends State<HomeScreen> {
               },
               child: const Icon(Icons.add),
             ),
-      body: PullToRefresh(
-        controller: _controller,
-        child: Obx(() {
-          if (_wordsService.isLoading.isTrue) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.all(getShortSide(30)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'loading...'.tr,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                    const LinearProgressIndicator(),
-                  ],
-                ),
+      body: RefreshIndicator(child: Obx(() {
+        if (_wordsService.isLoading.isTrue) {
+          return Center(
+            child: Padding(
+              padding: EdgeInsets.all(getShortSide(30)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'loading...'.tr,
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const LinearProgressIndicator(),
+                ],
               ),
-            );
-          } else if (_wordsService.filteredWords.isEmpty) {
+            ),
+          );
+        } else if (_wordsService.filteredWords.isEmpty) {
+          if (_wordsService.searchedWord.isNotEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('no words or expressions yet'.tr),
-                  Text('the dictionnary has'.tr +
-                      ' ${_wordsService.words.length} ' +
-                      '${_wordsService.words.length > 1 ? 'words' : 'word'}'
-                          .tr),
+                  Text("no word or expression found from searched term".tr),
+                  if (_authController.isAuthenticated())
+                    OutlinedButton(
+                        onPressed: () {
+                          _wordsService.suggestAddingWord();
+                        },
+                        child: Text("add".tr)),
                 ],
               ),
             );
           }
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              Word word = _wordsService.filteredWords[index];
-              List<Translation> _translations = word.translations;
-              String _traa = "";
-              if (_translations.isNotEmpty) {
-                _traa = _translations.first.translation;
-              }
-              return Card(
-                elevation: 0,
-                child: InkWell(
-                  onTap: () {
-                    _wordsService.setActiveWord(word);
-                    Get.toNamed(Routes.showWord);
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(word.word,
-                          style: TextStyle(
-                              fontSize: getShortSide(14),
-                              fontWeight: FontWeight.bold)),
-                      Text(_traa, style: TextStyle(fontSize: getShortSide(12))),
-                    ],
-                  ).paddingAll(getShortSide(5.0)),
-                ),
-              );
-            },
-            itemCount: _wordsService.filteredWords.length,
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('no words or expressions yet'.tr),
+                /*Text('the dictionnary has'.tr +
+                    ' ${_wordsService.words.length} ' +
+                    '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
+              ],
+            ),
           );
-        }),
-      ),
+        }
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            Word word = _wordsService.filteredWords[index];
+            List<Translation> _translations = word.translations;
+            List<String> _traas = [];
+            if (_translations.isNotEmpty) {
+              _traas = _translations.map((t) => t.translation).toList();
+            }
+            return Card(
+              elevation: 0,
+              child: InkWell(
+                onTap: () {
+                  _wordsService.setActiveWord(word);
+                  Get.toNamed(Routes.showWord);
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      word.word,
+                      style: GoogleFonts.oswald(
+                        fontWeight: FontWeight.bold,
+                        fontSize: getShortSide(16),
+                      ),
+                    ),
+                    Wrap(
+                      children: [
+                        ..._traas.map(
+                          (tra) => Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 2),
+                            color: Theme.of(context).highlightColor,
+                            child: Text(
+                              tra,
+                              style: GoogleFonts.courgette(
+                                fontSize: getShortSide(14),
+                              ),
+                            ),
+                          ).paddingSymmetric(
+                              horizontal: getShortSide(2),
+                              vertical: getShortSide(2)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ).paddingAll(getShortSide(5.0)),
+              ),
+            );
+          },
+          itemCount: _wordsService.filteredWords.length,
+        );
+      }), onRefresh: () async {
+        _wordsService.getAll();
+        await 3.delay();
+      }),
     );
   }
 }

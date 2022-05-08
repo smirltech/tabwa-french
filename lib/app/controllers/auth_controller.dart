@@ -33,7 +33,7 @@ class AuthController extends GetxController {
   }
 
   prelogin() async {
-    snackItOld("user initiate login successfully".tr);
+    toastItInfo(msg: "user initiate login successfully".tr);
     var storage = GetStorage();
     var token;
     try {
@@ -50,9 +50,9 @@ class AuthController extends GetxController {
     if (token != null && _user != null) {
       user.value = User.fromMap(_user);
       logcat('User found in storage');
-      snackItOld("user is connected now".tr);
+      toastItSuccess(msg: "user is connected now".tr);
     } else {
-      snackItOld("user connection failed".tr);
+      toastItError(msg: "user connection failed".tr);
     }
   }
 
@@ -66,8 +66,8 @@ class AuthController extends GetxController {
       Get.changeThemeMode(value == 'dark'
           ? ThemeMode.dark
           : value == 'light'
-          ? ThemeMode.light
-          : ThemeMode.system);
+              ? ThemeMode.light
+              : ThemeMode.system);
     });
 
     GetStorage().listenKey('token', (value) {
@@ -79,7 +79,7 @@ class AuthController extends GetxController {
       } on Exception catch (e) {}
       // logcat("user: ${user.value.toString()}");
     });
-    prelogin();
+    // prelogin();
   }
 
   @override

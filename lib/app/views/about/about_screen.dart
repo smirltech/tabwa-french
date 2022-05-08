@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
@@ -12,6 +13,7 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('about'.tr),
       ),
@@ -26,7 +28,7 @@ class AboutScreen extends StatelessWidget {
             SizedBox(height: getShortSide(20)),
             Text('about this app statement'.tr,
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: getShortSide(16))),
+                style: GoogleFonts.courgette(fontSize: getShortSide(16))),
             Text.rich(
               TextSpan(text: "the app currently contains".tr, children: [
                 TextSpan(
@@ -41,7 +43,7 @@ class AboutScreen extends StatelessWidget {
                             .tr)
               ]),
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: getShortSide(16)),
+              style: GoogleFonts.courgette(fontSize: getShortSide(16)),
             ).paddingOnly(top: getShortSide(10.0)),
             const Spacer(),
             Text('conceived and developed by'.tr + " $APP_AUTHOR",

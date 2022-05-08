@@ -4,9 +4,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import '../../system/helpers/log_cat.dart';
 import '../models/word.dart';
+import '../routes/routes.dart';
 
 class WordsService extends GetxService {
   var words = <Word>[].obs;
+  var key_words = <String>[].obs;
   var word = Rxn<Word>();
   var isLoading = true.obs;
   var categorie = 'tabwa'.obs;
@@ -37,16 +39,12 @@ class WordsService extends GetxService {
           if (searchedWord.value.length > 0) {
             filteredWords.value = words.value
                 .where(
-                  (element) =>
-                      element.word.toLowerCase().contains(
-                            searchedWord.value.toLowerCase(),
-                          ) &&
-                      element.categorie.toLowerCase() ==
-                          categorie.value.toLowerCase(),
+                  (element) => searchCriteria(element),
                 )
                 .toList();
           } else {
-            filteredWords.clear();
+            filteredWords.value =
+                words.value.where((word) => wordOfCategory(word)).toList();
           }
         }
       },
@@ -60,16 +58,12 @@ class WordsService extends GetxService {
           if (searchedWord.value.length > 0) {
             filteredWords.value = words.value
                 .where(
-                  (element) =>
-                      element.word.toLowerCase().contains(
-                            searchedWord.value.toLowerCase(),
-                          ) &&
-                      element.categorie.toLowerCase() ==
-                          categorie.value.toLowerCase(),
+                  (element) => searchCriteria(element),
                 )
                 .toList();
           } else {
-            filteredWords.clear();
+            filteredWords.value =
+                words.value.where((word) => wordOfCategory(word)).toList();
           }
         }
       },
@@ -77,33 +71,33 @@ class WordsService extends GetxService {
     );
   }
 
+  void suggestAddingWord() async {
+    Get.toNamed(Routes.addWord);
+  }
+
   void setCategorie(String categorie) {
     GetStorage().write('categorie', categorie);
   }
 
-  void getAll() async {
+  Future<void> getAll() async {
     // logcat("You are in WordsService");
     List<Word> ll = await Word.getAll();
+    if (ll != null) {
+      key_words.clear();
+      ll.forEach((element) {
+        key_words.add(element.word.toLowerCase());
+      });
+      // logcat(key_words.toString());
+    }
     if (ll.isNotEmpty) words.value = ll;
     words.value
         .sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+    if (searchedWord.value.length == 0) {
+      filteredWords.value =
+          words.value.where((word) => wordOfCategory(word)).toList();
+    }
     if (word.value != null) updateActiveWord();
-    /*   if (words.value != null) {
-      if (searchedWord.value.length > 0) {
-        filteredWords.value = words.value
-            .where(
-              (element) =>
-                  element.word.toLowerCase().contains(
-                        searchedWord.value.toLowerCase(),
-                      ) &&
-                  element.categorie.toLowerCase() ==
-                      categorie.value.toLowerCase(),
-            )
-            .toList();
-      } else {
-        filteredWords.clear();
-      }
-    }*/
+
     isLoading.value = false;
   }
 
@@ -131,5 +125,20 @@ class WordsService extends GetxService {
     await Word.edit(word, this.word.value!.id);
     getAll();
     Get.back();
+  }
+
+  bool searchCriteria(Word word) {
+    if (searchedWord.value.length > 0) {
+      return word.word.toLowerCase().contains(
+                searchedWord.value.toLowerCase(),
+              ) &&
+          word.categorie.toLowerCase() == categorie.value.toLowerCase();
+    } else {
+      return false;
+    }
+  }
+
+  bool wordOfCategory(Word word) {
+    return word.categorie.toLowerCase() == categorie.value.toLowerCase();
   }
 }

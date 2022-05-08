@@ -48,9 +48,14 @@ class Translation {
 
     return Translation(
       id: int.parse("${map['id']}"),
-      translation: map['translation'].toString(),
-      example: map['example'].toString(),
-      example_translation: map['example_translation'].toString(),
+      translation: map['translation'].toString() != 'null'
+          ? map['translation'].toString()
+          : '',
+      example:
+          map['example'].toString() != 'null' ? map['example'].toString() : '',
+      example_translation: map['example_translation'].toString() != 'null'
+          ? map['example_translation'].toString()
+          : '',
       created_at: map['created_at'].toString(),
       updated_at: map['updated_at'].toString(),
       user: n.toString(),

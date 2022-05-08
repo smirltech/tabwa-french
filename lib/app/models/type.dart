@@ -54,7 +54,7 @@ class Type {
   static Future<List<Type>> getAll() async {
     List<Type> vv = [];
     Response ddd = await TypesApi.getAll();
-    //logcat(ddd.body.toString());
+    logcat(ddd.body.toString());
     // logcat(ddd.body['data'].toString());
     try {
       if (ddd.body != null) vv = Type.listFromMap(ddd.body['data']);

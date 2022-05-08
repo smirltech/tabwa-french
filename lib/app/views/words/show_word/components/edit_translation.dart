@@ -7,6 +7,7 @@ import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
 import '../../../../../system/configs/configs.dart';
+import '../../../../../system/helpers/audio_recorder/audio_recorder.dart';
 import '../../../../../system/helpers/log_cat.dart';
 import '../../../../controllers/auth_controller.dart';
 import '../../../../controllers/types_controller.dart';
@@ -54,24 +55,42 @@ class EditTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
       child: Center(
         child: Column(
           children: [
             Text('edit translation'.tr,
-                style: TextStyle(fontSize: getShortSide(20))),
+                    style: TextStyle(fontSize: getShortSide(20)))
+                .paddingSymmetric(vertical: getShortSide(10)),
             Expanded(
               child: ListView(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      initialValue: translation['translation'],
-                      onChanged: (value) {
-                        translation['translation'] = value;
-                      },
-                      decoration: roundedTextInputDecoration(
-                          labelText: 'transaltion'.tr),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: translation['translation'],
+                            onChanged: (value) {
+                              translation['translation'] = value;
+                            },
+                            decoration: roundedTextInputDecoration(
+                                labelText: 'transaltion'.tr),
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Get.dialog(
+                                AudioRecorder(
+                                  textBody: translation['translation'],
+                                  section: 'translations',
+                                  section_id: translaty.id,
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.mic)),
+                      ],
                     ),
                   ),
                   Padding(
@@ -94,13 +113,30 @@ class EditTranslation extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: TextFormField(
-                      initialValue: translation['example'],
-                      onChanged: (value) {
-                        translation['example'] = value;
-                      },
-                      decoration:
-                          roundedTextInputDecoration(labelText: 'example'.tr),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: translation['example'],
+                            onChanged: (value) {
+                              translation['example'] = value;
+                            },
+                            decoration: roundedTextInputDecoration(
+                                labelText: 'example'.tr),
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              Get.dialog(
+                                AudioRecorder(
+                                  textBody: translation['example'],
+                                  section: 'examples',
+                                  section_id: translaty.id,
+                                ),
+                              );
+                            },
+                            icon: Icon(Icons.mic)),
+                      ],
                     ),
                   ),
                   Padding(
