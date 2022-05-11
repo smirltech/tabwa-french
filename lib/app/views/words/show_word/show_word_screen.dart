@@ -10,8 +10,8 @@ import 'package:tabwa_french/system/helpers/audio_recorder/components/sound_play
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/themes/theme_setting.dart';
 
-import '../../../../system/helpers/log_cat.dart';
 import '../../../../system/helpers/sizes.dart';
+import '../../../controllers/connectivity_controller.dart';
 import '../../../models/translation.dart';
 import '../../../services/words_service.dart';
 
@@ -21,6 +21,8 @@ class ShowWordScreen extends StatelessWidget {
     soundPlayer.init();
   }
 
+  final ConnectivityController connectivityController =
+      Get.find<ConnectivityController>();
   final WordsService _wordsService = Get.find<WordsService>();
   final AuthController _authController = Get.find<AuthController>();
   late SoundPlayer soundPlayer;
@@ -38,14 +40,20 @@ class ShowWordScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text('word or expression'.tr),
         ),
-        floatingActionButton: (_authController.user.value == null)
-            ? null
-            : FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: () {
-                  Get.bottomSheet(AddTranslation());
-                },
-              ),
+        floatingActionButton: Obx(() {
+          if (_authController.user.value != null &&
+              (connectivityController.connectivityResult.value != null &&
+                  connectivityController.connectivityResult.value!.name !=
+                      'none')) {
+            return FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                Get.bottomSheet(AddTranslation());
+              },
+            );
+          }
+          return const SizedBox.shrink();
+        }),
         body: Obx(() {
           return CustomScrollView(
             slivers: [
@@ -90,7 +98,15 @@ class ShowWordScreen extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  if (_authController.user.value != null)
+                                  if (_authController.user.value == null &&
+                                      (connectivityController
+                                                  .connectivityResult.value ==
+                                              null ||
+                                          connectivityController
+                                                  .connectivityResult
+                                                  .value!
+                                                  .name ==
+                                              'none'))
                                     IconButton(
                                       onPressed: () {
                                         Get.bottomSheet(EditWord(
@@ -192,8 +208,17 @@ class ShowWordScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            if (_authController.user.value !=
-                                                null)
+                                            if (_authController.user.value ==
+                                                    null &&
+                                                (connectivityController
+                                                            .connectivityResult
+                                                            .value ==
+                                                        null ||
+                                                    connectivityController
+                                                            .connectivityResult
+                                                            .value!
+                                                            .name ==
+                                                        'none'))
                                               IconButton(
                                                 onPressed: () {
                                                   Get.bottomSheet(

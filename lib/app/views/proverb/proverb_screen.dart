@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
-import 'package:tabwa_french/app/views/home/components/main_menu.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
+import '../../controllers/connectivity_controller.dart';
 import '../../models/translation.dart';
 import '../../models/word.dart';
 import '../../routes/routes.dart';
@@ -21,6 +21,8 @@ class ProverbScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<ProverbScreen> {
+  final ConnectivityController connectivityController =
+      Get.find<ConnectivityController>();
   final WordsService _wordsService = Get.find<WordsService>();
   final AuthController _authController = Get.find<AuthController>();
 
@@ -79,13 +81,18 @@ class _MyHomePageState extends State<ProverbScreen> {
         ],
       ),
       floatingActionButton: Obx(() {
-        if (_authController.user.value == null) return const SizedBox.shrink();
-        return FloatingActionButton(
-          onPressed: () {
-            Get.toNamed('/add-word');
-          },
-          child: const Icon(Icons.add),
-        );
+        if (_authController.user.value != null &&
+            (connectivityController.connectivityResult.value != null &&
+                connectivityController.connectivityResult.value!.name !=
+                    'none')) {
+          return FloatingActionButton(
+            onPressed: () {
+              Get.toNamed('/add-word');
+            },
+            child: const Icon(Icons.add),
+          );
+        }
+        return const SizedBox.shrink();
       }),
       body: RefreshIndicator(child: Obx(() {
         if (_wordsService.isLoading.isTrue) {

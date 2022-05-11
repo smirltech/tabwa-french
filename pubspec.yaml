@@ -29,6 +29,9 @@ dependencies:
   # file permissions
   permission_handler: ^9.2.0
 
+  # connectivity
+  connectivity_plus: ^2.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

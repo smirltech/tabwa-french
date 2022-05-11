@@ -8,6 +8,7 @@ import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/app/views/home/components/main_menu.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
+import '../../controllers/connectivity_controller.dart';
 import '../../models/translation.dart';
 import '../../models/word.dart';
 import '../../routes/routes.dart';
@@ -22,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomeScreen> {
+  final ConnectivityController connectivityController =
+      Get.find<ConnectivityController>();
   final WordsService _wordsService = Get.find<WordsService>();
   final AuthController _authController = Get.find<AuthController>();
 
@@ -129,13 +132,18 @@ class _MyHomePageState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: Obx(() {
-        if (_authController.user.value == null) return const SizedBox.shrink();
-        return FloatingActionButton(
-          onPressed: () {
-            Get.toNamed('/add-word');
-          },
-          child: const Icon(Icons.add),
-        );
+        if (_authController.user.value != null &&
+            (connectivityController.connectivityResult.value != null &&
+                connectivityController.connectivityResult.value!.name !=
+                    'none')) {
+          return FloatingActionButton(
+            onPressed: () {
+              Get.toNamed('/add-word');
+            },
+            child: const Icon(Icons.add),
+          );
+        }
+        return const SizedBox.shrink();
       }),
       body: RefreshIndicator(child: Obx(() {
         if (_wordsService.isLoading.isTrue) {
