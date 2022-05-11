@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smirl_version_checker/nv/version_checker.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/app/views/home/components/main_menu.dart';
