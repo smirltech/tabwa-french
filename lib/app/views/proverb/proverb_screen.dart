@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,8 +51,20 @@ class _MyHomePageState extends State<ProverbScreen> {
         ),
         actions: [
           Obx(() {
-            return SizedBox(
-              width: 30,
+            int cnt = 0;
+            String cntStr = cnt.toString();
+            try {
+              cnt = _wordsService.filteredProverbs.value.length;
+              cntStr = cnt > 999 ? '999+' : cnt.toString();
+            } on Exception catch (_) {}
+            return Badge(
+              badgeContent:
+                  Text(cntStr, style: const TextStyle(color: Colors.white))
+                      .paddingSymmetric(
+                horizontal: 2,
+              ),
+              badgeColor: Theme.of(context).primaryColor,
+              position: BadgePosition.topEnd(top: 0, end: -1),
               child: TextButton(
                 onPressed: () {
                   final String v = _wordsService.categorie.value == 'tabwa'
@@ -68,15 +81,6 @@ class _MyHomePageState extends State<ProverbScreen> {
               ),
             );
           }),
-          Center(
-            child: Obx(() {
-              int cnt = 0;
-              try {
-                cnt = _wordsService.filteredProverbs.value.length;
-              } on Exception catch (_) {}
-              return Text(cnt.toString());
-            }),
-          ),
           const SizedBox(width: 10),
         ],
       ),

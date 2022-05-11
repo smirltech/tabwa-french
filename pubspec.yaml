@@ -32,6 +32,10 @@ dependencies:
   # connectivity
   connectivity_plus: ^2.2.1
 
+  # adding badge to widget
+  badges: ^2.0.2
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
