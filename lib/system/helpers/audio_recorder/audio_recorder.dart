@@ -137,7 +137,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
     final isRecording = soundRecorder.isRecording;
     final icon = isRecording ? Icons.stop : Icons.mic;
     final text = _timerText;
-    final subText = isRecording ? 'Press Stop' : 'Press Start';
+    final subText = isRecording ? 'Press Stop'.tr : 'Press Start'.tr;
     return CircleAvatar(
         radius: 70,
         backgroundColor: Colors.white,
@@ -203,7 +203,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
   ElevatedButton buildRecordButton() {
     final isRecording = soundRecorder.isRecording;
     final icon = isRecording ? Icons.stop : Icons.mic;
-    final text = isRecording ? 'STOP' : 'START';
+    final text = isRecording ? 'STOP'.tr : 'START'.tr;
     final primary = isRecording ? Colors.red : Colors.white;
     final onPrimary = isRecording ? Colors.white : Colors.black;
     return ElevatedButton.icon(
@@ -233,7 +233,9 @@ class _AudioRecorderState extends State<AudioRecorder> {
   ElevatedButton buildPlayButton() {
     final isPlaying = soundPlayer.isPlaying;
     final icon = isPlaying ? Icons.stop : Icons.play_arrow;
-    final text = isPlaying ? 'STOP PLAYING' : 'START PLAYING';
+    final text = isPlaying
+        ? 'stop playing'.tr.toUpperCase()
+        : 'start playing'.tr.toUpperCase();
     final primary = isPlaying ? Colors.red : Colors.white;
     final onPrimary = isPlaying ? Colors.white : Colors.black;
     return ElevatedButton.icon(
