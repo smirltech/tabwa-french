@@ -147,7 +147,7 @@ class ShowWordScreen extends StatelessWidget {
                               radius: ThemeSetting.small,
                               child: Text(
                                 (index + 1).toString(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: ThemeSetting.small,
                                 ),
                               ),
@@ -233,69 +233,86 @@ class ShowWordScreen extends StatelessWidget {
                                               ),
                                           ],
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  if (tranz.example.isNotEmpty)
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        // todo: play audio
-                                                        String audioUrl =
-                                                            "https://tabwa.smirltech.com/audio/examples/${tranz.id}.aac";
-                                                        //  logcat('audioUrl: $audioUrl');
-                                                        soundPlayer.playFromNet(
-                                                            audioUrl,
-                                                            whenFinished: () {
-                                                          toastItInfo(
-                                                              msg: 'done'.tr);
-                                                        }, error: () {
-                                                          toastItError(
-                                                            msg:
-                                                                "no audio found"
-                                                                    .tr,
-                                                          );
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons
-                                                            .volume_up_outlined,
-                                                        color: Colors.blue,
-                                                        size: getShortSide(20),
+                                        const Divider(
+                                          thickness: 0.5,
+                                          color: Colors.grey,
+                                        ),
+                                        IntrinsicHeight(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    if (tranz
+                                                        .example.isNotEmpty)
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          // todo: play audio
+                                                          String audioUrl =
+                                                              "https://tabwa.smirltech.com/audio/examples/${tranz.id}.aac";
+                                                          //  logcat('audioUrl: $audioUrl');
+                                                          soundPlayer
+                                                              .playFromNet(
+                                                                  audioUrl,
+                                                                  whenFinished:
+                                                                      () {
+                                                            toastItInfo(
+                                                                msg: 'done'.tr);
+                                                          }, error: () {
+                                                            toastItError(
+                                                              msg:
+                                                                  "no audio found"
+                                                                      .tr,
+                                                            );
+                                                          });
+                                                        },
+                                                        icon: Icon(
+                                                          Icons
+                                                              .volume_up_outlined,
+                                                          color: Colors.blue,
+                                                          size:
+                                                              getShortSide(20),
+                                                        ),
+                                                      ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        tranz.example,
+                                                        style: GoogleFonts
+                                                            .courgette(
+                                                          fontSize: ThemeSetting
+                                                              .small,
+                                                        ),
                                                       ),
                                                     ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      tranz.example,
-                                                      style:
-                                                          GoogleFonts.courgette(
-                                                        fontSize:
-                                                            ThemeSetting.small,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                tranz.example_translation,
-                                                style: GoogleFonts.courgette(
-                                                  color: ThemeSetting.green,
-                                                  fontSize: ThemeSetting.small,
+                                                  ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                              const VerticalDivider(
+                                                thickness: 0.5,
+                                                color: Colors.grey,
+                                                width: 0.0,
+                                              ).paddingOnly(
+                                                  right: getShortSide(10)),
+                                              Expanded(
+                                                child: Text(
+                                                  tranz.example_translation,
+                                                  style: GoogleFonts.courgette(
+                                                    color: ThemeSetting.green,
+                                                    fontSize:
+                                                        ThemeSetting.small,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),

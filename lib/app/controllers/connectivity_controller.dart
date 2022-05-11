@@ -17,7 +17,7 @@ class ConnectivityController extends GetxController {
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
       // Got a new connectivity status!
-      logcat('Connectivity change: ${result.name}');
+      // logcat('Connectivity change: ${result.name}');
       connectivityResult.value = result;
     });
   }

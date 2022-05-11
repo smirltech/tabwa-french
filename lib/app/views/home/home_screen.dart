@@ -197,7 +197,9 @@ class _MyHomePageState extends State<HomeScreen> {
             List<Translation> _translations = word.translations;
             List<String> _traas = [];
             if (_translations.isNotEmpty) {
-              _traas = _translations.map((t) => t.translation).toList();
+              _traas = _translations
+                  .map((t) => "[${t.type_ab}] ${t.translation}")
+                  .toList();
             }
             return Card(
               elevation: 0,

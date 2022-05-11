@@ -21,6 +21,7 @@ class Translation {
   String updater;
   String type;
   String type_id;
+  String type_ab;
 
   Translation({
     this.id = 0,
@@ -32,6 +33,7 @@ class Translation {
     this.user = '',
     this.updater = '',
     this.type = '',
+    this.type_ab = '',
     this.type_id = '',
   });
 
@@ -39,6 +41,7 @@ class Translation {
     //  if (null == map) return null;
     // var temp;
     var t = map['type'] is Map ? map['type']['type'] : '';
+    var ta = map['type'] is Map ? map['type']['abbrev'] : '';
     var ti = map['type'] is Map ? map['type']['id'] : '';
     var n =
         (map['user'] != null && map['user'] is Map) ? map['user']['name'] : '';
@@ -62,6 +65,7 @@ class Translation {
       updater: u.toString(),
       type: t.toString(),
       type_id: ti.toString(),
+      type_ab: ta.toString(),
     );
   }
 
