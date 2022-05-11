@@ -79,28 +79,43 @@ class _MyHomePageState extends State<HomeScreen> {
           },
         ),
         // title: Text(APP_NAME),
-        title: CupertinoSearchTextField(
-          controller: _wordsService.searchEditingController.value,
-          onChanged: (value) {
-            _wordsService.searchedWord.value = value;
-          },
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          placeholder: "search".tr,
-        ),
+        title: Obx(() {
+          return CupertinoSearchTextField(
+            controller: _wordsService.searchEditingController.value,
+            onChanged: (value) {
+              _wordsService.searchedWord.value = value;
+            },
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            placeholder: "search".tr +
+                " " +
+                "in".tr +
+                ' ' +
+                _wordsService.categorie.value,
+          );
+        }),
         actions: [
-          Center(
-            child: Obx(() {
-              return Text(
-                  _wordsService.categorie.value.substring(0, 1).toUpperCase(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: getShortSide(18),
-                      color: Colors.white));
-            }),
-          ).paddingOnly(right: 5),
+          Obx(() {
+            return SizedBox(
+              width: 30,
+              child: TextButton(
+                onPressed: () {
+                  final String v = _wordsService.categorie.value == 'tabwa'
+                      ? 'français'
+                      : 'tabwa';
+                  _wordsService.setCategorie(v);
+                },
+                child: Text(
+                    _wordsService.categorie.value.substring(0, 1).toUpperCase(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: getShortSide(18),
+                        color: Colors.white)),
+              ),
+            );
+          }),
           Center(
             child: Obx(() {
               int cnt = 0;
@@ -113,14 +128,15 @@ class _MyHomePageState extends State<HomeScreen> {
           const SizedBox(width: 10),
         ],
       ),
-      floatingActionButton: (_authController.user.value == null)
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                Get.toNamed('/add-word');
-              },
-              child: const Icon(Icons.add),
-            ),
+      floatingActionButton: Obx(() {
+        if (_authController.user.value == null) return const SizedBox.shrink();
+        return FloatingActionButton(
+          onPressed: () {
+            Get.toNamed('/add-word');
+          },
+          child: const Icon(Icons.add),
+        );
+      }),
       body: RefreshIndicator(child: Obx(() {
         if (_wordsService.isLoading.isTrue) {
           return Center(
