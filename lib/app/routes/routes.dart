@@ -3,6 +3,7 @@ import 'package:tabwa_french/app/middlewares/auth_middleware.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
 import 'package:tabwa_french/app/views/privacy/privacy_screen.dart';
 import 'package:tabwa_french/app/views/profile/profile_screen.dart';
+import 'package:tabwa_french/app/views/proverb/proverb_screen.dart';
 import 'package:tabwa_french/app/views/settings/settings_screen.dart';
 import 'package:tabwa_french/app/views/words/add_word/add_word_screen.dart';
 import 'package:tabwa_french/app/views/words/show_word/show_word_screen.dart';
@@ -21,6 +22,7 @@ class Routes {
   static String settings = '/settings';
   static String about = '/about';
   static String privacy = '/privacy';
+  static String proverb = '/proverb';
 
   static List<GetPage> routes = [
     GetPage(
@@ -64,6 +66,10 @@ class Routes {
     GetPage(
       name: privacy,
       page: () => PrivacyScreen(),
+    ),
+    GetPage(
+      name: proverb,
+      page: () => ProverbScreen(),
     ),
   ];
 }

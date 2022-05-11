@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tabwa_french/app/services/words_service.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../routes/routes.dart';
 
@@ -24,6 +25,14 @@ class MainMenu extends StatelessWidget {
               title: Text('home'.tr),
               onTap: () {
                 Get.back();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: Text('proverbs'.tr),
+              onTap: () {
+                Get.back();
+                Get.find<WordsService>().loadProverbsScreen();
               },
             ),
             ListTile(

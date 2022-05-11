@@ -67,6 +67,8 @@ class Translate extends Translations {
           "terms": "Terms",
           "privacy": "Privacy",
           "privacy policy": "Privacy Policy",
+          "proverb": "Proverb",
+          "proverbs": "Proverbs",
         },
         'fr_FR': {
           "add": "Ajouter",
@@ -133,6 +135,8 @@ class Translate extends Translations {
           "terms": "Conditions",
           "privacy": "Confidentialité",
           "privacy policy": "Politique de confidentialité",
+          "proverb": "Proverbe",
+          "proverbs": "Proverbes",
         }
       };
 }

@@ -15,6 +15,7 @@ class WordsService extends GetxService {
   var searchedWord = ''.obs;
   var isSearching = false.obs;
   var filteredWords = <Word>[].obs;
+  var filteredProverbs = <Word>[].obs;
   var searchEditingController = TextEditingController().obs;
 
   @override
@@ -42,9 +43,21 @@ class WordsService extends GetxService {
                   (element) => searchCriteria(element),
                 )
                 .toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
+                )
+                .toList();
           } else {
             filteredWords.value =
                 words.value.where((word) => wordOfCategory(word)).toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
+                )
+                .toList();
           }
         }
       },
@@ -61,9 +74,21 @@ class WordsService extends GetxService {
                   (element) => searchCriteria(element),
                 )
                 .toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
+                )
+                .toList();
           } else {
             filteredWords.value =
                 words.value.where((word) => wordOfCategory(word)).toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
+                )
+                .toList();
           }
         }
       },
@@ -73,6 +98,10 @@ class WordsService extends GetxService {
 
   void suggestAddingWord() async {
     Get.toNamed(Routes.addWord);
+  }
+
+  void loadProverbsScreen() async {
+    Get.toNamed(Routes.proverb);
   }
 
   void setCategorie(String categorie) {
@@ -95,6 +124,12 @@ class WordsService extends GetxService {
     if (searchedWord.value.length == 0) {
       filteredWords.value =
           words.value.where((word) => wordOfCategory(word)).toList();
+      filteredProverbs.value = filteredWords.value
+          .where(
+            (word) => word.translations
+                .any((trans) => trans.type.toLowerCase().contains("prov")),
+          )
+          .toList();
     }
     if (word.value != null) updateActiveWord();
 
