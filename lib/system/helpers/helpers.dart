@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+bool emailValid(String email) => RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    .hasMatch(email);
+
+bool codeValid(String code) =>
+    RegExp(r"[a-zA-Z0-9]+\-[a-zA-Z0-9]+").hasMatch(code);
+
 ///
 /// Loop through this callback at the spacified interval
 /// Pass in the function to be called back
@@ -24,8 +31,10 @@ snackIt(
 snackItOld(
   String message, {
   String title = "hey",
+  Color? backgroundColor,
 }) {
   SnackBar sb = SnackBar(
+    backgroundColor: backgroundColor,
     content: Text(message),
   );
   try {
@@ -33,6 +42,27 @@ snackItOld(
       ScaffoldMessenger.of(Get.context!).showSnackBar(sb);
     }
   } on Exception catch (e) {}
+}
+
+snackItOldSuccess(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.green);
+}
+
+snackItOldError(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.red);
+}
+
+snackItOldWarning(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.orange);
 }
 
 /// using fluttertoast package

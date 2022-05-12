@@ -44,6 +44,7 @@ class _MyHomePageState extends State<ProverbScreen> {
             onChanged: (value) {
               _wordsService.searchedWord.value = value;
             },
+            style: TextStyle(fontSize: getShortSide(12)),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -59,9 +60,10 @@ class _MyHomePageState extends State<ProverbScreen> {
                 cntStr = cnt > 999 ? '999+' : cnt.toString();
               } on Exception catch (_) {}
               return Badge(
-                badgeContent:
-                    Text(cntStr, style: const TextStyle(color: Colors.white))
-                        .paddingSymmetric(
+                badgeContent: Text(cntStr,
+                        style: TextStyle(
+                            color: Colors.white, fontSize: getShortSide(9)))
+                    .paddingSymmetric(
                   horizontal: 2,
                 ),
                 badgeColor: Theme.of(context).primaryColor,

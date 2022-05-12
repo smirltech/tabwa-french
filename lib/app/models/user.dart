@@ -71,4 +71,22 @@ class User {
       return null;
     }
   }
+
+  // PASSWORD RESET FUNCTIONNALITIES
+  static Future<Response> forgotPassword(Map<String, dynamic> creds) async {
+    Response response = await AuthApi.forgotPassword(creds);
+    return response;
+  }
+
+  static Future<Response> passwordResetConfirmCode(
+      Map<String, dynamic> creds) async {
+    Response response = await AuthApi.passwordResetConfirmCode(creds);
+    return response;
+  }
+
+  static Future<Response> forgotPasswordReset(
+      Map<String, dynamic> creds) async {
+    Response response = await AuthApi.forgotPasswordReset(creds);
+    return response;
+  }
 }

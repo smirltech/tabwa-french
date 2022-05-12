@@ -11,4 +11,13 @@ class AuthApi {
 
   static Future<dynamic> register(Map<String, dynamic> user) =>
       _gc.post(REGISTER, user, headers: headers());
+
+  static Future<dynamic> forgotPassword(Map<String, dynamic> user) =>
+      _gc.post(FORGOT_PASSWORD_URL, user, headers: headers());
+
+  static Future<dynamic> passwordResetConfirmCode(Map<String, dynamic> user) =>
+      _gc.post(PASSWORD_RESET_CONFIRM_CODE_URL, user, headers: headers());
+
+  static Future<dynamic> forgotPasswordReset(Map<String, dynamic> user) =>
+      _gc.post(FORGOT_PASSWORD_RESET_URL, user, headers: headers());
 }

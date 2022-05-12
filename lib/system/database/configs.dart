@@ -6,6 +6,12 @@ const String _ONLINE_BASE_URL = ON_EMULATOR
     : "https://tabwa.smirltech.com/api";
 const String BASE_URL = _online ? _ONLINE_BASE_URL : _OFFLINE_BASE_URL;
 
+// PASSWORD FUNCTIONNALITY
+const String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
+const String FORGOT_PASSWORD_RESET_URL = BASE_URL + "/forgot-password-reset";
+const String PASSWORD_RESET_CONFIRM_CODE_URL =
+    BASE_URL + "/password-reset-confirm-code";
+
 // USERS
 const String USER_URL = BASE_URL + "/users";
 const String LOGIN = BASE_URL + "/login";

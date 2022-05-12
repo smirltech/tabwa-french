@@ -90,6 +90,7 @@ class _MyHomePageState extends State<HomeScreen> {
               onChanged: (value) {
                 _wordsService.searchedWord.value = value;
               },
+              style: TextStyle(fontSize: getShortSide(12)),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
@@ -110,9 +111,10 @@ class _MyHomePageState extends State<HomeScreen> {
                 cntStr = cnt > 999 ? '999+' : cnt.toString();
               } on Exception catch (_) {}
               return Badge(
-                badgeContent:
-                    Text(cntStr, style: const TextStyle(color: Colors.white))
-                        .paddingSymmetric(
+                badgeContent: Text(cntStr,
+                        style: TextStyle(
+                            color: Colors.white, fontSize: getShortSide(9)))
+                    .paddingSymmetric(
                   horizontal: 2,
                 ),
                 badgeColor: Theme.of(context).primaryColor,
@@ -162,7 +164,7 @@ class _MyHomePageState extends State<HomeScreen> {
                   children: [
                     Text(
                       'loading...'.tr,
-                      style: const TextStyle(fontSize: 24),
+                      style: TextStyle(fontSize: getShortSide(24)),
                     ),
                     const LinearProgressIndicator(),
                   ],
@@ -175,13 +177,15 @@ class _MyHomePageState extends State<HomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("no word or expression found from searched term".tr),
+                    Text("no word or expression found from searched term".tr,
+                        style: TextStyle(fontSize: getShortSide(12))),
                     if (_authController.isAuthenticated())
                       OutlinedButton(
                           onPressed: () {
                             _wordsService.suggestAddingWord();
                           },
-                          child: Text("add".tr)),
+                          child: Text("add".tr,
+                              style: TextStyle(fontSize: getShortSide(12)))),
                   ],
                 ),
               );
@@ -190,7 +194,8 @@ class _MyHomePageState extends State<HomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('no words or expressions yet'.tr),
+                  Text('no words or expressions yet'.tr,
+                      style: TextStyle(fontSize: getShortSide(12))),
                   /*Text('the dictionnary has'.tr +
                       ' ${_wordsService.words.length} ' +
                       '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/

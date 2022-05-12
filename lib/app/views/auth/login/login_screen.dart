@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
+import 'package:tabwa_french/app/routes/routes.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 
@@ -20,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('login'.tr),
+        title: Text('login'.tr, style: TextStyle(fontSize: getShortSide(16))),
         actions: [
           IconButton(
             onPressed: () {
@@ -63,10 +64,16 @@ class LoginScreen extends StatelessWidget {
                     roundedTextInputDecoration(labelText: 'password'.tr),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.all(20.0),
+              alignment: Alignment.centerRight,
               child: TextButton(
-                  onPressed: () {}, child: Text('forgot password'.tr)),
+                  onPressed: () {
+                    Get.toNamed(Routes.pass_recovery_request);
+                  },
+                  child: Text('forgot password'.tr,
+                      style: TextStyle(fontSize: getShortSide(12)))),
             ),
           ],
         ),

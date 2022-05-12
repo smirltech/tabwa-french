@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
+import 'package:tabwa_french/system/helpers/sizes.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../routes/routes.dart';
 
@@ -13,7 +14,7 @@ class MainMenu extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('menu'.tr),
+        title: Text('menu'.tr, style: TextStyle(fontSize: getShortSide(14))),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -22,14 +23,16 @@ class MainMenu extends StatelessWidget {
           children: [
             ListTile(
               leading: const Icon(Icons.home),
-              title: Text('home'.tr),
+              title:
+                  Text('home'.tr, style: TextStyle(fontSize: getShortSide(12))),
               onTap: () {
                 Get.back();
               },
             ),
             ListTile(
               leading: const Icon(Icons.book),
-              title: Text('proverbs'.tr),
+              title: Text('proverbs'.tr,
+                  style: TextStyle(fontSize: getShortSide(12))),
               onTap: () {
                 Get.back();
                 Get.find<WordsService>().loadProverbsScreen();
@@ -37,7 +40,8 @@ class MainMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.account_circle),
-              title: Text('profile'.tr),
+              title: Text('profile'.tr,
+                  style: TextStyle(fontSize: getShortSide(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.profile);
@@ -45,7 +49,8 @@ class MainMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: Text('settings'.tr),
+              title: Text('settings'.tr,
+                  style: TextStyle(fontSize: getShortSide(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.settings);
@@ -53,7 +58,8 @@ class MainMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.privacy_tip_outlined),
-              title: Text('privacy policy'.tr),
+              title: Text('privacy policy'.tr,
+                  style: TextStyle(fontSize: getShortSide(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.privacy);
@@ -61,7 +67,8 @@ class MainMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.info),
-              title: Text('about'.tr),
+              title: Text('about'.tr,
+                  style: TextStyle(fontSize: getShortSide(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.about);
@@ -87,7 +94,8 @@ class MainMenu extends StatelessWidget {
                           primary: Colors.red,
                         ),
                         icon: const Icon(Icons.logout),
-                        label: Text('logout'.tr),
+                        label: Text('logout'.tr,
+                            style: TextStyle(fontSize: getShortSide(12))),
                       ),
                     );
                   } else {
@@ -98,7 +106,8 @@ class MainMenu extends StatelessWidget {
                           Get.toNamed(Routes.login);
                         },
                         icon: const Icon(Icons.login),
-                        label: Text('login'.tr),
+                        label: Text('login'.tr,
+                            style: TextStyle(fontSize: getShortSide(12))),
                       ),
                     );
                   }
@@ -114,7 +123,8 @@ class MainMenu extends StatelessWidget {
                         primary: Colors.orange,
                       ),
                       icon: const Icon(Icons.person_add_alt),
-                      label: Text('register'.tr),
+                      label: Text('register'.tr,
+                          style: TextStyle(fontSize: getShortSide(12))),
                     ),
                   ),
               ],

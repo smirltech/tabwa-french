@@ -5,10 +5,12 @@ import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/log_cat.dart';
 
 import '../models/user.dart';
+import '../routes/routes.dart';
 
 class AuthController extends GetxController {
   var user = Rxn<User>();
   var themy = "system".obs;
+  var isRequestForgotPassword = false.obs;
 
   void storeTheme(String theme) {
     // themy.value = theme;
@@ -66,8 +68,8 @@ class AuthController extends GetxController {
       Get.changeThemeMode(value == 'dark'
           ? ThemeMode.dark
           : value == 'light'
-              ? ThemeMode.light
-              : ThemeMode.system);
+          ? ThemeMode.light
+          : ThemeMode.system);
     });
 
     GetStorage().listenKey('token', (value) {
@@ -90,5 +92,71 @@ class AuthController extends GetxController {
 
   bool isAuthenticated() {
     return user.value != null;
+  }
+
+// todo: password resetting implementation
+  forgotPassword(Map<String, dynamic> creds) async {
+    isRequestForgotPassword.value = true;
+    Response response = await User.forgotPassword(creds);
+    if (response.statusCode == 200) {
+      logcat(response.body.toString());
+      Map<String, dynamic> body = response.body;
+      if (body['status'] == 200) {
+        GetStorage().write('reset-email', creds['email']);
+        snackItOldSuccess(body['message']);
+        Get.toNamed(Routes.pass_recovery_confirm);
+      } else {
+        snackItOldError(body['message']);
+      }
+    } else {
+      snackItOldWarning("password reset failed".tr);
+    }
+    isRequestForgotPassword.value = false;
+  }
+
+  passwordResetConfirmCode(Map<String, dynamic> creds) async {
+    isRequestForgotPassword.value = true;
+    Response response = await User.passwordResetConfirmCode(creds);
+    if (response.statusCode == 200) {
+      logcat(response.body.toString());
+      Map<String, dynamic> body = response.body;
+      if (body['status'] == 200) {
+        GetStorage().write('reset-code', creds['code']);
+        snackItOldSuccess(body['message']);
+        Get.toNamed(Routes.pass_recovery_reset);
+      } else {
+        snackItOldError(body['message']);
+      }
+    } else {
+      snackItOldWarning("password reset failed".tr);
+    }
+    isRequestForgotPassword.value = false;
+  }
+
+  forgotPasswordReset(Map<String, dynamic> creds) async {
+    isRequestForgotPassword.value = true;
+    Response response = await User.forgotPasswordReset(creds);
+    if (response.statusCode == 200) {
+      logcat(response.body.toString());
+      Map<String, dynamic> body = response.body;
+      if (body['status'] == 200) {
+        GetStorage().remove('reset-code');
+        GetStorage().remove('reset-email');
+
+        GetStorage().write('token', response.body['data']['token']);
+
+        User u = User.fromMap(response.body['data']);
+        GetStorage().write('user', u.toMap());
+        user.value = u;
+
+        snackItOldSuccess(body['message']);
+        Get.offAndToNamed(Routes.home);
+      } else {
+        snackItOldError(body['message']);
+      }
+    } else {
+      snackItOldWarning("password reset failed".tr);
+    }
+    isRequestForgotPassword.value = false;
   }
 }
