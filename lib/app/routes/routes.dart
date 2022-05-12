@@ -10,6 +10,9 @@ import 'package:tabwa_french/app/views/words/show_word/show_word_screen.dart';
 
 import '../views/about/about_screen.dart';
 import '../views/auth/login/login_screen.dart';
+import '../views/auth/password/recovery/confirm_screen.dart';
+import '../views/auth/password/recovery/request_screen.dart';
+import '../views/auth/password/recovery/reset_screen.dart';
 import '../views/auth/register/register_screen.dart';
 
 class Routes {
@@ -23,6 +26,9 @@ class Routes {
   static String about = '/about';
   static String privacy = '/privacy';
   static String proverb = '/proverb';
+  static String pass_recovery_request = '/pass-recovery-request';
+  static String pass_recovery_confirm = '/pass-recovery-confirm';
+  static String pass_recovery_reset = '/pass-recovery-reset';
 
   static List<GetPage> routes = [
     GetPage(
@@ -70,6 +76,18 @@ class Routes {
     GetPage(
       name: proverb,
       page: () => ProverbScreen(),
+    ),
+    GetPage(
+      name: pass_recovery_request,
+      page: () => PasswordRecoveryRequestScreen(),
+    ),
+    GetPage(
+      name: pass_recovery_confirm,
+      page: () => PasswordRecoveryConfirmScreen(),
+    ),
+    GetPage(
+      name: pass_recovery_reset,
+      page: () => PasswordRecoveryResetScreen(),
     ),
   ];
 }

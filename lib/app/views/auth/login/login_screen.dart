@@ -63,6 +63,11 @@ class LoginScreen extends StatelessWidget {
                     roundedTextInputDecoration(labelText: 'password'.tr),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: TextButton(
+                  onPressed: () {}, child: Text('forgot password'.tr)),
+            ),
           ],
         ),
       ),
