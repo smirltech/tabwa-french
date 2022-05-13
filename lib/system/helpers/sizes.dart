@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabwa_french/system/helpers/log_cat.dart';
 
 class SizeConfig {
   static late MediaQueryData _mediaQueryData;
@@ -6,6 +7,7 @@ class SizeConfig {
   static late double screenHeight;
   static late double screenShortSide;
   static late double defaultSize;
+  static late double devicePixelRatio;
   static late Orientation orientation;
 
   static void init(BuildContext context) {
@@ -14,6 +16,7 @@ class SizeConfig {
     screenHeight = _mediaQueryData.size.height;
     screenShortSide = _mediaQueryData.size.shortestSide;
     orientation = _mediaQueryData.orientation;
+    devicePixelRatio = _mediaQueryData.devicePixelRatio;
   }
 }
 
@@ -44,19 +47,23 @@ bool isDesktop() {
 double getProportionateScreenHeight(double inputHeight) {
   double screenHeight = SizeConfig.screenHeight;
   // 812 is the layout height that designer use
-  return (inputHeight / 812.0) * screenHeight;
+  final rate = 1 / SizeConfig.devicePixelRatio;
+  return (inputHeight / 812.0) * screenHeight * rate;
 }
 
 // Get the proportionate height as per screen size
 double getProportionateScreenWidth(double inputWidth) {
   double screenWidth = SizeConfig.screenWidth;
   // 375 is the layout width that designer use
-  return (inputWidth / 375.0) * screenWidth;
+  final rate = 1 / SizeConfig.devicePixelRatio;
+  return (inputWidth / 375.0) * screenWidth * rate;
 }
 
 // Get the proportionate side as per screen short size
 double getShortSide(double inputSide) {
   double screenShortSide = SizeConfig.screenShortSide;
   // 375 is the layout width that designer use
-  return (inputSide / 375.0) * screenShortSide;
+  logcat("devicePixelRatio: ${SizeConfig.devicePixelRatio}");
+  final rate = 1 / SizeConfig.devicePixelRatio;
+  return (inputSide / 375.0) * screenShortSide * rate;
 }
