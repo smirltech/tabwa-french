@@ -30,20 +30,20 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Change password'.tr,
+        title: Text('change password'.tr,
             style: TextStyle(fontSize: getShortSide(16))),
       ),
       body: Center(
         child: Column(
           children: [
             Text(
-              "Your password reset request code was confirmed, you can reset your password now"
+              "your password reset request code was confirmed, you can reset your password now"
                   .tr,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: getShortSide(14),
               ),
-            ).paddingOnly(top: getShortSide(20), bottom: getShortSide(20)),
+            ).paddingAll(getShortSide(20)),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
@@ -54,10 +54,11 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
                 },
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your new password';
+                    return 'please enter your new password'.tr;
                   }
                   if (value.length < 6) {
-                    return 'Please enter a valid length password, minimum 6 characters';
+                    return 'please enter a valid length password, minimum 6 characters'
+                        .tr;
                   }
 
                   return null;
@@ -86,7 +87,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
                           },
                     style: ElevatedButton.styleFrom(
                         textStyle: TextStyle(fontSize: getShortSide(12))),
-                    child: Text("Reset password".tr));
+                    child: Text("reset password".tr));
               }),
             ),
           ],

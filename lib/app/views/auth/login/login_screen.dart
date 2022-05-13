@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/routes/routes.dart';
@@ -25,7 +26,13 @@ class LoginScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              _authController.login(creds);
+              if (creds['email'].isNotEmpty && creds['password'].isNotEmpty) {
+                _authController.login(creds);
+              } else {
+                snackItOldWarning(
+                  'email and password are required'.tr,
+                );
+              }
             },
             icon: const Icon(Icons.login),
           ).paddingOnly(right: getShortSide(10)),
@@ -64,16 +71,41 @@ class LoginScreen extends StatelessWidget {
                     roundedTextInputDecoration(labelText: 'password'.tr),
               ),
             ),
+            Padding(
+              padding: EdgeInsets.all(getShortSide(10)),
+              child: Obx(() {
+                return _authController.isConnecting.isFalse
+                    ? const SizedBox.shrink()
+                    : const LinearProgressIndicator();
+              }),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: OutlinedButton(
+                  onPressed: () {
+                    if (creds['email'].isNotEmpty &&
+                        creds['password'].isNotEmpty) {
+                      _authController.login(creds);
+                    } else {
+                      snackItOldWarning(
+                        'email and password are required'.tr,
+                      );
+                    }
+                  },
+                  child: Text('login'.tr,
+                      style: TextStyle(fontSize: getShortSide(12)))),
+            ),
             const Spacer(),
             Container(
               padding: const EdgeInsets.all(20.0),
               alignment: Alignment.centerRight,
-              child: TextButton(
+              child: OutlinedButton(
                   onPressed: () {
                     Get.toNamed(Routes.pass_recovery_request);
                   },
                   child: Text('forgot password'.tr,
-                      style: TextStyle(fontSize: getShortSide(12)))),
+                      style: TextStyle(
+                          fontSize: getShortSide(12), color: Colors.red))),
             ),
           ],
         ),

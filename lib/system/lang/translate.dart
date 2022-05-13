@@ -18,6 +18,8 @@ class Translate extends Translations {
           "new word": "New word",
           "edit email": "Edit email",
           "edit password": "Edit password",
+          "password recovery": "Password recovery",
+          "password reset failed": "Password reset failed",
           "edit": "Edit",
           "the app currently contains": "The app currently contains",
           "edit word": "Edit word",
@@ -46,6 +48,7 @@ class Translate extends Translations {
           "password": "Password",
           "confirm": "Confirm",
           "confirm password": "Confirm Password",
+          "forgot passwprd": "Forgot password",
           'tabwa french dictionnary': 'Tabwa French Dictionnary',
           "word or expression": "Word or expression",
           "user initiate login successfully":
@@ -79,6 +82,33 @@ class Translate extends Translations {
           "STOP": "STOP",
           "start playing": "Start playing",
           "stop playing": "Stop playing",
+          "if you have forgotten your password, just enter your valid email to request for a password reset. An email will be sent to that address":
+              "If you have forgotten your password, just enter your valid email to request for a password reset. An email will be sent to that address",
+          "please enter your email": "Please enter your email",
+          "enter your valid email": "Enter your valid email",
+          "please enter a valid email": "Please enter a valid email",
+          "request for the code": "Request for the code",
+          "if you received the code already":
+              "If you received the code already",
+          "enter it here": "Enter it here",
+          "confirm code": "Confirm code",
+          "if you have received a code, enter it below":
+              "If you have received a code, enter it below",
+          "please enter your code": "Please enter your code",
+          "please enter a valid length code":
+              "Please enter a valid length code",
+          "please enter a valid code": "Please enter a valid code",
+          "enter the valid code": "Enter the valid code",
+          "reset password": "Reset password",
+          "check the code": "Check the code",
+          "change password": "Change password",
+          "your password reset request code was confirmed, you can reset your password now":
+              "Your password reset request code was confirmed, you can reset your password now",
+          "please enter your new password": "Please enter your new password",
+          "please enter a valid length password, minimum 6 characters":
+              "Please enter a valid length password, minimum 6 characters",
+          "enter new password": "Enter new password",
+          "email and password are required": "Email and password are required",
         },
         'fr_FR': {
           "add": "Ajouter",
@@ -91,6 +121,8 @@ class Translate extends Translations {
           "add word": "Ajouter un mot",
           "new word": "Nouveau mot",
           "edit": "Modifier",
+          "password reset failed":
+              "Le mot de passe n'a pas pu être réinitialisé",
           "word already exists": "Mot ou expression déjà existant",
           "word is required": "Le mot ou l'expression est requis",
           "the app currently contains": "L'application contient",
@@ -99,6 +131,7 @@ class Translate extends Translations {
           "you're not logged in": "Vous n'êtes pas connecté",
           "edit email": "Modifier l'email",
           "edit password": "Modifier le mot de passe",
+          "password recovery": "Récupération du mot de passe",
           "edit word": "Modifier un mot",
           "add translation": "Ajouter une traduction",
           "loading...": "Chargement...",
@@ -122,6 +155,7 @@ class Translate extends Translations {
           "example translation": "Traduction de l'exemple",
           "password": "Mot de passe",
           "confirm": "Confirmer",
+          "forgot password": "Mot de passe oublié",
           "confirm password": "Confirmer le mot de passe",
           'tabwa french dictionnary': 'Dictionnaire Tabwa Français',
           "word or expression": "Mot ou expression",
@@ -157,6 +191,32 @@ class Translate extends Translations {
           "STOP": "STOPPER",
           "start playing": "démarrer la lecture",
           "stop playing": "arrêter la lecture",
+          "if you have forgotten your password, just enter your valid email to request for a password reset. An email will be sent to that address":
+              "Si vous avez oublié votre mot de passe, entrez votre adresse email valide pour demander la réinitialisation de votre mot de passe. Un email sera envoyé à cette adresse",
+          "please enter your email": "Entrez votre email",
+          "enter your valid email": "Entrez votre email valide",
+          "please enter a valid email": "Entrez une adresse email valide",
+          "request for the code": "Demander le code",
+          "if you received the code already": "Si vous avez déjà reçu le code",
+          "enter it here": "Entrez le code ici",
+          "confirm code": "Confirmez le code",
+          "if you have received a code, enter it below":
+              "Si vous avez reçu un code, entrez le code ci-dessous",
+          "please enter your code": "Entrez votre code",
+          "please enter a valid length code":
+              "Entrez un code valide de longueur",
+          "please enter a valid code": "Entrez un code valide",
+          "enter the valid code": "Entrez le code valide",
+          "reset password": "Réinitialiser le mot de passe",
+          "check the code": "Vérifiez le code",
+          "change password": "Changer le mot de passe",
+          "your password reset request code was confirmed, you can reset your password now":
+              "Votre demande de réinitialisation de mot de passe a été confirmée, vous pouvez réinitialiser votre mot de passe maintenant",
+          "please enter your new password": "Entrez votre nouveau mot de passe",
+          "please enter a valid length password, minimum 6 characters":
+              "Entrez un mot de passe valide de longueur minimale 6 caractères",
+          "enter new password": "Entrez le nouveau mot de passe",
+          "email and password are required": "Email et mot de passe requis",
         }
       };
 }

@@ -26,7 +26,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Confirm assword recovery code',
+        title: Text('confirm code'.tr,
             style: TextStyle(fontSize: getShortSide(16))),
       ),
       body: Center(
@@ -38,7 +38,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: getShortSide(14),
               ),
-            ).paddingOnly(top: getShortSide(20), bottom: getShortSide(20)),
+            ).paddingAll(getShortSide(20)),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
@@ -49,13 +49,13 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
                 },
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your code';
+                    return 'please enter your code'.tr;
                   }
                   if (value.length != 7) {
-                    return 'Please enter a valid length code';
+                    return 'please enter a valid length code'.tr;
                   }
                   if (!codeValid(value)) {
-                    return 'Please enter a valid code';
+                    return 'please enter a valid code'.tr;
                   }
                   return null;
                 },
@@ -84,7 +84,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
                           },
                     style: ElevatedButton.styleFrom(
                         textStyle: TextStyle(fontSize: getShortSide(12))),
-                    child: Text("Check the code".tr));
+                    child: Text("check the code".tr));
               }),
             ),
           ],

@@ -27,7 +27,8 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Password recovery'),
+        title: Text('password recovery'.tr,
+            style: TextStyle(fontSize: getShortSide(16))),
       ),
       body: Center(
         child: Column(
@@ -39,7 +40,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: getShortSide(14),
               ),
-            ).paddingOnly(top: getShortSide(20), bottom: getShortSide(20)),
+            ).paddingAll(getShortSide(20)),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextFormField(
@@ -52,10 +53,10 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
                 },
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please enter your email';
+                    return 'please enter your email'.tr;
                   }
                   if (!emailValid(value)) {
-                    return 'Please enter a valid email';
+                    return 'please enter a valid email'.tr;
                   }
                   return null;
                 },
@@ -89,20 +90,22 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(10.0),
               child: Text.rich(
-                TextSpan(text: "If you received the code already,", children: [
-                  TextSpan(
-                    text: " " + "enter it here".tr + " ",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      backgroundColor: Colors.orange,
-                      color: Colors.black,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        Get.toNamed(Routes.pass_recovery_confirm);
-                      },
-                  ),
-                ]),
+                TextSpan(
+                    text: "if you received the code already".tr + ',',
+                    children: [
+                      TextSpan(
+                        text: " " + "enter it here".tr + " ",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          backgroundColor: Colors.orange,
+                          color: Colors.black,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Get.toNamed(Routes.pass_recovery_confirm);
+                          },
+                      ),
+                    ]),
                 style: TextStyle(
                   fontSize: getShortSide(11),
                 ),

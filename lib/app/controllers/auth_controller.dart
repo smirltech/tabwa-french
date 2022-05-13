@@ -11,6 +11,7 @@ class AuthController extends GetxController {
   var user = Rxn<User>();
   var themy = "system".obs;
   var isRequestForgotPassword = false.obs;
+  var isConnecting = false.obs;
 
   void storeTheme(String theme) {
     // themy.value = theme;
@@ -18,12 +19,16 @@ class AuthController extends GetxController {
   }
 
   login(Map<String, dynamic> creds) async {
+    isConnecting.value = true;
     User? u = await User.login(creds);
+    isConnecting.value = false;
     if (u != null) Get.back();
   }
 
   register(Map<String, dynamic> user) async {
+    isConnecting.value = true;
     User? u = await User.register(user);
+    isConnecting.value = false;
     if (u != null) Get.back();
   }
 
@@ -68,8 +73,8 @@ class AuthController extends GetxController {
       Get.changeThemeMode(value == 'dark'
           ? ThemeMode.dark
           : value == 'light'
-          ? ThemeMode.light
-          : ThemeMode.system);
+              ? ThemeMode.light
+              : ThemeMode.system);
     });
 
     GetStorage().listenKey('token', (value) {

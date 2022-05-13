@@ -142,6 +142,27 @@ class RegisterScreen extends StatelessWidget {
                 );
               }),
             ),
+            Padding(
+              padding: EdgeInsets.all(getShortSide(10)),
+              child: Obx(() {
+                return _authController.isConnecting.isFalse
+                    ? const SizedBox.shrink()
+                    : const LinearProgressIndicator();
+              }),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Obx(() {
+                return OutlinedButton(
+                    onPressed: _accept.isFalse
+                        ? null
+                        : () {
+                            _authController.register(user);
+                          },
+                    child: Text('register'.tr,
+                        style: TextStyle(fontSize: getShortSide(12))));
+              }),
+            ),
           ],
         ),
       ),
