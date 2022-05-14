@@ -27,7 +27,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('confirm code'.tr,
-            style: TextStyle(fontSize: getShortSide(16))),
+            style: TextStyle(fontSize: getTextSize(16))),
       ),
       body: Center(
         child: Column(
@@ -36,7 +36,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
               "if you have received a code, enter it below".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getShortSide(14),
+                fontSize: getTextSize(14),
               ),
             ).paddingAll(getShortSide(20)),
             Padding(
@@ -83,7 +83,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
                             _authController.passwordResetConfirmCode(creds);
                           },
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: getShortSide(12))),
+                        textStyle: TextStyle(fontSize: getTextSize(12))),
                     child: Text("check the code".tr));
               }),
             ),

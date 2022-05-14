@@ -63,7 +63,21 @@ double getProportionateScreenWidth(double inputWidth) {
 double getShortSide(double inputSide) {
   double screenShortSide = SizeConfig.screenShortSide;
   // 375 is the layout width that designer use
+  // logcat("devicePixelRatio: ${SizeConfig.devicePixelRatio}");
+  // final rate = 1 / SizeConfig.devicePixelRatio;
+  return (inputSide / 375.0) * screenShortSide;
+}
+
+// Get the proportionate side as per screen short size
+double getTextSize(double inputSide) {
+  double screenShortSide = SizeConfig.screenShortSide;
+  // 375 is the layout width that designer use
   logcat("devicePixelRatio: ${SizeConfig.devicePixelRatio}");
-  final rate = 1 / SizeConfig.devicePixelRatio;
-  return (inputSide / 375.0) * screenShortSide * rate;
+  final rate = SizeConfig.devicePixelRatio;
+  final multiplier = rate > 1.5
+      ? 375
+      : rate > 1
+          ? 640
+          : 750;
+  return (inputSide / multiplier) * screenShortSide;
 }

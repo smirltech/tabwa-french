@@ -11,18 +11,18 @@ class ThemeSetting {
   static const Color green = Colors.pink;
 
   /// Theme sizes
-  static final double veryTiny = getShortSide(8.0);
-  static final double tiny = getShortSide(10.0);
-  static final double verySmall = getShortSide(12.0);
-  static final double small = getShortSide(14.0);
-  static final double normal = getShortSide(16.0);
-  static final double big = getShortSide(18.0);
-  static final double veryBig = getShortSide(20.0);
-  static final double large = getShortSide(22.0);
-  static final double veryLarge = getShortSide(24.0);
-  static final double huge = getShortSide(26.0);
-  static final double veryHuge = getShortSide(28.0);
-  static final double massive = getShortSide(30.0);
+  static final double veryTiny = getTextSize(8.0);
+  static final double tiny = getTextSize(10.0);
+  static final double verySmall = getTextSize(12.0);
+  static final double small = getTextSize(14.0);
+  static final double normal = getTextSize(16.0);
+  static final double big = getTextSize(18.0);
+  static final double veryBig = getTextSize(20.0);
+  static final double large = getTextSize(22.0);
+  static final double veryLarge = getTextSize(24.0);
+  static final double huge = getTextSize(26.0);
+  static final double veryHuge = getTextSize(28.0);
+  static final double massive = getTextSize(30.0);
 
   /// The default theme.
   static ThemeData darkTheme = ThemeDark.theme;

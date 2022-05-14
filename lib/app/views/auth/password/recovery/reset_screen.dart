@@ -31,7 +31,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('change password'.tr,
-            style: TextStyle(fontSize: getShortSide(16))),
+            style: TextStyle(fontSize: getTextSize(16))),
       ),
       body: Center(
         child: Column(
@@ -41,7 +41,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
                   .tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getShortSide(14),
+                fontSize: getTextSize(14),
               ),
             ).paddingAll(getShortSide(20)),
             Padding(
@@ -86,7 +86,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
                             _authController.forgotPasswordReset(creds);
                           },
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: getShortSide(12))),
+                        textStyle: TextStyle(fontSize: getTextSize(12))),
                     child: Text("reset password".tr));
               }),
             ),

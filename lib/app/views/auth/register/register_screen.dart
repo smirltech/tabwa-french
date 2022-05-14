@@ -49,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
                   .tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getShortSide(14),
+                fontSize: getTextSize(14),
               ),
             ).paddingOnly(top: getShortSide(20), bottom: getShortSide(20)),
             Padding(
@@ -160,7 +160,7 @@ class RegisterScreen extends StatelessWidget {
                             _authController.register(user);
                           },
                     child: Text('register'.tr,
-                        style: TextStyle(fontSize: getShortSide(12))));
+                        style: TextStyle(fontSize: getTextSize(12))));
               }),
             ),
           ],

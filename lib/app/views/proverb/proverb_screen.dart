@@ -44,7 +44,7 @@ class _MyHomePageState extends State<ProverbScreen> {
             onChanged: (value) {
               _wordsService.searchedWord.value = value;
             },
-            style: TextStyle(fontSize: getShortSide(12)),
+            style: TextStyle(fontSize: getTextSize(12)),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<ProverbScreen> {
               return Badge(
                 badgeContent: Text(cntStr,
                         style: TextStyle(
-                            color: Colors.white, fontSize: getShortSide(9)))
+                            color: Colors.white, fontSize: getTextSize(9)))
                     .paddingSymmetric(
                   horizontal: 2,
                 ),
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<ProverbScreen> {
                           .toUpperCase(),
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: getShortSide(18),
+                          fontSize: getTextSize(18),
                           color: Colors.white)),
                 ),
               );
@@ -171,7 +171,7 @@ class _MyHomePageState extends State<ProverbScreen> {
                         word.word,
                         style: GoogleFonts.oswald(
                           fontWeight: FontWeight.bold,
-                          fontSize: getShortSide(16),
+                          fontSize: getTextSize(16),
                         ),
                       ),
                       Wrap(
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<ProverbScreen> {
                               child: Text(
                                 tra,
                                 style: GoogleFonts.courgette(
-                                  fontSize: getShortSide(14),
+                                  fontSize: getTextSize(14),
                                 ),
                               ),
                             ).paddingSymmetric(

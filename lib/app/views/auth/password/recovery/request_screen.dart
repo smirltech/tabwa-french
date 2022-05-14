@@ -28,7 +28,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('password recovery'.tr,
-            style: TextStyle(fontSize: getShortSide(16))),
+            style: TextStyle(fontSize: getTextSize(16))),
       ),
       body: Center(
         child: Column(
@@ -38,7 +38,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
                   .tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getShortSide(14),
+                fontSize: getTextSize(14),
               ),
             ).paddingAll(getShortSide(20)),
             Padding(
@@ -83,7 +83,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
                             _authController.forgotPassword(creds);
                           },
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: getShortSide(12))),
+                        textStyle: TextStyle(fontSize: getTextSize(12))),
                     child: Text("request for the code".tr));
               }),
             ),
@@ -107,7 +107,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
                       ),
                     ]),
                 style: TextStyle(
-                  fontSize: getShortSide(11),
+                  fontSize: getTextSize(11),
                 ),
               ), //Text("I have got the code"),
             ),

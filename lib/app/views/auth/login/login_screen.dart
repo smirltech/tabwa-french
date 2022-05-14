@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('login'.tr, style: TextStyle(fontSize: getShortSide(16))),
+        title: Text('login'.tr, style: TextStyle(fontSize: getTextSize(16))),
         actions: [
           IconButton(
             onPressed: () {
@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
               "login to be able to contribute to the community dictionnary".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getShortSide(14),
+                fontSize: getTextSize(14),
               ),
             ).paddingOnly(top: getShortSide(20), bottom: getShortSide(20)),
             Padding(
@@ -93,7 +93,7 @@ class LoginScreen extends StatelessWidget {
                     }
                   },
                   child: Text('login'.tr,
-                      style: TextStyle(fontSize: getShortSide(12)))),
+                      style: TextStyle(fontSize: getTextSize(12)))),
             ),
             const Spacer(),
             Container(
@@ -105,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   child: Text('forgot password'.tr,
                       style: TextStyle(
-                          fontSize: getShortSide(12), color: Colors.red))),
+                          fontSize: getTextSize(12), color: Colors.red))),
             ),
           ],
         ),

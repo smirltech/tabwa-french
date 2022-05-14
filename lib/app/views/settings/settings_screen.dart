@@ -56,7 +56,7 @@ class SettingsScreen extends StatelessWidget {
             Text(
               'settings'.tr,
               style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: getShortSide(14.0)),
+                  fontWeight: FontWeight.bold, fontSize: getTextSize(14.0)),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),

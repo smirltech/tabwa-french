@@ -14,7 +14,7 @@ class MainMenu extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('menu'.tr, style: TextStyle(fontSize: getShortSide(14))),
+        title: Text('menu'.tr, style: TextStyle(fontSize: getTextSize(14))),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -24,7 +24,7 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.home),
               title:
-                  Text('home'.tr, style: TextStyle(fontSize: getShortSide(12))),
+                  Text('home'.tr, style: TextStyle(fontSize: getTextSize(12))),
               onTap: () {
                 Get.back();
               },
@@ -32,7 +32,7 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.book),
               title: Text('proverbs'.tr,
-                  style: TextStyle(fontSize: getShortSide(12))),
+                  style: TextStyle(fontSize: getTextSize(12))),
               onTap: () {
                 Get.back();
                 Get.find<WordsService>().loadProverbsScreen();
@@ -41,7 +41,7 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.account_circle),
               title: Text('profile'.tr,
-                  style: TextStyle(fontSize: getShortSide(12))),
+                  style: TextStyle(fontSize: getTextSize(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.profile);
@@ -50,7 +50,7 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.settings),
               title: Text('settings'.tr,
-                  style: TextStyle(fontSize: getShortSide(12))),
+                  style: TextStyle(fontSize: getTextSize(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.settings);
@@ -59,7 +59,7 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.privacy_tip_outlined),
               title: Text('privacy policy'.tr,
-                  style: TextStyle(fontSize: getShortSide(12))),
+                  style: TextStyle(fontSize: getTextSize(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.privacy);
@@ -67,8 +67,8 @@ class MainMenu extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.info),
-              title: Text('about'.tr,
-                  style: TextStyle(fontSize: getShortSide(12))),
+              title:
+                  Text('about'.tr, style: TextStyle(fontSize: getTextSize(12))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.about);
@@ -95,7 +95,7 @@ class MainMenu extends StatelessWidget {
                         ),
                         icon: const Icon(Icons.logout),
                         label: Text('logout'.tr,
-                            style: TextStyle(fontSize: getShortSide(12))),
+                            style: TextStyle(fontSize: getTextSize(12))),
                       ),
                     );
                   } else {
@@ -107,7 +107,7 @@ class MainMenu extends StatelessWidget {
                         },
                         icon: const Icon(Icons.login),
                         label: Text('login'.tr,
-                            style: TextStyle(fontSize: getShortSide(12))),
+                            style: TextStyle(fontSize: getTextSize(12))),
                       ),
                     );
                   }
@@ -124,7 +124,7 @@ class MainMenu extends StatelessWidget {
                       ),
                       icon: const Icon(Icons.person_add_alt),
                       label: Text('register'.tr,
-                          style: TextStyle(fontSize: getShortSide(12))),
+                          style: TextStyle(fontSize: getTextSize(12))),
                     ),
                   ),
               ],

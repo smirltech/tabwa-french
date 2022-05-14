@@ -95,7 +95,7 @@ class ShowWordScreen extends StatelessWidget {
                                       child: Text(
                                         _wordsService.word.value!.word,
                                         style: GoogleFonts.oswald(
-                                          fontSize: ThemeSetting.large,
+                                          fontSize: ThemeSetting.veryBig,
                                         ),
                                       ),
                                     ),
@@ -207,8 +207,7 @@ class ShowWordScreen extends StatelessWidget {
                                                   tranz.translation,
                                                   style: GoogleFonts.courgette(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize:
-                                                        ThemeSetting.normal,
+                                                    fontSize: getTextSize(16),
                                                   ),
                                                 ),
                                               ),
@@ -296,7 +295,7 @@ class ShowWordScreen extends StatelessWidget {
                                                               .courgette(
                                                             fontSize:
                                                                 ThemeSetting
-                                                                    .small,
+                                                                    .verySmall,
                                                           ),
                                                         ),
                                                       ),

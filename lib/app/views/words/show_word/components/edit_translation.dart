@@ -60,7 +60,7 @@ class EditTranslation extends StatelessWidget {
         child: Column(
           children: [
             Text('edit translation'.tr,
-                    style: TextStyle(fontSize: getShortSide(20)))
+                    style: TextStyle(fontSize: getTextSize(20)))
                 .paddingSymmetric(vertical: getShortSide(10)),
             Expanded(
               child: ListView(

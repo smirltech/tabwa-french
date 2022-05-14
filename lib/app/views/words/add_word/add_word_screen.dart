@@ -117,7 +117,7 @@ class AddWordScreen extends StatelessWidget {
                 ),
                 const Divider(),
                 Text("optional".tr,
-                    style: TextStyle(fontSize: getShortSide(16))),
+                    style: TextStyle(fontSize: getTextSize(16))),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(

@@ -54,7 +54,7 @@ class EditWord extends StatelessWidget {
           SliverToBoxAdapter(
             child: Center(
                 child: Text("edit word".tr,
-                        style: TextStyle(fontSize: getShortSide(20)))
+                        style: TextStyle(fontSize: getTextSize(20)))
                     .paddingSymmetric(vertical: getShortSide(10))),
           ),
           SliverToBoxAdapter(
