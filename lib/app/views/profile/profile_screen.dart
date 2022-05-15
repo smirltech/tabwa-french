@@ -13,6 +13,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('my profile'.tr),
         actions: [
@@ -27,23 +28,28 @@ class ProfileScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Icon(
-              Icons.account_circle,
-              size: getShortSide(100),
-            ).paddingSymmetric(vertical: getShortSide(20)),
-            ListTile(
-              leading: const Icon(Icons.account_circle),
-              title: Text(_authController.user.value!.name!,
-                  style: Theme.of(context).textTheme.headline6),
-              subtitle: Text('name'.tr),
+            Expanded(
+              child: ListView(
+                children: [
+                  Icon(
+                    Icons.account_circle,
+                    size: getShortSide(100),
+                  ).paddingSymmetric(vertical: getShortSide(20)),
+                  ListTile(
+                    leading: const Icon(Icons.account_circle),
+                    title: Text(_authController.user.value!.name!,
+                        style: Theme.of(context).textTheme.headline6),
+                    subtitle: Text('name'.tr),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.email),
+                    title: Text(_authController.user.value!.email!,
+                        style: Theme.of(context).textTheme.headline6),
+                    subtitle: Text('email'.tr),
+                  ),
+                ],
+              ),
             ),
-            ListTile(
-              leading: const Icon(Icons.email),
-              title: Text(_authController.user.value!.email!,
-                  style: Theme.of(context).textTheme.headline6),
-              subtitle: Text('email'.tr),
-            ),
-            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

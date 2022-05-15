@@ -12,7 +12,7 @@ class TranslationsController extends GetxController {
   }
 
   void editTranslation(Map<String, dynamic> translation) async {
-    logcat(translation.toString());
+    //  logcat(translation.toString());
     await Translation.edit(translation, translation['id']);
     Get.find<WordsService>().updateActiveWord();
     Get.back();

@@ -1,19 +1,77 @@
+import 'package:easy_table/easy_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import '../../system/helpers/log_cat.dart';
+import '../models/buggy.dart';
 import '../models/word.dart';
+import '../routes/routes.dart';
+import '../views/contributions/contributions_screen.dart';
+import 'dart:math' as math;
 
 class WordsService extends GetxService {
   var words = <Word>[].obs;
+  var key_words = <String>[].obs;
   var word = Rxn<Word>();
   var isLoading = true.obs;
   var categorie = 'tabwa'.obs;
   var searchedWord = ''.obs;
   var isSearching = false.obs;
   var filteredWords = <Word>[].obs;
+  var filteredProverbs = <Word>[].obs;
   var searchEditingController = TextEditingController().obs;
+
+  var contributions = <Buggy>[].obs;
+
+  _updateContributionList() async {
+    /* contributions.value = [
+      Buggy(name: 'Landon', wa: 19, wm: 12, ta: 4, tm: 56),
+      Buggy(name: 'Sari', wa: 22),
+      Buggy(name: 'Julian', wa: 37),
+      Buggy(name: 'Carey', wa: 39),
+      Buggy(name: 'Cadu', wa: 43),
+      Buggy(name: 'Delmar', wa: 72)
+    ];
+*/
+    debounce(words, (v) {
+      Map<String, Buggy> map = {};
+      words.value.forEach((word) {
+        if (map.containsKey(word.user)) {
+          map[word.user]!.wa += 1;
+        } else {
+          map[word.user] = Buggy(name: word.user, wa: 1);
+        }
+        if (map.containsKey(word.updater)) {
+          map[word.updater]!.wm += 1;
+        } else {
+          map[word.updater] = Buggy(name: word.updater, wm: 1);
+        }
+
+        word.translations.forEach((translation) {
+          if (map.containsKey(translation.user)) {
+            map[translation.user]!.ta += 1;
+          } else {
+            map[translation.user] = Buggy(name: translation.user, ta: 1);
+          }
+          if (map.containsKey(translation.updater)) {
+            map[translation.updater]!.tm += 1;
+          } else {
+            map[translation.updater] = Buggy(name: translation.updater, tm: 1);
+          }
+        });
+      });
+
+      contributions.value = map.values.toList();
+      contributions.value.sort((a, b) {
+        var x = math.max(a.wa, math.max(a.wm, math.max(a.ta, a.tm)));
+        var y = math.max(b.wa, math.max(b.wm, math.max(b.ta, b.tm)));
+        // var x = a.wa + a.wm + a.ta + a.tm;
+        //  var y = b.wa + b.wm + b.ta + b.tm;
+        return y - x;
+      });
+    });
+  }
 
   @override
   void onInit() {
@@ -25,6 +83,7 @@ class WordsService extends GetxService {
       logcat("categorie: $value");
       if (value != null) categorie.value = value;
     });
+    _updateContributionList();
   }
 
   @override
@@ -37,16 +96,24 @@ class WordsService extends GetxService {
           if (searchedWord.value.length > 0) {
             filteredWords.value = words.value
                 .where(
-                  (element) =>
-                      element.word.toLowerCase().contains(
-                            searchedWord.value.toLowerCase(),
-                          ) &&
-                      element.categorie.toLowerCase() ==
-                          categorie.value.toLowerCase(),
+                  (element) => searchCriteria(element),
+                )
+                .toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
                 )
                 .toList();
           } else {
-            filteredWords.clear();
+            filteredWords.value =
+                words.value.where((word) => wordOfCategory(word)).toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
+                )
+                .toList();
           }
         }
       },
@@ -60,16 +127,24 @@ class WordsService extends GetxService {
           if (searchedWord.value.length > 0) {
             filteredWords.value = words.value
                 .where(
-                  (element) =>
-                      element.word.toLowerCase().contains(
-                            searchedWord.value.toLowerCase(),
-                          ) &&
-                      element.categorie.toLowerCase() ==
-                          categorie.value.toLowerCase(),
+                  (element) => searchCriteria(element),
+                )
+                .toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
                 )
                 .toList();
           } else {
-            filteredWords.clear();
+            filteredWords.value =
+                words.value.where((word) => wordOfCategory(word)).toList();
+            filteredProverbs.value = filteredWords.value
+                .where(
+                  (word) => word.translations.any(
+                      (trans) => trans.type.toLowerCase().contains("prov")),
+                )
+                .toList();
           }
         }
       },
@@ -77,33 +152,44 @@ class WordsService extends GetxService {
     );
   }
 
+  void suggestAddingWord() async {
+    Get.toNamed(Routes.addWord);
+  }
+
+  void loadProverbsScreen() async {
+    Get.toNamed(Routes.proverb);
+  }
+
   void setCategorie(String categorie) {
     GetStorage().write('categorie', categorie);
   }
 
-  void getAll() async {
+  Future<void> getAll() async {
     // logcat("You are in WordsService");
     List<Word> ll = await Word.getAll();
+    if (ll != null) {
+      key_words.clear();
+      ll.forEach((element) {
+        key_words.add(element.word.toLowerCase());
+      });
+      // logcat(key_words.toString());
+    }
     if (ll.isNotEmpty) words.value = ll;
     words.value
         .sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+    if (searchedWord.value.length == 0) {
+      filteredWords.value =
+          words.value.where((word) => wordOfCategory(word)).toList();
+      filteredProverbs.value = filteredWords.value
+          .where(
+            (word) => word.translations
+                .any((trans) => trans.type.toLowerCase().contains("prov")),
+          )
+          .toList();
+    }
+    // if (ll.isNotEmpty) {_updateContributionList();}
     if (word.value != null) updateActiveWord();
-    /*   if (words.value != null) {
-      if (searchedWord.value.length > 0) {
-        filteredWords.value = words.value
-            .where(
-              (element) =>
-                  element.word.toLowerCase().contains(
-                        searchedWord.value.toLowerCase(),
-                      ) &&
-                  element.categorie.toLowerCase() ==
-                      categorie.value.toLowerCase(),
-            )
-            .toList();
-      } else {
-        filteredWords.clear();
-      }
-    }*/
+
     isLoading.value = false;
   }
 
@@ -131,5 +217,20 @@ class WordsService extends GetxService {
     await Word.edit(word, this.word.value!.id);
     getAll();
     Get.back();
+  }
+
+  bool searchCriteria(Word word) {
+    if (searchedWord.value.length > 0) {
+      return word.word.toLowerCase().contains(
+                searchedWord.value.toLowerCase(),
+              ) &&
+          word.categorie.toLowerCase() == categorie.value.toLowerCase();
+    } else {
+      return false;
+    }
+  }
+
+  bool wordOfCategory(Word word) {
+    return word.categorie.toLowerCase() == categorie.value.toLowerCase();
   }
 }

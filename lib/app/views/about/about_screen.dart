@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
@@ -12,21 +13,22 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('about'.tr),
       ),
       body: Center(
         child: Column(
           children: [
-            Text(APP_NAME.tr, style: TextStyle(fontSize: getShortSide(20)))
+            Text(APP_NAME.tr, style: TextStyle(fontSize: getTextSize(20)))
                 .paddingOnly(bottom: getShortSide(10.0)),
             Text("Version ${PACKAGE_INFO.version}(${PACKAGE_INFO.buildNumber})",
-                    style: TextStyle(fontSize: getShortSide(16)))
+                    style: TextStyle(fontSize: getTextSize(16)))
                 .paddingOnly(bottom: getShortSide(10.0)),
             SizedBox(height: getShortSide(20)),
             Text('about this app statement'.tr,
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: getShortSide(16))),
+                style: GoogleFonts.courgette(fontSize: getTextSize(16))),
             Text.rich(
               TextSpan(text: "the app currently contains".tr, children: [
                 TextSpan(
@@ -41,15 +43,15 @@ class AboutScreen extends StatelessWidget {
                             .tr)
               ]),
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: getShortSide(16)),
+              style: GoogleFonts.courgette(fontSize: getTextSize(16)),
             ).paddingOnly(top: getShortSide(10.0)),
             const Spacer(),
             Text('conceived and developed by'.tr + " $APP_AUTHOR",
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: getShortSide(12))),
+                style: TextStyle(fontSize: getTextSize(12))),
             Text(
                 "Copyright © ${DateTime.now().year} SmirlTech, All rights reserved.",
-                style: TextStyle(fontSize: getShortSide(12))),
+                style: TextStyle(fontSize: getTextSize(12))),
             SizedBox(height: getShortSide(10)),
           ],
         ),

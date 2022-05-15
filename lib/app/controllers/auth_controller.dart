@@ -5,10 +5,13 @@ import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/log_cat.dart';
 
 import '../models/user.dart';
+import '../routes/routes.dart';
 
 class AuthController extends GetxController {
   var user = Rxn<User>();
   var themy = "system".obs;
+  var isRequestForgotPassword = false.obs;
+  var isConnecting = false.obs;
 
   void storeTheme(String theme) {
     // themy.value = theme;
@@ -16,12 +19,16 @@ class AuthController extends GetxController {
   }
 
   login(Map<String, dynamic> creds) async {
+    isConnecting.value = true;
     User? u = await User.login(creds);
+    isConnecting.value = false;
     if (u != null) Get.back();
   }
 
   register(Map<String, dynamic> user) async {
+    isConnecting.value = true;
     User? u = await User.register(user);
+    isConnecting.value = false;
     if (u != null) Get.back();
   }
 
@@ -33,7 +40,7 @@ class AuthController extends GetxController {
   }
 
   prelogin() async {
-    snackItOld("user initiate login successfully".tr);
+    toastItInfo(msg: "user initiate login successfully".tr);
     var storage = GetStorage();
     var token;
     try {
@@ -50,9 +57,9 @@ class AuthController extends GetxController {
     if (token != null && _user != null) {
       user.value = User.fromMap(_user);
       logcat('User found in storage');
-      snackItOld("user is connected now".tr);
+      toastItSuccess(msg: "user is connected now".tr);
     } else {
-      snackItOld("user connection failed".tr);
+      toastItError(msg: "user connection failed".tr);
     }
   }
 
@@ -66,8 +73,8 @@ class AuthController extends GetxController {
       Get.changeThemeMode(value == 'dark'
           ? ThemeMode.dark
           : value == 'light'
-          ? ThemeMode.light
-          : ThemeMode.system);
+              ? ThemeMode.light
+              : ThemeMode.system);
     });
 
     GetStorage().listenKey('token', (value) {
@@ -79,7 +86,7 @@ class AuthController extends GetxController {
       } on Exception catch (e) {}
       // logcat("user: ${user.value.toString()}");
     });
-    prelogin();
+    // prelogin();
   }
 
   @override
@@ -90,5 +97,71 @@ class AuthController extends GetxController {
 
   bool isAuthenticated() {
     return user.value != null;
+  }
+
+// todo: password resetting implementation
+  forgotPassword(Map<String, dynamic> creds) async {
+    isRequestForgotPassword.value = true;
+    Response response = await User.forgotPassword(creds);
+    if (response.statusCode == 200) {
+      logcat(response.body.toString());
+      Map<String, dynamic> body = response.body;
+      if (body['status'] == 200) {
+        GetStorage().write('reset-email', creds['email']);
+        snackItOldSuccess(body['message']);
+        Get.toNamed(Routes.pass_recovery_confirm);
+      } else {
+        snackItOldError(body['message']);
+      }
+    } else {
+      snackItOldWarning("password reset failed".tr);
+    }
+    isRequestForgotPassword.value = false;
+  }
+
+  passwordResetConfirmCode(Map<String, dynamic> creds) async {
+    isRequestForgotPassword.value = true;
+    Response response = await User.passwordResetConfirmCode(creds);
+    if (response.statusCode == 200) {
+      logcat(response.body.toString());
+      Map<String, dynamic> body = response.body;
+      if (body['status'] == 200) {
+        GetStorage().write('reset-code', creds['code']);
+        snackItOldSuccess(body['message']);
+        Get.toNamed(Routes.pass_recovery_reset);
+      } else {
+        snackItOldError(body['message']);
+      }
+    } else {
+      snackItOldWarning("password reset failed".tr);
+    }
+    isRequestForgotPassword.value = false;
+  }
+
+  forgotPasswordReset(Map<String, dynamic> creds) async {
+    isRequestForgotPassword.value = true;
+    Response response = await User.forgotPasswordReset(creds);
+    if (response.statusCode == 200) {
+      logcat(response.body.toString());
+      Map<String, dynamic> body = response.body;
+      if (body['status'] == 200) {
+        GetStorage().remove('reset-code');
+        GetStorage().remove('reset-email');
+
+        GetStorage().write('token', response.body['data']['token']);
+
+        User u = User.fromMap(response.body['data']);
+        GetStorage().write('user', u.toMap());
+        user.value = u;
+
+        snackItOldSuccess(body['message']);
+        Get.offAndToNamed(Routes.home);
+      } else {
+        snackItOldError(body['message']);
+      }
+    } else {
+      snackItOldWarning("password reset failed".tr);
+    }
+    isRequestForgotPassword.value = false;
   }
 }

@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+
+bool emailValid(String email) => RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+    .hasMatch(email);
+
+bool codeValid(String code) =>
+    RegExp(r"[a-zA-Z0-9]+\-[a-zA-Z0-9]+").hasMatch(code);
 
 ///
 /// Loop through this callback at the spacified interval
@@ -23,8 +31,10 @@ snackIt(
 snackItOld(
   String message, {
   String title = "hey",
+  Color? backgroundColor,
 }) {
   SnackBar sb = SnackBar(
+    backgroundColor: backgroundColor,
     content: Text(message),
   );
   try {
@@ -33,6 +43,85 @@ snackItOld(
     }
   } on Exception catch (e) {}
 }
+
+snackItOldSuccess(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.green);
+}
+
+snackItOldError(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.red);
+}
+
+snackItOldWarning(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.orange);
+}
+
+snackItOldInfo(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.teal);
+}
+
+/// using fluttertoast package
+toastIt(
+    {required String msg,
+    gravity = ToastGravity.BOTTOM,
+    backgroundColor = Colors.black,
+    textColor = Colors.white}) {
+  GetPlatform.isDesktop
+      ? snackItOld(msg, backgroundColor: backgroundColor)
+      : Fluttertoast.showToast(
+          msg: msg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: gravity,
+          timeInSecForIosWeb: 1,
+          backgroundColor: backgroundColor,
+          textColor: textColor,
+          fontSize: 12.0,
+        );
+}
+
+toastItError({
+  required String msg,
+  gravity = ToastGravity.BOTTOM,
+}) =>
+    GetPlatform.isDesktop
+        ? snackItOldError(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.red);
+
+toastItSuccess({
+  required String msg,
+  gravity = ToastGravity.BOTTOM,
+}) =>
+    GetPlatform.isDesktop
+        ? snackItOldSuccess(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.green);
+
+toastItWarning({
+  required String msg,
+  gravity = ToastGravity.BOTTOM,
+}) =>
+    GetPlatform.isDesktop
+        ? snackItOldWarning(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.orange);
+
+toastItInfo({
+  required String msg,
+  gravity = ToastGravity.BOTTOM,
+}) =>
+    GetPlatform.isDesktop
+        ? snackItOldInfo(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.teal);
 
 InputDecoration roundedTextInputDecoration(
     {String? hintText, String? labelText}) {

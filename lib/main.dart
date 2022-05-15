@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
+import 'package:tabwa_french/system/database/emulator_http_overrides.dart';
 import 'package:tabwa_french/system/lang/translate.dart';
 import 'package:tabwa_french/system/themes/theme_setting.dart';
 
@@ -14,6 +15,7 @@ import 'app/services/services.dart';
 late PackageInfo PACKAGE_INFO;
 
 void main() async {
+  EmulatorHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   PACKAGE_INFO = await PackageInfo.fromPlatform();
 

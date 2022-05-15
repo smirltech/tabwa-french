@@ -39,12 +39,13 @@ class AddTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
       child: Center(
         child: Column(
           children: [
             Text("add translation".tr,
-                style: TextStyle(fontSize: getShortSide(20))),
+                    style: TextStyle(fontSize: getTextSize(20)))
+                .paddingSymmetric(vertical: getShortSide(10)),
             Expanded(
               child: ListView(
                 children: [

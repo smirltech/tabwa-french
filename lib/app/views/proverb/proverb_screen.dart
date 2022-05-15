@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smirl_version_checker/nv/version_checker.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
-import 'package:tabwa_french/app/views/home/components/main_menu.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
 import '../../controllers/connectivity_controller.dart';
@@ -14,16 +12,16 @@ import '../../models/translation.dart';
 import '../../models/word.dart';
 import '../../routes/routes.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class ProverbScreen extends StatefulWidget {
+  const ProverbScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _MyHomePageState();
+  State<ProverbScreen> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomeScreen> {
+class _MyHomePageState extends State<ProverbScreen> {
   final ConnectivityController connectivityController =
       Get.find<ConnectivityController>();
   final WordsService _wordsService = Get.find<WordsService>();
@@ -31,43 +29,6 @@ class _MyHomePageState extends State<HomeScreen> {
 
   initState() {
     super.initState();
-
-    final newVersion = VersionChecker(
-      iOSId: 'org.smirl.tabwa_french',
-      androidId: 'org.smirl.tabwa_french',
-    );
-
-    const simpleBehavior = false;
-
-    if (simpleBehavior) {
-      basicStatusCheck(newVersion);
-    } else {
-      advancedStatusCheck(newVersion);
-    }
-  }
-
-  basicStatusCheck(VersionChecker newVersion) {
-    newVersion.showAlertIfNecessary(context: context);
-  }
-
-  advancedStatusCheck(VersionChecker newVersion) async {
-    final status = await newVersion.getVersionStatus();
-
-    if (status != null && status.canUpdate) {
-      final releaseNotes = status.releaseNotes!.replaceAll(";", ";\n");
-      // debugPrint(status.releaseNotes);
-      // debugPrint(status.appStoreLink);
-      // debugPrint(status.localVersion);
-      // debugPrint(status.storeVersion);
-      // debugPrint(status.canUpdate.toString());
-      newVersion.showUpdateDialog(
-        context: context,
-        versionStatus: status,
-        //  allowDismissal: false,
-        dialogTitle: "Nouvelle version disponible : ${status.storeVersion}",
-        dialogText: "NOTES:\n${releaseNotes}",
-      );
-    }
   }
 
   @override
@@ -77,37 +38,25 @@ class _MyHomePageState extends State<HomeScreen> {
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Get.dialog(MainMenu(), transitionCurve: Curves.linearToEaseOut);
-            },
-          ),
           // title: Text(APP_NAME),
-          title: Obx(() {
-            return CupertinoSearchTextField(
-              controller: _wordsService.searchEditingController.value,
-              onChanged: (value) {
-                _wordsService.searchedWord.value = value;
-              },
-              style: TextStyle(fontSize: getTextSize(14)),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              placeholder: "search".tr +
-                  " " +
-                  "in".tr +
-                  ' ' +
-                  _wordsService.categorie.value,
-            );
-          }),
+          title: CupertinoSearchTextField(
+            controller: _wordsService.searchEditingController.value,
+            onChanged: (value) {
+              _wordsService.searchedWord.value = value;
+            },
+            style: TextStyle(fontSize: getTextSize(12)),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            placeholder: "search".tr + ' ' + 'proverb'.tr,
+          ),
           actions: [
             Obx(() {
               int cnt = 0;
               String cntStr = cnt.toString();
               try {
-                cnt = _wordsService.filteredWords.value.length;
+                cnt = _wordsService.filteredProverbs.value.length;
                 cntStr = cnt > 999 ? '999+' : cnt.toString();
               } on Exception catch (_) {}
               return Badge(
@@ -118,7 +67,7 @@ class _MyHomePageState extends State<HomeScreen> {
                   horizontal: 2,
                 ),
                 badgeColor: Theme.of(context).primaryColor,
-                position: BadgePosition.topEnd(top: 0, end: -5),
+                position: BadgePosition.topEnd(top: 0, end: -1),
                 child: TextButton(
                   onPressed: () {
                     final String v = _wordsService.categorie.value == 'tabwa'
@@ -164,28 +113,26 @@ class _MyHomePageState extends State<HomeScreen> {
                   children: [
                     Text(
                       'loading...'.tr,
-                      style: TextStyle(fontSize: getTextSize(24)),
+                      style: const TextStyle(fontSize: 24),
                     ),
                     const LinearProgressIndicator(),
                   ],
                 ),
               ),
             );
-          } else if (_wordsService.filteredWords.isEmpty) {
+          } else if (_wordsService.filteredProverbs.isEmpty) {
             if (_wordsService.searchedWord.isNotEmpty) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("no word or expression found from searched term".tr,
-                        style: TextStyle(fontSize: getTextSize(12))),
+                    Text("no word or expression found from searched term".tr),
                     if (_authController.isAuthenticated())
                       OutlinedButton(
                           onPressed: () {
                             _wordsService.suggestAddingWord();
                           },
-                          child: Text("add".tr,
-                              style: TextStyle(fontSize: getTextSize(12)))),
+                          child: Text("add".tr)),
                   ],
                 ),
               );
@@ -194,8 +141,7 @@ class _MyHomePageState extends State<HomeScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('no words or expressions yet'.tr,
-                      style: TextStyle(fontSize: getTextSize(12))),
+                  Text('no proverb yet'.tr),
                   /*Text('the dictionnary has'.tr +
                       ' ${_wordsService.words.length} ' +
                       '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
@@ -205,13 +151,11 @@ class _MyHomePageState extends State<HomeScreen> {
           }
           return ListView.builder(
             itemBuilder: (context, index) {
-              Word word = _wordsService.filteredWords[index];
+              Word word = _wordsService.filteredProverbs[index];
               List<Translation> _translations = word.translations;
               List<String> _traas = [];
               if (_translations.isNotEmpty) {
-                _traas = _translations
-                    .map((t) => "[${t.type_ab}] ${t.translation}")
-                    .toList();
+                _traas = _translations.map((t) => t.translation).toList();
               }
               return Card(
                 elevation: 0,
@@ -254,7 +198,7 @@ class _MyHomePageState extends State<HomeScreen> {
                 ),
               );
             },
-            itemCount: _wordsService.filteredWords.length,
+            itemCount: _wordsService.filteredProverbs.length,
           );
         }), onRefresh: () async {
           _wordsService.getAll();

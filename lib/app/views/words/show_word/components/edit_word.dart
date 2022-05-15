@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/translations_controller.dart';
 import 'package:tabwa_french/app/models/type.dart';
+import 'package:tabwa_french/system/helpers/audio_recorder/audio_recorder.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
@@ -46,27 +47,57 @@ class EditWord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
       height: getShortSide(260),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Center(
                 child: Text("edit word".tr,
-                    style: TextStyle(fontSize: getShortSide(20)))),
+                        style: TextStyle(fontSize: getTextSize(20)))
+                    .paddingSymmetric(vertical: getShortSide(10))),
           ),
           SliverToBoxAdapter(
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    initialValue: word['word'],
-                    onChanged: (value) {
-                      word['word'] = value;
-                    },
-                    decoration:
-                        roundedTextInputDecoration(labelText: 'word'.tr),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          initialValue: word['word'],
+                          onChanged: (value) {
+                            word['word'] = value;
+                          },
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'word is required'.tr;
+                            }
+                            if (_wordsService.key_words.value
+                                .contains(value.toLowerCase())) {
+                              return 'word already exists'.tr;
+                            }
+                            return null;
+                          },
+                          decoration:
+                              roundedTextInputDecoration(labelText: 'word'.tr),
+                        ),
+                      ),
+                      // SizedBox(width: getShortSide(10)),
+                      IconButton(
+                          onPressed: () {
+                            Get.dialog(
+                              AudioRecorder(
+                                textBody: word['word'],
+                                section: 'words',
+                                section_id: wordy.id,
+                              ),
+                            );
+                          },
+                          icon: Icon(Icons.mic)),
+                    ],
                   ),
                 ),
                 Padding(

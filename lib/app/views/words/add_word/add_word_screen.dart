@@ -23,6 +23,8 @@ class AddWordScreen extends StatelessWidget {
       );
     }).toList();
     if (tty.isNotEmpty) selectedType.value = tty[0].value;
+
+    word["word"] = _wordsService.searchedWord.value;
   }
 
   var word = <String, dynamic>{
@@ -81,6 +83,17 @@ class AddWordScreen extends StatelessWidget {
                     onChanged: (value) {
                       word.value['word'] = value;
                     },
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'word is required'.tr;
+                      }
+                      if (_wordsService.key_words.value
+                          .contains(value.toLowerCase())) {
+                        return 'word already exists'.tr;
+                      }
+                      return null;
+                    },
                     decoration:
                         roundedTextInputDecoration(labelText: 'word'.tr),
                   ),
@@ -104,7 +117,7 @@ class AddWordScreen extends StatelessWidget {
                 ),
                 const Divider(),
                 Text("optional".tr,
-                    style: TextStyle(fontSize: getShortSide(16))),
+                    style: TextStyle(fontSize: getTextSize(16))),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextFormField(
