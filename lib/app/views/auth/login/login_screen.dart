@@ -41,63 +41,71 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text(
-              "login to be able to contribute to the community dictionnary".tr,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: getTextSize(14),
+            Expanded(
+              child: ListView(
+                children: [
+                  Text(
+                    "login to be able to contribute to the community dictionnary"
+                        .tr,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: getTextSize(14),
+                    ),
+                  ).paddingOnly(
+                      top: getShortSide(20), bottom: getShortSide(20)),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      initialValue: creds['email'],
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        creds['email'] = value;
+                      },
+                      decoration:
+                          roundedTextInputDecoration(labelText: 'email'.tr),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      initialValue: creds['password'],
+                      obscureText: true,
+                      onChanged: (value) {
+                        creds['password'] = value;
+                      },
+                      decoration:
+                          roundedTextInputDecoration(labelText: 'password'.tr),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(getShortSide(10)),
+                    child: Obx(() {
+                      return _authController.isConnecting.isFalse
+                          ? const SizedBox.shrink()
+                          : const LinearProgressIndicator();
+                    }),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: OutlinedButton(
+                        onPressed: () {
+                          if (creds['email'].isNotEmpty &&
+                              creds['password'].isNotEmpty) {
+                            _authController.login(creds);
+                          } else {
+                            snackItOldWarning(
+                              'email and password are required'.tr,
+                            );
+                          }
+                        },
+                        child: Text('login'.tr,
+                            style: TextStyle(fontSize: getTextSize(12)))),
+                  ),
+                ],
               ),
-            ).paddingOnly(top: getShortSide(20), bottom: getShortSide(20)),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextFormField(
-                initialValue: creds['email'],
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) {
-                  creds['email'] = value;
-                },
-                decoration: roundedTextInputDecoration(labelText: 'email'.tr),
-              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: TextFormField(
-                initialValue: creds['password'],
-                obscureText: true,
-                onChanged: (value) {
-                  creds['password'] = value;
-                },
-                decoration:
-                    roundedTextInputDecoration(labelText: 'password'.tr),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(getShortSide(10)),
-              child: Obx(() {
-                return _authController.isConnecting.isFalse
-                    ? const SizedBox.shrink()
-                    : const LinearProgressIndicator();
-              }),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: OutlinedButton(
-                  onPressed: () {
-                    if (creds['email'].isNotEmpty &&
-                        creds['password'].isNotEmpty) {
-                      _authController.login(creds);
-                    } else {
-                      snackItOldWarning(
-                        'email and password are required'.tr,
-                      );
-                    }
-                  },
-                  child: Text('login'.tr,
-                      style: TextStyle(fontSize: getTextSize(12)))),
-            ),
-            const Spacer(),
             Container(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               alignment: Alignment.centerRight,
               child: OutlinedButton(
                   onPressed: () {

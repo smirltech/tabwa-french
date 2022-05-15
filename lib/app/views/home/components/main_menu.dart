@@ -22,83 +22,88 @@ class MainMenu extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ListTile(
-              leading: Icon(
-                Icons.home,
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: Icon(
+                      Icons.home,
+                    ),
+                    title: Text('home'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.book,
+                    ),
+                    title: Text('proverbs'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                      Get.find<WordsService>().loadProverbsScreen();
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.account_circle,
+                    ),
+                    title: Text('profile'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Routes.profile);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.settings,
+                    ),
+                    title: Text('settings'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Routes.settings);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.privacy_tip_outlined,
+                    ),
+                    title: Text('privacy policy'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Routes.privacy);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      FontAwesome5.users,
+                    ),
+                    title: Text('contributions'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Routes.contributions);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.info,
+                    ),
+                    title: Text('about'.tr,
+                        style: TextStyle(fontSize: getTextSize(14))),
+                    onTap: () {
+                      Get.back();
+                      Get.toNamed(Routes.about);
+                    },
+                  ),
+                ],
               ),
-              title:
-                  Text('home'.tr, style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-              },
             ),
-            ListTile(
-              leading: Icon(
-                Icons.book,
-              ),
-              title: Text('proverbs'.tr,
-                  style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-                Get.find<WordsService>().loadProverbsScreen();
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.account_circle,
-              ),
-              title: Text('profile'.tr,
-                  style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-                Get.toNamed(Routes.profile);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.settings,
-              ),
-              title: Text('settings'.tr,
-                  style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-                Get.toNamed(Routes.settings);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.privacy_tip_outlined,
-              ),
-              title: Text('privacy policy'.tr,
-                  style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-                Get.toNamed(Routes.privacy);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.info,
-              ),
-              title:
-                  Text('about'.tr, style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-                Get.toNamed(Routes.about);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                FontAwesome5.users,
-              ),
-              title: Text('contributions'.tr,
-                  style: TextStyle(fontSize: getTextSize(14))),
-              onTap: () {
-                Get.back();
-                Get.toNamed(Routes.contributions);
-              },
-            ),
-            const Spacer(),
             Divider(
               thickness: 0.8,
               color: Theme.of(context).primaryColor,

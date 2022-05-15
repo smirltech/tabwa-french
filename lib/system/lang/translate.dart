@@ -109,6 +109,11 @@ class Translate extends Translations {
               "Please enter a valid length password, minimum 6 characters",
           "enter new password": "Enter new password",
           "email and password are required": "Email and password are required",
+          "contributions": "Contributions",
+          "translations": "Translations",
+          "edition": "Edition",
+          "We are grateful to announce the list of people who have contributed passionately to this community dictionary":
+              "We are grateful to announce the list of people who have contributed passionately to this community dictionary",
         },
         'fr_FR': {
           "add": "Ajouter",
@@ -217,6 +222,11 @@ class Translate extends Translations {
               "Entrez un mot de passe valide de longueur minimale 6 caractères",
           "enter new password": "Entrez le nouveau mot de passe",
           "email and password are required": "Email et mot de passe requis",
+          "contributions": "Contributions",
+          "translations": "Traductions",
+          "edition": "Édition",
+          "We are grateful to announce the list of people who have contributed passionately to this community dictionary":
+              "Nous sommes fiers de vous annoncer la liste des personnes qui ont contribué passionnément à ce dictionnaire communautaire",
         }
       };
 }

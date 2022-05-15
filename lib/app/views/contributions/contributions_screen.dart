@@ -15,6 +15,7 @@ class ContributionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -28,10 +29,39 @@ class ContributionsScreen extends StatelessWidget {
                         .tr,
                     style: TextStyle(fontSize: getTextSize(20)))
                 .paddingOnly(bottom: getShortSide(10.0)),
-            SizedBox(height: getShortSide(20)),
             Expanded(child: Obx(() {
               return EasyTable<Buggy>(
-                _wordsService.contributionModel.value,
+                EasyTableModel<Buggy>(
+                    rows: _wordsService.contributions.value,
+                    columns: [
+                      EasyTableColumn(
+                        name: 'name'.tr,
+                        stringValue: (row) => row.name,
+                        weight: 4,
+                        // width: Get.width * 0.4,
+                        // resizable: true,
+                      ),
+                      EasyTableColumn(
+                          name: 'words'.tr,
+                          intValue: (row) => row.wa,
+                          // width: Get.width * 0.15,
+                          alignment: Alignment.center),
+                      EasyTableColumn(
+                          name: 'edition'.tr,
+                          intValue: (row) => row.wm,
+                          //width: Get.width * 0.15,
+                          alignment: Alignment.center),
+                      EasyTableColumn(
+                          name: 'translations'.tr,
+                          intValue: (row) => row.ta,
+                          // width: Get.width * 0.15,
+                          alignment: Alignment.center),
+                      EasyTableColumn(
+                          name: 'edition'.tr,
+                          intValue: (row) => row.tm,
+                          // width: Get.width * 0.15,
+                          alignment: Alignment.center)
+                    ]),
                 columnsFit: true,
               );
             })),

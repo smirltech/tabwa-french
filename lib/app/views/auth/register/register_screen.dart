@@ -42,7 +42,7 @@ class RegisterScreen extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
             Text(
               "register to the dictionnary to be able to contribute to the community with your precious knowledge"

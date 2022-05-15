@@ -21,27 +21,48 @@ class WordsService extends GetxService {
   var filteredProverbs = <Word>[].obs;
   var searchEditingController = TextEditingController().obs;
 
-  var contributionModel = Rxn<EasyTableModel<Buggy>>();
+  var contributions = <Buggy>[].obs;
 
   _updateContributionList() async {
-    contributionModel.value = EasyTableModel<Buggy>(rows: [
-      Buggy(name: 'Landon', wa: 19),
+    /* contributions.value = [
+      Buggy(name: 'Landon', wa: 19, wm: 12, ta: 4, tm: 56),
       Buggy(name: 'Sari', wa: 22),
       Buggy(name: 'Julian', wa: 37),
       Buggy(name: 'Carey', wa: 39),
       Buggy(name: 'Cadu', wa: 43),
       Buggy(name: 'Delmar', wa: 72)
-    ], columns: [
-      EasyTableColumn(
-        name: 'Name',
-        stringValue: (row) => row.name,
-        resizable: true,
-      ),
-      EasyTableColumn(name: 'wa', intValue: (row) => row.wa, width: 10),
-      EasyTableColumn(name: 'wm', intValue: (row) => row.wm, width: 10),
-      EasyTableColumn(name: 'ta', intValue: (row) => row.ta, width: 10),
-      EasyTableColumn(name: 'tm', intValue: (row) => row.tm, width: 10)
-    ]);
+    ];
+*/
+    debounce(words, (v) {
+      Map<String, Buggy> map = {};
+      words.value.forEach((word) {
+        if (map.containsKey(word.user)) {
+          map[word.user]!.wa += 1;
+        } else {
+          map[word.user] = Buggy(name: word.user, wa: 1);
+        }
+        if (map.containsKey(word.updater)) {
+          map[word.updater]!.wm += 1;
+        } else {
+          map[word.updater] = Buggy(name: word.updater, wm: 1);
+        }
+
+        word.translations.forEach((translation) {
+          if (map.containsKey(translation.user)) {
+            map[translation.user]!.ta += 1;
+          } else {
+            map[translation.user] = Buggy(name: translation.user, ta: 1);
+          }
+          if (map.containsKey(translation.updater)) {
+            map[translation.updater]!.tm += 1;
+          } else {
+            map[translation.updater] = Buggy(name: translation.updater, tm: 1);
+          }
+        });
+      });
+
+      contributions.value = map.values.toList();
+    });
   }
 
   @override
@@ -158,6 +179,7 @@ class WordsService extends GetxService {
           )
           .toList();
     }
+    // if (ll.isNotEmpty) {_updateContributionList();}
     if (word.value != null) updateActiveWord();
 
     isLoading.value = false;
