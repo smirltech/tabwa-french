@@ -90,7 +90,7 @@ class _MyHomePageState extends State<HomeScreen> {
               onChanged: (value) {
                 _wordsService.searchedWord.value = value;
               },
-              style: TextStyle(fontSize: getTextSize(12)),
+              style: TextStyle(fontSize: getTextSize(14)),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),

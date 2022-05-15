@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
@@ -24,7 +25,6 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.home,
-                size: getShortSide(30),
               ),
               title:
                   Text('home'.tr, style: TextStyle(fontSize: getTextSize(14))),
@@ -35,7 +35,6 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.book,
-                size: getShortSide(30),
               ),
               title: Text('proverbs'.tr,
                   style: TextStyle(fontSize: getTextSize(14))),
@@ -47,7 +46,6 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.account_circle,
-                size: getShortSide(30),
               ),
               title: Text('profile'.tr,
                   style: TextStyle(fontSize: getTextSize(14))),
@@ -59,7 +57,6 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.settings,
-                size: getShortSide(30),
               ),
               title: Text('settings'.tr,
                   style: TextStyle(fontSize: getTextSize(14))),
@@ -71,7 +68,6 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.privacy_tip_outlined,
-                size: getShortSide(30),
               ),
               title: Text('privacy policy'.tr,
                   style: TextStyle(fontSize: getTextSize(14))),
@@ -83,13 +79,23 @@ class MainMenu extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.info,
-                size: getShortSide(30),
               ),
               title:
                   Text('about'.tr, style: TextStyle(fontSize: getTextSize(14))),
               onTap: () {
                 Get.back();
                 Get.toNamed(Routes.about);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                FontAwesome5.users,
+              ),
+              title: Text('contributions'.tr,
+                  style: TextStyle(fontSize: getTextSize(14))),
+              onTap: () {
+                Get.back();
+                Get.toNamed(Routes.contributions);
               },
             ),
             const Spacer(),
@@ -113,7 +119,6 @@ class MainMenu extends StatelessWidget {
                         ),
                         icon: Icon(
                           Icons.logout,
-                          size: getShortSide(30),
                         ),
                         label: Text('logout'.tr,
                             style: TextStyle(fontSize: getTextSize(14))),
@@ -128,7 +133,6 @@ class MainMenu extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.login,
-                          size: getShortSide(30),
                         ),
                         label: Text('login'.tr,
                             style: TextStyle(fontSize: getTextSize(14))),
@@ -148,7 +152,6 @@ class MainMenu extends StatelessWidget {
                       ),
                       icon: Icon(
                         Icons.person_add_alt,
-                        size: getShortSide(30),
                       ),
                       label: Text('register'.tr,
                           style: TextStyle(fontSize: getTextSize(14))),

@@ -1,12 +1,12 @@
 const bool _online = true;
-const bool ON_EMULATOR = true;
+const bool ON_EMULATOR = false;
 const String _OFFLINE_BASE_URL = "http://tabwa.test/api";
 const String _ONLINE_BASE_URL = ON_EMULATOR
     ? "http://tabwa.smirltech.com/api"
     : "https://tabwa.smirltech.com/api";
 const String BASE_URL = _online ? _ONLINE_BASE_URL : _OFFLINE_BASE_URL;
 
-// PASSWORD FUNCTIONNALITY
+// PASSWORD FUNCTIONALITY
 const String FORGOT_PASSWORD_URL = BASE_URL + "/forgot-password";
 const String FORGOT_PASSWORD_RESET_URL = BASE_URL + "/forgot-password-reset";
 const String PASSWORD_RESET_CONFIRM_CODE_URL =

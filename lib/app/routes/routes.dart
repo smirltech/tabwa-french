@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/middlewares/auth_middleware.dart';
+import 'package:tabwa_french/app/views/contributions/contributions_screen.dart';
 import 'package:tabwa_french/app/views/home/home_screen.dart';
 import 'package:tabwa_french/app/views/privacy/privacy_screen.dart';
 import 'package:tabwa_french/app/views/profile/profile_screen.dart';
@@ -24,6 +25,7 @@ class Routes {
   static String profile = '/profile';
   static String settings = '/settings';
   static String about = '/about';
+  static String contributions = '/contributions';
   static String privacy = '/privacy';
   static String proverb = '/proverb';
   static String pass_recovery_request = '/pass-recovery-request';
@@ -68,6 +70,10 @@ class Routes {
     GetPage(
       name: about,
       page: () => AboutScreen(),
+    ),
+    GetPage(
+      name: contributions,
+      page: () => ContributionsScreen(),
     ),
     GetPage(
       name: privacy,

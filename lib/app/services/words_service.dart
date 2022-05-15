@@ -1,10 +1,13 @@
+import 'package:easy_table/easy_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import '../../system/helpers/log_cat.dart';
+import '../models/buggy.dart';
 import '../models/word.dart';
 import '../routes/routes.dart';
+import '../views/contributions/contributions_screen.dart';
 
 class WordsService extends GetxService {
   var words = <Word>[].obs;
@@ -18,6 +21,29 @@ class WordsService extends GetxService {
   var filteredProverbs = <Word>[].obs;
   var searchEditingController = TextEditingController().obs;
 
+  var contributionModel = Rxn<EasyTableModel<Buggy>>();
+
+  _updateContributionList() async {
+    contributionModel.value = EasyTableModel<Buggy>(rows: [
+      Buggy(name: 'Landon', wa: 19),
+      Buggy(name: 'Sari', wa: 22),
+      Buggy(name: 'Julian', wa: 37),
+      Buggy(name: 'Carey', wa: 39),
+      Buggy(name: 'Cadu', wa: 43),
+      Buggy(name: 'Delmar', wa: 72)
+    ], columns: [
+      EasyTableColumn(
+        name: 'Name',
+        stringValue: (row) => row.name,
+        resizable: true,
+      ),
+      EasyTableColumn(name: 'wa', intValue: (row) => row.wa, width: 10),
+      EasyTableColumn(name: 'wm', intValue: (row) => row.wm, width: 10),
+      EasyTableColumn(name: 'ta', intValue: (row) => row.ta, width: 10),
+      EasyTableColumn(name: 'tm', intValue: (row) => row.tm, width: 10)
+    ]);
+  }
+
   @override
   void onInit() {
     GetStorage().writeIfNull('categorie', categorie.value);
@@ -28,6 +54,7 @@ class WordsService extends GetxService {
       logcat("categorie: $value");
       if (value != null) categorie.value = value;
     });
+    _updateContributionList();
   }
 
   @override

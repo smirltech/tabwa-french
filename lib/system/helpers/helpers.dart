@@ -65,46 +65,63 @@ snackItOldWarning(
   snackItOld(message, title: title, backgroundColor: Colors.orange);
 }
 
+snackItOldInfo(
+  String message, {
+  String title = "hey",
+}) {
+  snackItOld(message, title: title, backgroundColor: Colors.teal);
+}
+
 /// using fluttertoast package
 toastIt(
     {required String msg,
     gravity = ToastGravity.BOTTOM,
     backgroundColor = Colors.black,
     textColor = Colors.white}) {
-  Fluttertoast.showToast(
-    msg: msg,
-    toastLength: Toast.LENGTH_SHORT,
-    gravity: gravity,
-    timeInSecForIosWeb: 1,
-    backgroundColor: backgroundColor,
-    textColor: textColor,
-    fontSize: 12.0,
-  );
+  GetPlatform.isDesktop
+      ? snackItOld(msg, backgroundColor: backgroundColor)
+      : Fluttertoast.showToast(
+          msg: msg,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: gravity,
+          timeInSecForIosWeb: 1,
+          backgroundColor: backgroundColor,
+          textColor: textColor,
+          fontSize: 12.0,
+        );
 }
 
 toastItError({
   required String msg,
   gravity = ToastGravity.BOTTOM,
 }) =>
-    toastIt(msg: msg, backgroundColor: Colors.red);
+    GetPlatform.isDesktop
+        ? snackItOldError(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.red);
 
 toastItSuccess({
   required String msg,
   gravity = ToastGravity.BOTTOM,
 }) =>
-    toastIt(msg: msg, backgroundColor: Colors.green);
+    GetPlatform.isDesktop
+        ? snackItOldSuccess(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.green);
 
 toastItWarning({
   required String msg,
   gravity = ToastGravity.BOTTOM,
 }) =>
-    toastIt(msg: msg, backgroundColor: Colors.orange);
+    GetPlatform.isDesktop
+        ? snackItOldWarning(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.orange);
 
 toastItInfo({
   required String msg,
   gravity = ToastGravity.BOTTOM,
 }) =>
-    toastIt(msg: msg, backgroundColor: Colors.teal);
+    GetPlatform.isDesktop
+        ? snackItOldInfo(msg)
+        : toastIt(msg: msg, backgroundColor: Colors.teal);
 
 InputDecoration roundedTextInputDecoration(
     {String? hintText, String? labelText}) {

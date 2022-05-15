@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.4
+  fluttericon: ^2.0.0
   google_fonts: ^2.3.2
 
   path_provider: ^2.0.9
@@ -34,6 +35,7 @@ dependencies:
 
   # adding badge to widget
   badges: ^2.0.2
+  easy_table: ^1.2.0
 
 
 dev_dependencies:
