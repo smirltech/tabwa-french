@@ -27,6 +27,7 @@ class ContributionsScreen extends StatelessWidget {
             Text(
                     "We are grateful to announce the list of people who have contributed passionately to this community dictionary"
                         .tr,
+                    textAlign: TextAlign.justify,
                     style: TextStyle(fontSize: getTextSize(20)))
                 .paddingOnly(bottom: getShortSide(10.0)),
             Expanded(child: Obx(() {

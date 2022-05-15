@@ -8,6 +8,7 @@ import '../models/buggy.dart';
 import '../models/word.dart';
 import '../routes/routes.dart';
 import '../views/contributions/contributions_screen.dart';
+import 'dart:math' as math;
 
 class WordsService extends GetxService {
   var words = <Word>[].obs;
@@ -62,6 +63,13 @@ class WordsService extends GetxService {
       });
 
       contributions.value = map.values.toList();
+      contributions.value.sort((a, b) {
+        var x = math.max(a.wa, math.max(a.wm, math.max(a.ta, a.tm)));
+        var y = math.max(b.wa, math.max(b.wm, math.max(b.ta, b.tm)));
+        // var x = a.wa + a.wm + a.ta + a.tm;
+        //  var y = b.wa + b.wm + b.ta + b.tm;
+        return y - x;
+      });
     });
   }
 

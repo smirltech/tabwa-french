@@ -1,5 +1,5 @@
 const bool _online = true;
-const bool ON_EMULATOR = false;
+const bool ON_EMULATOR = true;
 const String _OFFLINE_BASE_URL = "http://tabwa.test/api";
 const String _ONLINE_BASE_URL = ON_EMULATOR
     ? "http://tabwa.smirltech.com/api"
