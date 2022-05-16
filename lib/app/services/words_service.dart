@@ -24,7 +24,7 @@ class WordsService extends GetxService {
 
   var contributions = <Buggy>[].obs;
 
-  _updateContributionList() async {
+  updateContributionList() async {
     /* contributions.value = [
       Buggy(name: 'Landon', wa: 19, wm: 12, ta: 4, tm: 56),
       Buggy(name: 'Sari', wa: 22),
@@ -84,7 +84,7 @@ class WordsService extends GetxService {
       logcat("categorie: $value");
       if (value != null) categorie.value = value;
     });
-    _updateContributionList();
+    updateContributionList();
   }
 
   @override

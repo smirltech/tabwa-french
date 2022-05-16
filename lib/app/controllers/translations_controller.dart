@@ -15,6 +15,7 @@ class TranslationsController extends GetxController {
     //  logcat(translation.toString());
     await Translation.edit(translation, translation['id']);
     Get.find<WordsService>().updateActiveWord();
+    Get.find<WordsService>().getAll();
     Get.back();
   }
 }

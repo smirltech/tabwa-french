@@ -155,6 +155,7 @@ class EditTranslation extends StatelessWidget {
                     child: ElevatedButton(
                       child: Text('edit'.tr),
                       onPressed: () {
+                        translation['user_id'] = _authController.user.value!.id;
                         _translationsController.editTranslation(translation);
                       },
                     ),
