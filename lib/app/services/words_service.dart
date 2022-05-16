@@ -36,6 +36,7 @@ class WordsService extends GetxService {
 */
     debounce(words, (v) {
       Map<String, Buggy> map = {};
+
       words.value.forEach((word) {
         if (map.containsKey(word.user)) {
           map[word.user]!.wa += 1;
