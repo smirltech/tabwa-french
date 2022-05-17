@@ -43,10 +43,28 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^1.0.4
+  msix: ^3.6.2
 
 flutter:
 
   uses-material-design: true
+
+msix_config:
+  display_name: Dictionnaire Tabwa-Français
+  publisher_display_name: francis N Numbi
+  publisher: CN=004404043FFIR-4DDUEHFKD-DLDK4L3L
+  identity_name: org.smirl.tabwa-french
+  msix_version: 1.0.0.0
+  logo_path: C:\Projects\dart_flutters\tabwa_french\android\app\src\main\res\mipmap\ic_launcher.png
+  icons_background_color: "#ffffff"
+  architecture: x64
+  publisher_url: https://tabwa.smirltech.com/applications
+  publisher_email: francis@smirltech.com
+  publisher_website: https://tabwa.smirltech.com/applications
+  publisher_logo: https://tabwa.smirltech.com/applications/images/logo.png
+  # some comments
+  # capabilities: "internetClient"
+  capabilities: internetClient, microphone
 
   
   
