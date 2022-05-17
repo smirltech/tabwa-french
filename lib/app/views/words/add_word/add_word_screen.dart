@@ -53,13 +53,16 @@ class AddWordScreen extends StatelessWidget {
     SizeConfig.init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('new word'.tr),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: Text('new word'.tr,
+            style: TextStyle(color: Theme.of(context).hintColor)),
         actions: [
           Obx(() {
             return TextButton(
               child: Text(
                 'add'.tr,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: Theme.of(context).hintColor),
               ),
               onPressed: word.value['word'].toString().isEmpty
                   ? null

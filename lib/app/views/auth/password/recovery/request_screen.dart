@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/app/routes/routes.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../../../system/helpers/helpers.dart';
 import '../../../../../system/helpers/sizes.dart';
@@ -27,8 +28,10 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
         title: Text('password recovery'.tr,
-            style: TextStyle(fontSize: getTextSize(16))),
+            style: TextStyle(fontSize: ThemeSetting.large)),
       ),
       body: Center(
         child: Column(
@@ -83,7 +86,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
                             _authController.forgotPassword(creds);
                           },
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: getTextSize(12))),
+                        textStyle: TextStyle(fontSize: ThemeSetting.normal)),
                     child: Text("request for the code".tr));
               }),
             ),
@@ -91,10 +94,10 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
               padding: EdgeInsets.all(10.0),
               child: Text.rich(
                 TextSpan(
-                    text: "if you received the code already".tr + ',',
+                    text: "if you received the code already".tr + ', ',
                     children: [
                       TextSpan(
-                        text: " " + "enter it here".tr + " ",
+                        text: " " + "enter it here".tr + " .",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           backgroundColor: Colors.orange,
@@ -107,7 +110,7 @@ class PasswordRecoveryRequestScreen extends StatelessWidget {
                       ),
                     ]),
                 style: TextStyle(
-                  fontSize: getTextSize(11),
+                  fontSize: ThemeSetting.small,
                 ),
               ), //Text("I have got the code"),
             ),

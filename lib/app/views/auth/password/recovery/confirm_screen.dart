@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../../../system/helpers/helpers.dart';
 import '../../../../../system/helpers/sizes.dart';
@@ -26,8 +27,10 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
         title: Text('confirm code'.tr,
-            style: TextStyle(fontSize: getTextSize(16))),
+            style: TextStyle(fontSize: ThemeSetting.large)),
       ),
       body: Center(
         child: Column(
@@ -36,7 +39,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
               "if you have received a code, enter it below".tr,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: getTextSize(14),
+                fontSize: ThemeSetting.big,
               ),
             ).paddingAll(getShortSide(20)),
             Padding(
@@ -83,7 +86,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
                             _authController.passwordResetConfirmCode(creds);
                           },
                     style: ElevatedButton.styleFrom(
-                        textStyle: TextStyle(fontSize: getTextSize(12))),
+                        textStyle: TextStyle(fontSize: ThemeSetting.normal)),
                     child: Text("check the code".tr));
               }),
             ),

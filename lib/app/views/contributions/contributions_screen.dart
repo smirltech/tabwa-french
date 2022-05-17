@@ -17,9 +17,12 @@ class ContributionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      // backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('contributions'.tr),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: Text('contributions'.tr,
+            style: TextStyle(color: Theme.of(context).hintColor)),
       ),
       body: Center(
         child: Column(

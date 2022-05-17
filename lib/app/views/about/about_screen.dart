@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../main.dart';
 
@@ -13,29 +14,32 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      // backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('about'.tr),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: Text('about'.tr,
+            style: TextStyle(color: Theme.of(context).hintColor)),
       ),
       body: Center(
         child: Column(
           children: [
-            Text(APP_NAME.tr, style: TextStyle(fontSize: getTextSize(20)))
+            Text(APP_NAME.tr, style: TextStyle(fontSize: ThemeSetting.large))
                 .paddingOnly(bottom: getShortSide(10.0)),
             Text("Version ${PACKAGE_INFO.version}(${PACKAGE_INFO.buildNumber})",
-                    style: TextStyle(fontSize: getTextSize(16)))
+                    style: TextStyle(fontSize: ThemeSetting.big))
                 .paddingOnly(bottom: getShortSide(10.0)),
             SizedBox(height: getShortSide(20)),
             Text('about this app statement'.tr,
                 textAlign: TextAlign.justify,
-                style: GoogleFonts.courgette(fontSize: getTextSize(16))),
+                style: GoogleFonts.courgette(fontSize: ThemeSetting.big)),
             Text.rich(
               TextSpan(text: "the app currently contains".tr, children: [
                 TextSpan(
                     text: ' ${Get.find<WordsService>().words.value.length} ',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor)),
+                        color: Theme.of(context).colorScheme.error)),
                 TextSpan(
                     text: 'words'.tr +
                         " " +
@@ -43,15 +47,15 @@ class AboutScreen extends StatelessWidget {
                             .tr)
               ]),
               textAlign: TextAlign.left,
-              style: GoogleFonts.courgette(fontSize: getTextSize(16)),
+              style: GoogleFonts.courgette(fontSize: ThemeSetting.big),
             ).paddingOnly(top: getShortSide(10.0)),
             const Spacer(),
             Text('conceived and developed by'.tr + " $APP_AUTHOR",
                 textAlign: TextAlign.justify,
-                style: TextStyle(fontSize: getTextSize(12))),
+                style: TextStyle(fontSize: ThemeSetting.small)),
             Text(
                 "Copyright © ${DateTime.now().year} SmirlTech, All rights reserved.",
-                style: TextStyle(fontSize: getTextSize(12))),
+                style: TextStyle(fontSize: ThemeSetting.small)),
             SizedBox(height: getShortSide(10)),
           ],
         ),

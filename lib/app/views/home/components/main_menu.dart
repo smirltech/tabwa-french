@@ -3,6 +3,7 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../routes/routes.dart';
 
@@ -13,9 +14,14 @@ class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      //   backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('menu'.tr, style: TextStyle(fontSize: getTextSize(16))),
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        elevation: 0,
+        title: Text('menu'.tr.toUpperCase(),
+            style: TextStyle(
+                fontSize: ThemeSetting.massive,
+                color: Theme.of(context).hintColor)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

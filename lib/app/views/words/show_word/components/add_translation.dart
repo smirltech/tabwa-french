@@ -7,6 +7,7 @@ import 'package:tabwa_french/system/helpers/sizes.dart';
 
 import '../../../../../system/configs/configs.dart';
 import '../../../../../system/helpers/log_cat.dart';
+import '../../../../../system/themes/theme_setting.dart';
 import '../../../../controllers/auth_controller.dart';
 import '../../../../controllers/types_controller.dart';
 import '../../../../services/words_service.dart';
@@ -16,7 +17,7 @@ class AddTranslation extends StatelessWidget {
   final WordsService _wordsService = Get.find<WordsService>();
   final TypesController _typesController = Get.find<TypesController>();
   final TranslationsController _translationsController =
-      Get.find<TranslationsController>();
+  Get.find<TranslationsController>();
 
   AddTranslation({Key? key}) : super(key: key) {
     tty = _typesController.types.value.map((e) {
@@ -39,12 +40,14 @@ class AddTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme
+          .of(context)
+          .primaryColor,
       child: Center(
         child: Column(
           children: [
             Text("add translation".tr,
-                    style: TextStyle(fontSize: getTextSize(20)))
+                style: TextStyle(fontSize: ThemeSetting.large))
                 .paddingSymmetric(vertical: getShortSide(10)),
             Expanded(
               child: ListView(
@@ -86,7 +89,7 @@ class AddTranslation extends StatelessWidget {
                         translation['example'] = value;
                       },
                       decoration:
-                          roundedTextInputDecoration(labelText: 'example'.tr),
+                      roundedTextInputDecoration(labelText: 'example'.tr),
                     ),
                   ),
                   Padding(
@@ -100,18 +103,19 @@ class AddTranslation extends StatelessWidget {
                           labelText: 'example translation'.tr),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                      child: Text('add'.tr),
-                      onPressed: () {
-                        translation['word_id'] = _wordsService.word.value!.id;
-                        translation['user_id'] = _authController.user.value!.id;
-                        _translationsController.addTranslation(translation);
-                      },
-                    ),
-                  ),
+
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                child: Text('add'.tr),
+                onPressed: () {
+                  translation['word_id'] = _wordsService.word.value!.id;
+                  translation['user_id'] = _authController.user.value!.id;
+                  _translationsController.addTranslation(translation);
+                },
               ),
             ),
           ],

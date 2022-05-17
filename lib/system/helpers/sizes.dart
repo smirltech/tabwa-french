@@ -74,12 +74,17 @@ double getTextSize(double inputSide) {
   // 375 is the layout width that designer use
   logcat("devicePixelRatio: ${SizeConfig.devicePixelRatio}");
   final rate = SizeConfig.devicePixelRatio;
+  final baseFontSize = rate > 1.5
+      ? 4
+      : rate > 1.1
+          ? 8
+          : 12;
 /*  final multiplier = rate > 1.5
       ? 375
       : rate > 1
           ? 640
           : 750;*/
   final multiplier = rate * 100;
-  return 12 + ((inputSide * multiplier) / screenShortSide);
+  return baseFontSize + ((inputSide * multiplier) / screenShortSide);
   //return (inputSide / multiplier) * screenShortSide;
 }

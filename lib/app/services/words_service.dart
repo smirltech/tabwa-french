@@ -163,6 +163,7 @@ class WordsService extends GetxService {
 
   void setCategorie(String categorie) {
     GetStorage().write('categorie', categorie);
+    word.value = null;
   }
 
   Future<void> getAll() async {

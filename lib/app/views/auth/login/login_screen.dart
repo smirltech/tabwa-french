@@ -5,6 +5,7 @@ import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/routes/routes.dart';
 import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../../system/helpers/sizes.dart';
 
@@ -20,9 +21,11 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      //backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('login'.tr, style: TextStyle(fontSize: getTextSize(16))),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: Text('login'.tr, style: TextStyle(fontSize: ThemeSetting.big)),
         actions: [
           IconButton(
             onPressed: () {
@@ -85,25 +88,26 @@ class LoginScreen extends StatelessWidget {
                           : const LinearProgressIndicator();
                     }),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: OutlinedButton(
-                        onPressed: () {
-                          if (creds['email'].isNotEmpty &&
-                              creds['password'].isNotEmpty) {
-                            _authController.login(creds);
-                          } else {
-                            snackItOldWarning(
-                              'email and password are required'.tr,
-                            );
-                          }
-                        },
-                        child: Text('login'.tr,
-                            style: TextStyle(fontSize: getTextSize(12)))),
-                  ),
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: OutlinedButton(
+                  onPressed: () {
+                    if (creds['email'].isNotEmpty &&
+                        creds['password'].isNotEmpty) {
+                      _authController.login(creds);
+                    } else {
+                      snackItOldWarning(
+                        'email and password are required'.tr,
+                      );
+                    }
+                  },
+                  child: Text('login'.tr,
+                      style: TextStyle(fontSize: ThemeSetting.normal))),
+            ),
+            const Spacer(),
             Container(
               padding: const EdgeInsets.all(10.0),
               alignment: Alignment.centerRight,
@@ -113,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                   },
                   child: Text('forgot password'.tr,
                       style: TextStyle(
-                          fontSize: getTextSize(12), color: Colors.red))),
+                          fontSize: ThemeSetting.normal, color: Colors.red))),
             ),
           ],
         ),

@@ -5,6 +5,7 @@ import 'package:tabwa_french/app/models/translation.dart';
 import 'package:tabwa_french/app/models/type.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../../../system/configs/configs.dart';
 import '../../../../../system/helpers/audio_recorder/audio_recorder.dart';
@@ -55,12 +56,12 @@ class EditTranslation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).primaryColor,
       child: Center(
         child: Column(
           children: [
             Text('edit translation'.tr,
-                    style: TextStyle(fontSize: getTextSize(20)))
+                    style: TextStyle(fontSize: ThemeSetting.large))
                 .paddingSymmetric(vertical: getShortSide(10)),
             Expanded(
               child: ListView(
@@ -150,17 +151,17 @@ class EditTranslation extends StatelessWidget {
                           labelText: 'example translation'.tr),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                      child: Text('edit'.tr),
-                      onPressed: () {
-                        translation['user_id'] = _authController.user.value!.id;
-                        _translationsController.editTranslation(translation);
-                      },
-                    ),
-                  ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ElevatedButton(
+                child: Text('edit'.tr),
+                onPressed: () {
+                  translation['user_id'] = _authController.user.value!.id;
+                  _translationsController.editTranslation(translation);
+                },
               ),
             ),
           ],

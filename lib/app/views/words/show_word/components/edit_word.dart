@@ -5,6 +5,7 @@ import 'package:tabwa_french/app/models/type.dart';
 import 'package:tabwa_french/system/helpers/audio_recorder/audio_recorder.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../../../system/configs/configs.dart';
 import '../../../../../system/helpers/log_cat.dart';
@@ -47,14 +48,14 @@ class EditWord extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).primaryColor,
       height: getShortSide(260),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
             child: Center(
                 child: Text("edit word".tr,
-                        style: TextStyle(fontSize: getTextSize(20)))
+                        style: TextStyle(fontSize: ThemeSetting.large))
                     .paddingSymmetric(vertical: getShortSide(10))),
           ),
           SliverToBoxAdapter(
@@ -96,7 +97,7 @@ class EditWord extends StatelessWidget {
                               ),
                             );
                           },
-                          icon: Icon(Icons.mic)),
+                          icon: const Icon(Icons.mic)),
                     ],
                   ),
                 ),

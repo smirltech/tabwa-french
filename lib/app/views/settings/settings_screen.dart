@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../system/helpers/helpers.dart';
 import '../../services/words_service.dart';
@@ -46,18 +47,16 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      // backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('settings'.tr),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: Text('settings'.tr,
+            style: TextStyle(color: Theme.of(context).hintColor)),
       ),
       body: Center(
         child: Column(
           children: [
-            Text(
-              'settings'.tr,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: getTextSize(14.0)),
-            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {

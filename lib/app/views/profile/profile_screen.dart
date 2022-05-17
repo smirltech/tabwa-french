@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
+import '../../../system/themes/theme_setting.dart';
 import '../../controllers/auth_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -13,9 +14,12 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      //backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('my profile'.tr),
+        elevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: Text('my profile'.tr,
+            style: TextStyle(color: Theme.of(context).hintColor)),
         actions: [
           IconButton(
             onPressed: () {
@@ -38,14 +42,20 @@ class ProfileScreen extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.account_circle),
                     title: Text(_authController.user.value!.name!,
-                        style: Theme.of(context).textTheme.headline6),
-                    subtitle: Text('name'.tr),
+                        style: TextStyle(
+                            fontSize: ThemeSetting.large,
+                            fontWeight: FontWeight.bold)),
+                    subtitle: Text('name'.tr,
+                        style: TextStyle(fontSize: ThemeSetting.normal)),
                   ),
                   ListTile(
                     leading: const Icon(Icons.email),
                     title: Text(_authController.user.value!.email!,
-                        style: Theme.of(context).textTheme.headline6),
-                    subtitle: Text('email'.tr),
+                        style: TextStyle(
+                            fontSize: ThemeSetting.large,
+                            fontWeight: FontWeight.bold)),
+                    subtitle: Text('email'.tr,
+                        style: TextStyle(fontSize: ThemeSetting.normal)),
                   ),
                 ],
               ),
@@ -55,15 +65,11 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 ElevatedButton(
                   child: Text('edit email'.tr),
-                  onPressed: () {
-                    //_authController.logout();
-                  },
+                  onPressed: null,
                 ),
                 ElevatedButton(
                   child: Text('edit password'.tr),
-                  onPressed: () {
-                    //_authController.logout();
-                  },
+                  onPressed: null,
                 ),
               ],
             ).paddingSymmetric(horizontal: getShortSide(20)),

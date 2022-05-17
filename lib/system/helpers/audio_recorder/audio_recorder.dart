@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:tabwa_french/app/controllers/audio_controller.dart';
 import 'package:tabwa_french/system/helpers/log_cat.dart';
+import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../helpers.dart';
 import 'components/sound_player.dart';
@@ -121,7 +122,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
 
   Widget buildTextPreview() {
     return Card(
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
         margin: const EdgeInsets.all(10),
         child: SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -129,7 +130,10 @@ class _AudioRecorderState extends State<AudioRecorder> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text('${widget.textBody}',
-                  textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: ThemeSetting.big,
+                      color: Theme.of(context).hintColor)),
             )));
   }
 
@@ -140,22 +144,19 @@ class _AudioRecorderState extends State<AudioRecorder> {
     final subText = isRecording ? 'Press Stop'.tr : 'Press Start'.tr;
     return CircleAvatar(
         radius: 70,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         child: CircleAvatar(
             radius: 67,
             child: Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 30, color: Colors.white),
+                Icon(icon, size: 30, color: Theme.of(context).hintColor),
                 const SizedBox(height: 10),
                 Text(text,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                Text(subText,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        fontSize: ThemeSetting.large,
+                        fontWeight: FontWeight.bold)),
               ],
             ))));
   }
@@ -173,8 +174,8 @@ class _AudioRecorderState extends State<AudioRecorder> {
             minimumSize: const Size(150, 50),
           ),
           child: Text('cancel'.tr,
-              style:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              style: TextStyle(
+                  fontSize: ThemeSetting.big, fontWeight: FontWeight.bold)),
         ),
         const SizedBox(width: 20),
         ElevatedButton(
@@ -193,8 +194,8 @@ class _AudioRecorderState extends State<AudioRecorder> {
             minimumSize: const Size(150, 50),
           ),
           child: Text('confirm'.tr,
-              style:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              style: TextStyle(
+                  fontSize: ThemeSetting.big, fontWeight: FontWeight.bold)),
         ),
       ],
     );
@@ -227,7 +228,8 @@ class _AudioRecorderState extends State<AudioRecorder> {
               },
         icon: Icon(icon),
         label: Text(text,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));
+            style: TextStyle(
+                fontSize: ThemeSetting.big, fontWeight: FontWeight.bold)));
   }
 
   ElevatedButton buildPlayButton() {
@@ -260,6 +262,7 @@ class _AudioRecorderState extends State<AudioRecorder> {
               },
         icon: Icon(icon),
         label: Text(text,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));
+            style: TextStyle(
+                fontSize: ThemeSetting.big, fontWeight: FontWeight.bold)));
   }
 }
