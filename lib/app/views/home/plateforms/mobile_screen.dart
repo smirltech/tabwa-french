@@ -3,83 +3,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smirl_version_checker/nv/version_checker.dart';
-import 'package:tabwa_french/app/controllers/auth_controller.dart';
-import 'package:tabwa_french/app/services/words_service.dart';
-import 'package:tabwa_french/app/views/home/components/main_menu.dart';
-import 'package:tabwa_french/app/views/home/plateforms/desktop_screen.dart';
-import 'package:tabwa_french/app/views/home/plateforms/mobile_screen.dart';
-import 'package:tabwa_french/system/helpers/sizes.dart';
-import 'package:tabwa_french/system/themes/theme_setting.dart';
 
-import '../../controllers/connectivity_controller.dart';
-import '../../models/translation.dart';
-import '../../models/word.dart';
-import '../../routes/routes.dart';
+import '../../../../system/helpers/sizes.dart';
+import '../../../../system/themes/theme_setting.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../controllers/connectivity_controller.dart';
+import '../../../models/translation.dart';
+import '../../../models/word.dart';
+import '../../../routes/routes.dart';
+import '../../../services/words_service.dart';
+import '../components/main_menu.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<HomeScreen> {
+class MobileScreen extends StatelessWidget {
+  MobileScreen({Key? key}) : super(key: key);
   final ConnectivityController connectivityController =
-  Get.find<ConnectivityController>();
+      Get.find<ConnectivityController>();
   final WordsService _wordsService = Get.find<WordsService>();
   final AuthController _authController = Get.find<AuthController>();
-
-  initState() {
-    super.initState();
-
-    final newVersion = VersionChecker(
-      iOSId: 'org.smirl.tabwa_french',
-      androidId: 'org.smirl.tabwa_french',
-    );
-
-    const simpleBehavior = false;
-
-    if (simpleBehavior) {
-      basicStatusCheck(newVersion);
-    } else {
-      advancedStatusCheck(newVersion);
-    }
-  }
-
-  basicStatusCheck(VersionChecker newVersion) {
-    newVersion.showAlertIfNecessary(context: context);
-  }
-
-  advancedStatusCheck(VersionChecker newVersion) async {
-    final status = await newVersion.getVersionStatus();
-
-    if (status != null && status.canUpdate) {
-      final releaseNotes = status.releaseNotes!.replaceAll(";", ";\n");
-      // debugPrint(status.releaseNotes);
-      // debugPrint(status.appStoreLink);
-      // debugPrint(status.localVersion);
-      // debugPrint(status.storeVersion);
-      // debugPrint(status.canUpdate.toString());
-      newVersion.showUpdateDialog(
-        context: context,
-        versionStatus: status,
-        //  allowDismissal: false,
-        dialogTitle: "Nouvelle version disponible : ${status.storeVersion}",
-        dialogText: "NOTES:\n${releaseNotes}",
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-
-    return isMobile() ? MobileScreen() : DesktopScreen();
-
-    /*SafeArea(
+    return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         appBar: AppBar(
@@ -164,7 +109,7 @@ class _MyHomePageState extends State<HomeScreen> {
                       'none')) {
             return FloatingActionButton(
               onPressed: () {
-                Get.toNamed('/add-word');
+                Get.toNamed(Routes.addWord);
               },
               child: const Icon(Icons.add),
             );
@@ -213,9 +158,9 @@ class _MyHomePageState extends State<HomeScreen> {
                 children: [
                   Text('no words or expressions yet'.tr,
                       style: TextStyle(fontSize: ThemeSetting.normal)),
-                  */ /*Text('the dictionnary has'.tr +
+                  /*Text('the dictionnary has'.tr +
                       ' ${_wordsService.words.length} ' +
-                      '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/ /*
+                      '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
                 ],
               ),
             );
@@ -278,6 +223,6 @@ class _MyHomePageState extends State<HomeScreen> {
           await 3.delay();
         }),
       ),
-    );*/
+    );
   }
 }

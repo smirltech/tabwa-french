@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../themes/theme_setting.dart';
+
 bool emailValid(String email) => RegExp(
         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
     .hasMatch(email);
@@ -131,5 +133,55 @@ InputDecoration roundedTextInputDecoration(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
     ),
+  );
+}
+
+void showCredit(
+    BuildContext context, String title, String adder, String editor) {
+  Get.snackbar(
+    title,
+    '',
+    messageText: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          child: RichText(
+            text: TextSpan(
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontSize: ThemeSetting.small,
+              ),
+              children: [
+                TextSpan(
+                    text: 'added by'.tr + ': ',
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text: adder,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Flexible(
+          child: RichText(
+            text: TextSpan(
+              style: TextStyle(
+                color: Theme.of(context).primaryColorDark,
+                fontSize: ThemeSetting.small,
+              ),
+              children: [
+                TextSpan(
+                    text: 'last modified by'.tr + ': ',
+                    style: const TextStyle(fontWeight: FontWeight.bold)),
+                TextSpan(
+                  text: editor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+    snackPosition: SnackPosition.BOTTOM,
   );
 }

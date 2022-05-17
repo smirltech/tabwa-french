@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +21,7 @@ class ShowWordScreen extends StatelessWidget {
   }
 
   final ConnectivityController connectivityController =
-      Get.find<ConnectivityController>();
+  Get.find<ConnectivityController>();
   final WordsService _wordsService = Get.find<WordsService>();
   final AuthController _authController = Get.find<AuthController>();
   late SoundPlayer soundPlayer;
@@ -37,7 +36,9 @@ class ShowWordScreen extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme
+              .of(context)
+              .backgroundColor,
           appBar: AppBar(
             title: Text('word or expression'.tr),
           ),
@@ -55,7 +56,9 @@ class ShowWordScreen extends StatelessWidget {
             }
             return const SizedBox.shrink();
           }),
-          body: Obx(() {
+          body:
+
+          Obx(() {
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -75,16 +78,17 @@ class ShowWordScreen extends StatelessWidget {
                                       onPressed: () {
                                         // todo: play audio
                                         String audioUrl =
-                                            "https://tabwa.smirltech.com/audio/words/${_wordsService.word.value!.id}.aac";
+                                            "https://tabwa.smirltech.com/audio/words/${_wordsService
+                                            .word.value!.id}.aac";
                                         // logcat('audioUrl: $audioUrl');
                                         soundPlayer.playFromNet(audioUrl,
                                             whenFinished: () {
-                                          toastItInfo(msg: 'done'.tr);
-                                        }, error: () {
-                                          toastItError(
-                                            msg: "no audio found".tr,
-                                          );
-                                        });
+                                              toastItInfo(msg: 'done'.tr);
+                                            }, error: () {
+                                              toastItError(
+                                                msg: "no audio found".tr,
+                                              );
+                                            });
                                       },
                                       icon: const Icon(
                                         Icons.volume_up_outlined,
@@ -95,24 +99,24 @@ class ShowWordScreen extends StatelessWidget {
                                       child: Text(
                                         _wordsService.word.value!.word,
                                         style: GoogleFonts.oswald(
-                                          fontSize: ThemeSetting.veryBig,
+                                          fontSize: ThemeSetting.big,
                                         ),
                                       ),
                                     ),
                                     if (_authController.user.value != null &&
                                         (connectivityController
-                                                    .connectivityResult.value !=
-                                                null &&
+                                            .connectivityResult.value !=
+                                            null &&
                                             connectivityController
-                                                    .connectivityResult
-                                                    .value!
-                                                    .name !=
+                                                .connectivityResult
+                                                .value!
+                                                .name !=
                                                 'none'))
                                       IconButton(
                                         onPressed: () {
                                           Get.bottomSheet(EditWord(
                                               wordy:
-                                                  _wordsService.word.value!));
+                                              _wordsService.word.value!));
                                         },
                                         icon: const Icon(
                                           Icons.edit,
@@ -140,7 +144,7 @@ class ShowWordScreen extends StatelessWidget {
                     child: ListView.builder(
                         itemBuilder: (context, index) {
                           Translation tranz =
-                              _wordsService.word.value!.translations[index];
+                          _wordsService.word.value!.translations[index];
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -165,37 +169,41 @@ class ShowWordScreen extends StatelessWidget {
                                       },
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           Text.rich(
                                               TextSpan(text: "Type", children: [
-                                            TextSpan(
-                                              text: ": ${tranz.type}",
-                                              style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary),
-                                            ),
-                                          ])),
+                                                TextSpan(
+                                                  text: ": ${tranz.type}",
+                                                  style: TextStyle(
+                                                      color: Theme
+                                                          .of(context)
+                                                          .colorScheme
+                                                          .secondary),
+                                                ),
+                                              ])),
                                           Row(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                             children: [
                                               IconButton(
                                                 onPressed: () {
                                                   // todo: play audio
                                                   String audioUrl =
-                                                      "https://tabwa.smirltech.com/audio/translations/${tranz.id}.aac";
+                                                      "https://tabwa.smirltech.com/audio/translations/${tranz
+                                                      .id}.aac";
                                                   //  logcat('audioUrl: $audioUrl');
                                                   soundPlayer
                                                       .playFromNet(audioUrl,
-                                                          whenFinished: () {
-                                                    toastItInfo(msg: 'done'.tr);
-                                                  }, error: () {
-                                                    toastItError(
-                                                      msg: "no audio found".tr,
-                                                    );
-                                                  });
+                                                      whenFinished: () {
+                                                        toastItInfo(
+                                                            msg: 'done'.tr);
+                                                      }, error: () {
+                                                        toastItError(
+                                                          msg: "no audio found"
+                                                              .tr,
+                                                        );
+                                                      });
                                                 },
                                                 icon: const Icon(
                                                   Icons.volume_up_outlined,
@@ -205,22 +213,22 @@ class ShowWordScreen extends StatelessWidget {
                                               Expanded(
                                                 child: Text(
                                                   tranz.translation,
-                                                  style: GoogleFonts.courgette(
+                                                  style: GoogleFonts.oswald(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: getTextSize(16),
+                                                    fontSize: ThemeSetting.big,
                                                   ),
                                                 ),
                                               ),
                                               if (_authController.user.value !=
-                                                      null &&
+                                                  null &&
                                                   (connectivityController
-                                                              .connectivityResult
-                                                              .value !=
-                                                          null &&
+                                                      .connectivityResult
+                                                      .value !=
+                                                      null &&
                                                       connectivityController
-                                                              .connectivityResult
-                                                              .value!
-                                                              .name !=
+                                                          .connectivityResult
+                                                          .value!
+                                                          .name !=
                                                           'none'))
                                                 IconButton(
                                                   onPressed: () {
@@ -243,18 +251,18 @@ class ShowWordScreen extends StatelessWidget {
                                           IntrinsicHeight(
                                             child: Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              MainAxisAlignment
+                                                  .spaceBetween,
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Expanded(
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.start,
+                                                    MainAxisAlignment.start,
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    CrossAxisAlignment
+                                                        .start,
                                                     children: [
                                                       if (tranz
                                                           .example.isNotEmpty)
@@ -262,40 +270,39 @@ class ShowWordScreen extends StatelessWidget {
                                                           onPressed: () {
                                                             // todo: play audio
                                                             String audioUrl =
-                                                                "https://tabwa.smirltech.com/audio/examples/${tranz.id}.aac";
+                                                                "https://tabwa.smirltech.com/audio/examples/${tranz
+                                                                .id}.aac";
                                                             //  logcat('audioUrl: $audioUrl');
                                                             soundPlayer
                                                                 .playFromNet(
-                                                                    audioUrl,
-                                                                    whenFinished:
-                                                                        () {
-                                                              toastItInfo(
-                                                                  msg: 'done'
-                                                                      .tr);
-                                                            }, error: () {
+                                                                audioUrl,
+                                                                whenFinished:
+                                                                    () {
+                                                                  toastItInfo(
+                                                                      msg: 'done'
+                                                                          .tr);
+                                                                }, error: () {
                                                               toastItError(
                                                                 msg:
-                                                                    "no audio found"
-                                                                        .tr,
+                                                                "no audio found"
+                                                                    .tr,
                                                               );
                                                             });
                                                           },
-                                                          icon: Icon(
+                                                          icon: const Icon(
                                                             Icons
                                                                 .volume_up_outlined,
                                                             color: Colors.blue,
-                                                            size: getShortSide(
-                                                                20),
                                                           ),
                                                         ),
                                                       Expanded(
                                                         child: Text(
                                                           tranz.example,
                                                           style: GoogleFonts
-                                                              .courgette(
+                                                              .oswald(
                                                             fontSize:
-                                                                ThemeSetting
-                                                                    .verySmall,
+                                                            ThemeSetting
+                                                                .normal,
                                                           ),
                                                         ),
                                                       ),
@@ -311,11 +318,10 @@ class ShowWordScreen extends StatelessWidget {
                                                 Expanded(
                                                   child: Text(
                                                     tranz.example_translation,
-                                                    style:
-                                                        GoogleFonts.courgette(
+                                                    style: GoogleFonts.oswald(
                                                       color: ThemeSetting.green,
                                                       fontSize:
-                                                          ThemeSetting.small,
+                                                      ThemeSetting.normal,
                                                     ),
                                                   ),
                                                 ),
@@ -332,7 +338,7 @@ class ShowWordScreen extends StatelessWidget {
                           );
                         },
                         itemCount:
-                            _wordsService.word.value!.translations.length),
+                        _wordsService.word.value!.translations.length),
                   ),
                 ),
               ],
@@ -343,7 +349,7 @@ class ShowWordScreen extends StatelessWidget {
     );
   }
 
-  void showCredit(
+/*  void showCredit(
       BuildContext context, String title, String adder, String editor) {
     Get.snackbar(
       title,
@@ -356,7 +362,7 @@ class ShowWordScreen extends StatelessWidget {
               text: TextSpan(
                 style: TextStyle(
                   color: Theme.of(context).primaryColorDark,
-                  fontSize: ThemeSetting.verySmall,
+                  fontSize: ThemeSetting.small,
                 ),
                 children: [
                   TextSpan(
@@ -374,7 +380,7 @@ class ShowWordScreen extends StatelessWidget {
               text: TextSpan(
                 style: TextStyle(
                   color: Theme.of(context).primaryColorDark,
-                  fontSize: ThemeSetting.verySmall,
+                  fontSize: ThemeSetting.small,
                 ),
                 children: [
                   TextSpan(
@@ -391,5 +397,5 @@ class ShowWordScreen extends StatelessWidget {
       ),
       snackPosition: SnackPosition.BOTTOM,
     );
-  }
+  }*/
 }
