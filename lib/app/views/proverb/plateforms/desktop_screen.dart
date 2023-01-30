@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
@@ -78,7 +78,7 @@ class DesktopScreen extends StatelessWidget {
                   _wordsService.setCategorie(v);
                 },
                 // color: Theme.of(context).hintColor,
-                icon: Badge(
+                icon: badges.Badge(
                   badgeContent: Text(cntStr,
                           style: GoogleFonts.oswald(
                               color: Theme.of(context).hintColor,
@@ -87,7 +87,7 @@ class DesktopScreen extends StatelessWidget {
                     horizontal: 0,
                   ),
                   badgeColor: Theme.of(context).primaryColor,
-                  position: BadgePosition.topEnd(top: -20, end: -30),
+                  position: badges.BadgePosition.topEnd(top: -20, end: -30),
                   child: Text(
                       _wordsService.categorie.value
                           .substring(0, 1)

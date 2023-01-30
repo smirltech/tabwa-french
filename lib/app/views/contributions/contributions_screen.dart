@@ -49,22 +49,22 @@ class ContributionsScreen extends StatelessWidget {
                           name: 'words'.tr,
                           intValue: (row) => row.wa,
                           // width: Get.width * 0.15,
-                          alignment: Alignment.center),
+                          cellAlignment: Alignment.center),
                       EasyTableColumn(
                           name: 'edition'.tr,
                           intValue: (row) => row.wm,
                           //width: Get.width * 0.15,
-                          alignment: Alignment.center),
+                          cellAlignment: Alignment.center),
                       EasyTableColumn(
                           name: 'translations'.tr,
                           intValue: (row) => row.ta,
                           // width: Get.width * 0.15,
-                          alignment: Alignment.center),
+                          cellAlignment: Alignment.center),
                       EasyTableColumn(
                           name: 'edition'.tr,
                           intValue: (row) => row.tm,
                           // width: Get.width * 0.15,
-                          alignment: Alignment.center)
+                          cellAlignment: Alignment.center)
                     ]),
                 columnsFit: true,
               );

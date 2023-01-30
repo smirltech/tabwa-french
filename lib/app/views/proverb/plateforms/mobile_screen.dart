@@ -1,11 +1,10 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../system/helpers/sizes.dart';
-import '../../../../system/themes/theme_setting.dart';
 import '../../../controllers/auth_controller.dart';
 import '../../../controllers/connectivity_controller.dart';
 import '../../../models/translation.dart';
@@ -52,7 +51,7 @@ class MobileScreen extends StatelessWidget {
                 cnt = _wordsService.filteredProverbs.value.length;
                 cntStr = cnt > 999 ? '999+' : cnt.toString();
               } on Exception catch (_) {}
-              return Badge(
+              return badges.Badge(
                 badgeContent: Text(cntStr,
                         style: TextStyle(
                             color: Theme.of(context).hintColor,
@@ -61,7 +60,7 @@ class MobileScreen extends StatelessWidget {
                   horizontal: 2,
                 ),
                 badgeColor: Theme.of(context).primaryColor,
-                position: BadgePosition.topEnd(top: 0, end: -1),
+                position: badges.BadgePosition.topEnd(top: 0, end: -1),
                 child: TextButton(
                   onPressed: () {
                     final String v = _wordsService.categorie.value == 'tabwa'
