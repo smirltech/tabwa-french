@@ -26,9 +26,9 @@ class AboutScreen extends StatelessWidget {
           children: [
             Text(APP_NAME.tr, style: TextStyle(fontSize: ThemeSetting.large))
                 .paddingOnly(bottom: getShortSide(10.0)),
-            Text("Version ${PACKAGE_INFO.version}(${PACKAGE_INFO.buildNumber})",
+            /*  Text("Version ${PACKAGE_INFO.version}(${PACKAGE_INFO.buildNumber})",
                     style: TextStyle(fontSize: ThemeSetting.big))
-                .paddingOnly(bottom: getShortSide(10.0)),
+                .paddingOnly(bottom: getShortSide(10.0)),*/
             SizedBox(height: getShortSide(20)),
             Text('about this app statement'.tr,
                 textAlign: TextAlign.justify,

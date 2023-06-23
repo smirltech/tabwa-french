@@ -22,82 +22,74 @@ class MobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return SafeArea(
-      child: Scaffold(
-        // backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
-          iconTheme: IconThemeData(color: Theme.of(context).hintColor),
-          title: CupertinoSearchTextField(
-            controller: _wordsService.searchEditingController.value,
-            onChanged: (value) {
-              _wordsService.searchedWord.value = value;
-            },
-            style: TextStyle(fontSize: getTextSize(12)),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Theme.of(context).hintColor,
-                width: 0.5,
-              ),
+    return Scaffold(
+      // backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        title: CupertinoSearchTextField(
+          controller: _wordsService.searchEditingController.value,
+          onChanged: (value) {
+            _wordsService.searchedWord.value = value;
+          },
+          style: TextStyle(fontSize: getTextSize(12)),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Theme.of(context).hintColor,
+              width: 0.5,
             ),
-            placeholder: "search".tr + ' ' + 'proverb'.tr,
           ),
-          actions: [
-            Obx(() {
-              int cnt = 0;
-              String cntStr = cnt.toString();
-              try {
-                cnt = _wordsService.filteredProverbs.value.length;
-                cntStr = cnt > 999 ? '999+' : cnt.toString();
-              } on Exception catch (_) {}
-              return badges.Badge(
-                badgeContent: Text(cntStr,
-                        style: TextStyle(
-                            color: Theme.of(context).hintColor,
-                            fontSize: getTextSize(9)))
-                    .paddingSymmetric(
-                  horizontal: 2,
-                ),
-                badgeColor: Theme.of(context).primaryColor,
-                position: badges.BadgePosition.topEnd(top: 0, end: -1),
-                child: TextButton(
-                  onPressed: () {
-                    final String v = _wordsService.categorie.value == 'tabwa'
-                        ? 'français'
-                        : 'tabwa';
-                    _wordsService.setCategorie(v);
-                  },
-                  child: Text(
-                      _wordsService.categorie.value
-                          .substring(0, 1)
-                          .toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: getTextSize(18),
-                        color: Theme.of(context).hintColor,
-                      )),
-                ),
-              );
-            }),
-            const SizedBox(width: 10),
-          ],
+          placeholder: "search".tr + ' ' + 'proverb'.tr,
         ),
-        floatingActionButton: Obx(() {
-          if (_authController.user.value != null &&
-              (connectivityController.connectivityResult.value != null &&
-                  connectivityController.connectivityResult.value!.name !=
-                      'none')) {
-            return FloatingActionButton(
-              onPressed: () {
-                Get.toNamed('/add-word');
-              },
-              child: const Icon(Icons.add),
+        actions: [
+          Obx(() {
+            int cnt = 0;
+            String cntStr = cnt.toString();
+            try {
+              cnt = _wordsService.filteredProverbs.value.length;
+              cntStr = cnt > 999 ? '999+' : cnt.toString();
+            } on Exception catch (_) {}
+            return badges.Badge(
+              badgeContent: Text(cntStr,
+                      style: TextStyle(
+                          color: Theme.of(context).hintColor,
+                          fontSize: getTextSize(9)))
+                  .paddingSymmetric(
+                horizontal: 2,
+              ),
+              badgeStyle: badges.BadgeStyle(
+                badgeColor: Theme.of(context).primaryColor,
+              ),
+              position: badges.BadgePosition.topEnd(top: 0, end: -1),
+              child: TextButton(
+                onPressed: () {
+                  final String v = _wordsService.categorie.value == 'tabwa'
+                      ? 'français'
+                      : 'tabwa';
+                  _wordsService.setCategorie(v);
+                },
+                child: Text(
+                    _wordsService.categorie.value.substring(0, 1).toUpperCase(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: getTextSize(18),
+                      color: Theme.of(context).hintColor,
+                    )),
+              ),
             );
-          }
-          return const SizedBox.shrink();
-        }),
-        body: RefreshIndicator(child: Obx(() {
+          }),
+          const SizedBox(width: 10),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('/add-word');
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: SafeArea(
+        child: RefreshIndicator(child: Obx(() {
           if (_wordsService.isLoading.isTrue) {
             return Center(
               child: Padding(
@@ -137,8 +129,8 @@ class MobileScreen extends StatelessWidget {
                 children: [
                   Text('no proverb yet'.tr),
                   /*Text('the dictionnary has'.tr +
-                      ' ${_wordsService.words.length} ' +
-                      '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
+                        ' ${_wordsService.words.length} ' +
+                        '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
                 ],
               ),
             );

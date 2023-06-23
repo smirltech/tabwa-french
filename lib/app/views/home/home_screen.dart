@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smirl_version_checker/nv/version_checker.dart';
+
 import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/app/views/home/components/main_menu.dart';
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<HomeScreen> {
   initState() {
     super.initState();
 
-    final newVersion = VersionChecker(
+/*    final newVersion = VersionChecker(
       iOSId: 'org.smirl.tabwa_french',
       androidId: 'org.smirl.tabwa_french',
     );
@@ -46,9 +46,10 @@ class _MyHomePageState extends State<HomeScreen> {
       basicStatusCheck(newVersion);
     } else {
       advancedStatusCheck(newVersion);
-    }
+    }*/
   }
 
+/*
   basicStatusCheck(VersionChecker newVersion) {
     newVersion.showAlertIfNecessary(context: context);
   }
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<HomeScreen> {
       );
     }
   }
+*/
 
   @override
   Widget build(BuildContext context) {

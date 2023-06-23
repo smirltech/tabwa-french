@@ -87,7 +87,9 @@ class DesktopScreen extends StatelessWidget {
                       .paddingSymmetric(
                     horizontal: 0,
                   ),
-                  badgeColor: Theme.of(context).primaryColor,
+                  badgeStyle: badges.BadgeStyle(
+                    badgeColor: Theme.of(context).primaryColor,
+                  ),
                   position: badges.BadgePosition.topEnd(top: -20, end: -30),
                   child: Text(
                       _wordsService.categorie.value
@@ -115,23 +117,21 @@ class DesktopScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: Obx(() {
-                      if (_authController.user.value != null &&
+                      /*  if (_authController.user.value != null &&
                           (connectivityController.connectivityResult.value !=
                                   null &&
                               connectivityController
                                       .connectivityResult.value!.name !=
-                                  'none')) {
-                        return ElevatedButton.icon(
-                                onPressed: () {
-                                  Get.toNamed(Routes.addWord);
-                                },
-                                icon: const Icon(Icons.add),
-                                label: Text("new word".tr))
-                            .paddingSymmetric(
-                                horizontal: getShortSide(4.0),
-                                vertical: getShortSide(2.0));
-                      }
-                      return const SizedBox.shrink();
+                                  'none')) */
+                      return ElevatedButton.icon(
+                              onPressed: () {
+                                Get.toNamed(Routes.addWord);
+                              },
+                              icon: const Icon(Icons.add),
+                              label: Text("new word".tr))
+                          .paddingSymmetric(
+                              horizontal: getShortSide(4.0),
+                              vertical: getShortSide(2.0));
                     }),
                   ),
                   Expanded(
@@ -289,7 +289,7 @@ class DesktopScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            if (_authController.user.value !=
+                                            /* if (_authController.user.value !=
                                                     null &&
                                                 (connectivityController
                                                             .connectivityResult
@@ -299,18 +299,18 @@ class DesktopScreen extends StatelessWidget {
                                                             .connectivityResult
                                                             .value!
                                                             .name !=
-                                                        'none'))
-                                              IconButton(
-                                                onPressed: () {
-                                                  Get.bottomSheet(EditWord(
-                                                      wordy: _wordsService
-                                                          .word.value!));
-                                                },
-                                                icon: const Icon(
-                                                  Icons.edit,
-                                                  color: Colors.blue,
-                                                ),
+                                                        'none'))*/
+                                            IconButton(
+                                              onPressed: () {
+                                                Get.bottomSheet(EditWord(
+                                                    wordy: _wordsService
+                                                        .word.value!));
+                                              },
+                                              icon: const Icon(
+                                                Icons.edit,
+                                                color: Colors.blue,
                                               ),
+                                            ),
                                           ]),
                                       onTap: () {
                                         showCredit(
@@ -421,7 +421,7 @@ class DesktopScreen extends StatelessWidget {
                                                           ),
                                                         ),
                                                       ),
-                                                      if (_authController
+                                                      /*   if (_authController
                                                                   .user.value !=
                                                               null &&
                                                           (connectivityController
@@ -432,20 +432,20 @@ class DesktopScreen extends StatelessWidget {
                                                                       .connectivityResult
                                                                       .value!
                                                                       .name !=
-                                                                  'none'))
-                                                        IconButton(
-                                                          onPressed: () {
-                                                            Get.bottomSheet(
-                                                              EditTranslation(
-                                                                  translaty:
-                                                                      tranz),
-                                                            );
-                                                          },
-                                                          icon: const Icon(
-                                                            Icons.edit,
-                                                            color: Colors.blue,
-                                                          ),
+                                                                  'none'))*/
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          Get.bottomSheet(
+                                                            EditTranslation(
+                                                                translaty:
+                                                                    tranz),
+                                                          );
+                                                        },
+                                                        icon: const Icon(
+                                                          Icons.edit,
+                                                          color: Colors.blue,
                                                         ),
+                                                      ),
                                                     ],
                                                   ),
                                                   const Divider(
@@ -563,23 +563,21 @@ class DesktopScreen extends StatelessWidget {
                     bottom: 10,
                     right: 10,
                     child: Obx(() {
-                      if (_authController.user.value != null &&
+                      /* if (_authController.user.value != null &&
                           (connectivityController.connectivityResult.value !=
                                   null &&
                               connectivityController
                                       .connectivityResult.value!.name !=
-                                  'none')) {
-                        return FloatingActionButton(
-                          child: Icon(
-                            Icons.add,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            Get.bottomSheet(AddTranslation());
-                          },
-                        );
-                      }
-                      return const SizedBox.shrink();
+                                  'none')) {*/
+                      return FloatingActionButton(
+                        child: Icon(
+                          Icons.add,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        onPressed: () {
+                          Get.bottomSheet(AddTranslation());
+                        },
+                      );
                     }),
                   )
                 ],

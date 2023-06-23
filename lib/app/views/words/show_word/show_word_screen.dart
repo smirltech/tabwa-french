@@ -34,29 +34,21 @@ class ShowWordScreen extends StatelessWidget {
         soundPlayer.dispose();
         return Future(() => true);
       },
-      child: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            iconTheme: IconThemeData(color: Theme.of(context).hintColor),
-            title: Text('word or expression'.tr,
-                style: TextStyle(color: Theme.of(context).hintColor)),
-          ),
-          floatingActionButton: Obx(() {
-            if (_authController.user.value != null &&
-                (connectivityController.connectivityResult.value != null &&
-                    connectivityController.connectivityResult.value!.name !=
-                        'none')) {
-              return FloatingActionButton(
-                child: const Icon(Icons.add),
-                onPressed: () {
-                  Get.bottomSheet(AddTranslation());
-                },
-              );
-            }
-            return const SizedBox.shrink();
-          }),
-          body: Obx(() {
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+          title: Text('word or expression'.tr,
+              style: TextStyle(color: Theme.of(context).hintColor)),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Get.bottomSheet(AddTranslation());
+          },
+        ),
+        body: SafeArea(
+          child: Obx(() {
             return CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -100,26 +92,25 @@ class ShowWordScreen extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    if (_authController.user.value != null &&
-                                        (connectivityController
-                                                    .connectivityResult.value !=
-                                                null &&
-                                            connectivityController
-                                                    .connectivityResult
-                                                    .value!
-                                                    .name !=
-                                                'none'))
-                                      IconButton(
-                                        onPressed: () {
-                                          Get.bottomSheet(EditWord(
-                                              wordy:
-                                                  _wordsService.word.value!));
-                                        },
-                                        icon: const Icon(
-                                          Icons.edit,
-                                          color: Colors.blue,
-                                        ),
+                                    /*        if (_authController.user.value != null &&
+                                          (connectivityController
+                                                      .connectivityResult.value !=
+                                                  null &&
+                                              connectivityController
+                                                      .connectivityResult
+                                                      .value!
+                                                      .name !=
+                                                  'none'))*/
+                                    IconButton(
+                                      onPressed: () {
+                                        Get.bottomSheet(EditWord(
+                                            wordy: _wordsService.word.value!));
+                                      },
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        color: Colors.blue,
                                       ),
+                                    ),
                                   ]),
                               onTap: () {
                                 showCredit(
@@ -212,29 +203,29 @@ class ShowWordScreen extends StatelessWidget {
                                                   ),
                                                 ),
                                               ),
-                                              if (_authController.user.value !=
-                                                      null &&
-                                                  (connectivityController
-                                                              .connectivityResult
-                                                              .value !=
-                                                          null &&
-                                                      connectivityController
-                                                              .connectivityResult
-                                                              .value!
-                                                              .name !=
-                                                          'none'))
-                                                IconButton(
-                                                  onPressed: () {
-                                                    Get.bottomSheet(
-                                                      EditTranslation(
-                                                          translaty: tranz),
-                                                    );
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.edit,
-                                                    color: Colors.blue,
-                                                  ),
+                                              /*   if (_authController.user.value !=
+                                                        null &&
+                                                    (connectivityController
+                                                                .connectivityResult
+                                                                .value !=
+                                                            null &&
+                                                        connectivityController
+                                                                .connectivityResult
+                                                                .value!
+                                                                .name !=
+                                                            'none'))*/
+                                              IconButton(
+                                                onPressed: () {
+                                                  Get.bottomSheet(
+                                                    EditTranslation(
+                                                        translaty: tranz),
+                                                  );
+                                                },
+                                                icon: const Icon(
+                                                  Icons.edit,
+                                                  color: Colors.blue,
                                                 ),
+                                              ),
                                             ],
                                           ),
                                           const Divider(

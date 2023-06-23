@@ -24,99 +24,92 @@ class MobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        appBar: AppBar(
-          elevation: 1,
-          leading: IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: Theme.of(context).hintColor,
-            ),
-            onPressed: () {
-              Get.dialog(MainMenu(), transitionCurve: Curves.linearToEaseOut);
-            },
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: AppBar(
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Theme.of(context).hintColor,
           ),
-          // title: Text(APP_NAME),
-          title: Obx(() {
-            return CupertinoSearchTextField(
-              controller: _wordsService.searchEditingController.value,
-              onChanged: (value) {
-                _wordsService.searchedWord.value = value;
-              },
-              style: TextStyle(
-                  fontSize: ThemeSetting.large,
-                  color: Theme.of(context).hintColor),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: Theme.of(context).hintColor,
-                  width: 0.5,
-                ),
+          onPressed: () {
+            Get.dialog(MainMenu(), transitionCurve: Curves.linearToEaseOut);
+          },
+        ),
+        // title: Text(APP_NAME),
+        title: Obx(() {
+          return CupertinoSearchTextField(
+            controller: _wordsService.searchEditingController.value,
+            onChanged: (value) {
+              _wordsService.searchedWord.value = value;
+            },
+            style: TextStyle(
+                fontSize: ThemeSetting.large,
+                color: Theme.of(context).hintColor),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Theme.of(context).hintColor,
+                width: 0.5,
               ),
-              placeholder: "search".tr +
-                  " " +
-                  "in".tr +
-                  ' ' +
-                  _wordsService.categorie.value,
+            ),
+            placeholder: "search".tr +
+                " " +
+                "in".tr +
+                ' ' +
+                _wordsService.categorie.value,
+          );
+        }),
+        actions: [
+          Obx(() {
+            int cnt = 0;
+            String cntStr = cnt.toString();
+            try {
+              cnt = _wordsService.filteredWords.value.length;
+              cntStr = cnt > 999 ? '999+' : cnt.toString();
+            } on Exception catch (_) {}
+            return IconButton(
+              onPressed: () {
+                final String v = _wordsService.categorie.value == 'tabwa'
+                    ? 'français'
+                    : 'tabwa';
+                _wordsService.setCategorie(v);
+              },
+              // color: Theme.of(context).hintColor,
+              icon: badges.Badge(
+                badgeContent: Text(cntStr,
+                        style: GoogleFonts.oswald(
+                            color: Theme.of(context).hintColor,
+                            fontSize: ThemeSetting.tiny))
+                    .paddingSymmetric(
+                  horizontal: 0,
+                ),
+                badgeStyle: badges.BadgeStyle(
+                  badgeColor: Theme.of(context).primaryColor,
+                ),
+                //badgeColor: Theme.of(context).primaryColor,
+                position: badges.BadgePosition.topEnd(top: -20, end: -30),
+                child: Text(
+                    _wordsService.categorie.value.substring(0, 1).toUpperCase(),
+                    style: GoogleFonts.oswald(
+                        fontWeight: FontWeight.bold,
+                        fontSize: ThemeSetting.massive,
+                        color: Theme.of(context).hintColor)),
+              ),
             );
           }),
-          actions: [
-            Obx(() {
-              int cnt = 0;
-              String cntStr = cnt.toString();
-              try {
-                cnt = _wordsService.filteredWords.value.length;
-                cntStr = cnt > 999 ? '999+' : cnt.toString();
-              } on Exception catch (_) {}
-              return IconButton(
-                onPressed: () {
-                  final String v = _wordsService.categorie.value == 'tabwa'
-                      ? 'français'
-                      : 'tabwa';
-                  _wordsService.setCategorie(v);
-                },
-                // color: Theme.of(context).hintColor,
-                icon: badges.Badge(
-                  badgeContent: Text(cntStr,
-                          style: GoogleFonts.oswald(
-                              color: Theme.of(context).hintColor,
-                              fontSize: ThemeSetting.tiny))
-                      .paddingSymmetric(
-                    horizontal: 0,
-                  ),
-                  badgeColor: Theme.of(context).primaryColor,
-                  position: badges.BadgePosition.topEnd(top: -20, end: -30),
-                  child: Text(
-                      _wordsService.categorie.value
-                          .substring(0, 1)
-                          .toUpperCase(),
-                      style: GoogleFonts.oswald(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ThemeSetting.massive,
-                          color: Theme.of(context).hintColor)),
-                ),
-              );
-            }),
-            const SizedBox(width: 20),
-          ],
-        ),
-        floatingActionButton: Obx(() {
-          if (_authController.user.value != null &&
-              (connectivityController.connectivityResult.value != null &&
-                  connectivityController.connectivityResult.value!.name !=
-                      'none')) {
-            return FloatingActionButton(
-              onPressed: () {
-                Get.toNamed(Routes.addWord);
-              },
-              child: const Icon(Icons.add),
-            );
-          }
-          return const SizedBox.shrink();
-        }),
-        body: RefreshIndicator(child: Obx(() {
+          const SizedBox(width: 20),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.addWord);
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: SafeArea(
+        child: RefreshIndicator(child: Obx(() {
           if (_wordsService.isLoading.isTrue) {
             return Center(
               child: Padding(
@@ -159,8 +152,8 @@ class MobileScreen extends StatelessWidget {
                   Text('no words or expressions yet'.tr,
                       style: TextStyle(fontSize: ThemeSetting.normal)),
                   /*Text('the dictionnary has'.tr +
-                      ' ${_wordsService.words.length} ' +
-                      '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
+                        ' ${_wordsService.words.length} ' +
+                        '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
                 ],
               ),
             );

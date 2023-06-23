@@ -41,7 +41,7 @@ class ContributionsScreen extends StatelessWidget {
                       EasyTableColumn(
                         name: 'name'.tr,
                         stringValue: (row) => row.name,
-                        weight: 4,
+                        //  weight: 4,
                         // width: Get.width * 0.4,
                         // resizable: true,
                       ),
@@ -66,7 +66,7 @@ class ContributionsScreen extends StatelessWidget {
                           // width: Get.width * 0.15,
                           cellAlignment: Alignment.center)
                     ]),
-                columnsFit: true,
+                //  columnsFit: true,
               );
             })),
             SizedBox(height: getShortSide(10)),
