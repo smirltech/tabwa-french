@@ -1,4 +1,4 @@
-# tabwa_french
+# Tabwa French
 
 A tabwa french collective dictionary
 
