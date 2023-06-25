@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/views/words/show_word/components/add_translation.dart';
 import 'package:tabwa_french/app/views/words/show_word/components/edit_translation.dart';
 import 'package:tabwa_french/app/views/words/show_word/components/edit_word.dart';
@@ -37,12 +38,12 @@ class ShowWordScreen extends StatelessWidget {
           title: Text('word or expression'.tr,
               style: TextStyle(color: Theme.of(context).hintColor)),
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: AuthController.of.isAuthenticated()? FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
             Get.bottomSheet(AddTranslation());
           },
-        ),
+        ):null,
         body: SafeArea(
           child: Obx(() {
             return CustomScrollView(
@@ -224,11 +225,13 @@ class ShowWordScreen extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          const Divider(
+                                          if (tranz
+                                              .example.isNotEmpty)   const Divider(
                                             thickness: 0.5,
                                             color: Colors.grey,
                                           ),
-                                          IntrinsicHeight(
+                                          if (tranz
+                                              .example.isNotEmpty)  IntrinsicHeight(
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
