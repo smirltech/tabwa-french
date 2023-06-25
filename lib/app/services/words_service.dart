@@ -84,6 +84,7 @@ class WordsService extends GetxService {
       logcat("categorie: $value");
       if (value != null) categorie.value = value;
     });
+    getAllLocal();
     updateContributionList();
   }
 
@@ -166,7 +167,7 @@ class WordsService extends GetxService {
     word.value = null;
   }
 
-  Future<void> getAll() async {
+  Future<void> getsAll() async {
     // logcat("You are in WordsService");
     List<Word> ll = await Word.getAll();
     if (ll != null) {
@@ -193,6 +194,14 @@ class WordsService extends GetxService {
     if (word.value != null) updateActiveWord();
 
     isLoading.value = false;
+  }
+
+   Future<void> getAllLocal() async {
+    GetStorage().listenKey('words', (value) {
+      List<Word> vv = Word.listFromMap(value);
+      vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+      words.value = vv;
+    });
   }
 
   void get(int index) async {
