@@ -8,6 +8,8 @@ import '../models/user.dart';
 import '../routes/routes.dart';
 
 class AuthController extends GetxController {
+  static AuthController get of=> Get.find<AuthController>();
+  static AuthController init()=> Get.put<AuthController>(AuthController());
   var user = Rxn<User>();
   var themy = "system".obs;
   var isRequestForgotPassword = false.obs;

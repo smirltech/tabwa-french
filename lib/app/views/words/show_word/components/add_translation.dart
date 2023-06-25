@@ -13,8 +13,8 @@ import '../../../../controllers/types_controller.dart';
 import '../../../../services/words_service.dart';
 
 class AddTranslation extends StatelessWidget {
-  final AuthController _authController = Get.find<AuthController>();
-  final WordsService _wordsService = Get.find<WordsService>();
+ // final AuthController _authController = Get.find<AuthController>();
+ // final WordsService _wordsService = Get.find<WordsService>();
   final TypesController _typesController = Get.find<TypesController>();
   final TranslationsController _translationsController =
   Get.find<TranslationsController>();
@@ -112,8 +112,8 @@ class AddTranslation extends StatelessWidget {
               child: ElevatedButton(
                 child: Text('add'.tr),
                 onPressed: () {
-                  translation['word_id'] = _wordsService.word.value!.id;
-                  translation['user_id'] = _authController.user.value!.id;
+                  translation['word_id'] = WordsService.of.word.value!.id;
+                  translation['user_id'] = AuthController.of.user.value!.id;
                   _translationsController.addTranslation(translation);
                 },
               ),

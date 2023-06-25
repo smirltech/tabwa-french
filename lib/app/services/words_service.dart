@@ -13,6 +13,8 @@ import '../views/contributions/contributions_screen.dart';
 import 'dart:math' as math;
 
 class WordsService extends GetxService {
+  static WordsService get of=> Get.find<WordsService>();
+  static WordsService init()=> Get.put<WordsService>(WordsService());
   var words = <Word>[].obs;
   var key_words = <String>[].obs;
   var word = Rxn<Word>();
@@ -93,7 +95,7 @@ class WordsService extends GetxService {
   @override
   void onReady() {
     super.onReady();
-   /* debounce(
+    debounce(
       searchedWord,
       (v) {
         if (words.value != null) {
@@ -122,7 +124,7 @@ class WordsService extends GetxService {
         }
       },
       time: const Duration(milliseconds: 500),
-    );*/
+    );
 
    /* debounce(
       categorie,

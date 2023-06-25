@@ -6,6 +6,6 @@ class Services {
   * Append all the services inside init() for them to be initialized
   */
   static Future<void> init() async {
-    Get.put<WordsService>(WordsService());
+    WordsService.init();
   }
 }

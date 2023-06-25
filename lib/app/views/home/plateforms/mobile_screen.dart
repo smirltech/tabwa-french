@@ -18,8 +18,8 @@ class MobileScreen extends StatelessWidget {
   MobileScreen({Key? key}) : super(key: key);
   final ConnectivityController connectivityController =
       Get.find<ConnectivityController>();
-  final WordsService _wordsService = Get.find<WordsService>();
-  final AuthController _authController = Get.find<AuthController>();
+  //final WordsService WordsService.of = Get.find<WordsService>();
+  //final AuthController _authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +40,9 @@ class MobileScreen extends StatelessWidget {
         // title: Text(APP_NAME),
         title: Obx(() {
           return CupertinoSearchTextField(
-            controller: _wordsService.searchEditingController.value,
+            controller: WordsService.of.searchEditingController.value,
             onChanged: (value) {
-              _wordsService.searchedWord.value = value;
+              WordsService.of.searchedWord.value = value;
             },
             style: TextStyle(
                 fontSize: ThemeSetting.large,
@@ -58,7 +58,7 @@ class MobileScreen extends StatelessWidget {
                 " " +
                 "in".tr +
                 ' ' +
-                _wordsService.categorie.value,
+                WordsService.of.categorie.value,
           );
         }),
         actions: [
@@ -66,15 +66,15 @@ class MobileScreen extends StatelessWidget {
             int cnt = 0;
             String cntStr = cnt.toString();
             try {
-              cnt = _wordsService.filteredWords.value.length;
+              cnt = WordsService.of.filteredWords.value.length;
               cntStr = cnt > 999 ? '999+' : cnt.toString();
             } on Exception catch (_) {}
             return IconButton(
               onPressed: () {
-                final String v = _wordsService.categorie.value == 'tabwa'
+                final String v = WordsService.of.categorie.value == 'tabwa'
                     ? 'français'
                     : 'tabwa';
-                _wordsService.setCategorie(v);
+                WordsService.of.setCategorie(v);
               },
               // color: Theme.of(context).hintColor,
               icon: badges.Badge(
@@ -91,7 +91,7 @@ class MobileScreen extends StatelessWidget {
                 //badgeColor: Theme.of(context).primaryColor,
                 position: badges.BadgePosition.topEnd(top: -10, end: -30),
                 child: Text(
-                    _wordsService.categorie.value.substring(0, 1).toUpperCase(),
+                    WordsService.of.categorie.value.substring(0, 1).toUpperCase(),
                     style: GoogleFonts.oswald(
                         fontWeight: FontWeight.bold,
                         fontSize: ThemeSetting.massive,
@@ -102,15 +102,15 @@ class MobileScreen extends StatelessWidget {
           const SizedBox(width: 20),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: AuthController.of.isAuthenticated() ? FloatingActionButton(
         onPressed: () {
           Get.toNamed(Routes.addWord);
         },
         child: const Icon(Icons.add),
-      ),
+      ):null,
       body: SafeArea(
         child: RefreshIndicator(child: Obx(() {
-          if (_wordsService.isLoading.isTrue) {
+          if (WordsService.of.isLoading.isTrue) {
             return Center(
               child: Padding(
                 padding: EdgeInsets.all(getShortSide(30)),
@@ -126,18 +126,18 @@ class MobileScreen extends StatelessWidget {
                 ),
               ),
             );
-          } else if (_wordsService.filteredWords.isEmpty) {
-            if (_wordsService.searchedWord.isNotEmpty) {
+          } else if (WordsService.of.filteredWords.isEmpty) {
+            if (WordsService.of.searchedWord.isNotEmpty) {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("no word or expression found from searched term".tr,
                         style: TextStyle(fontSize: ThemeSetting.normal)),
-                    if (_authController.isAuthenticated())
+                    if (AuthController.of.isAuthenticated())
                       OutlinedButton(
                           onPressed: () {
-                            _wordsService.suggestAddingWord();
+                            WordsService.of.suggestAddingWord();
                           },
                           child: Text("add".tr,
                               style: TextStyle(fontSize: ThemeSetting.normal)))
@@ -152,15 +152,15 @@ class MobileScreen extends StatelessWidget {
                   Text('no words or expressions yet'.tr,
                       style: TextStyle(fontSize: ThemeSetting.normal)),
                   /*Text('the dictionnary has'.tr +
-                        ' ${_wordsService.words.length} ' +
-                        '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
+                        ' ${WordsService.of.words.length} ' +
+                        '${WordsService.of.words.length > 1 ? 'words' : 'word'}'.tr),*/
                 ],
               ),
             );
           }
           return ListView.builder(
             itemBuilder: (context, index) {
-              Word word = _wordsService.filteredWords[index];
+              Word word = WordsService.of.filteredWords[index];
               List<Translation> _translations = word.translations;
               List<String> _traas = [];
               if (_translations.isNotEmpty) {
@@ -172,7 +172,7 @@ class MobileScreen extends StatelessWidget {
                 // elevation: 0,
                 child: InkWell(
                   onTap: () {
-                    _wordsService.setActiveWord(word);
+                    WordsService.of.setActiveWord(word);
                     Get.toNamed(Routes.showWord);
                   },
                   child: Column(
@@ -209,10 +209,10 @@ class MobileScreen extends StatelessWidget {
                 ),
               );
             },
-            itemCount: _wordsService.filteredWords.length,
+            itemCount: WordsService.of.filteredWords.length,
           ).paddingSymmetric(horizontal: getShortSide(2.0));
         }), onRefresh: () async {
-          _wordsService.getAll();
+          WordsService.of.getAll();
           await 3.delay();
         }),
       ),

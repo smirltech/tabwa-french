@@ -7,16 +7,14 @@ import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 import 'package:tabwa_french/system/themes/theme_setting.dart';
 
-import '../../../../../system/configs/configs.dart';
 import '../../../../../system/helpers/audio_recorder/audio_recorder.dart';
 import '../../../../../system/helpers/log_cat.dart';
 import '../../../../controllers/auth_controller.dart';
 import '../../../../controllers/types_controller.dart';
-import '../../../../services/words_service.dart';
 
 class EditTranslation extends StatelessWidget {
-  final AuthController _authController = Get.find<AuthController>();
-  final WordsService _wordsService = Get.find<WordsService>();
+ // final AuthController _authController = Get.find<AuthController>();
+  //final WordsService _wordsService = Get.find<WordsService>();
   final TypesController _typesController = Get.find<TypesController>();
   final TranslationsController _translationsController =
       Get.find<TranslationsController>();
@@ -25,7 +23,7 @@ class EditTranslation extends StatelessWidget {
   EditTranslation({Key? key, required this.translaty}) : super(key: key) {
     translation = {
       'id': translaty.id,
-      "user_id": _authController.user.value!.id,
+      "user_id": AuthController.of.user.value!.id,
       "type_id": translaty.type_id,
       "translation": translaty.translation,
       "example": translaty.example,
@@ -159,7 +157,7 @@ class EditTranslation extends StatelessWidget {
               child: ElevatedButton(
                 child: Text('edit'.tr),
                 onPressed: () {
-                  translation['user_id'] = _authController.user.value!.id;
+                  translation['user_id'] = AuthController.of.user.value!.id;
                   _translationsController.editTranslation(translation);
                 },
               ),

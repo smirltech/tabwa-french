@@ -12,7 +12,7 @@ class Controllers {
   */
   static Future<void> init() async {
     Get.put<ConnectivityController>(ConnectivityController());
-    Get.put<AuthController>(AuthController());
+    AuthController.init();
     Get.put<TypesController>(TypesController());
     Get.put<TranslationsController>(TranslationsController());
     Get.put<AudioController>(AudioController());

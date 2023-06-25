@@ -22,8 +22,6 @@ class ShowWordScreen extends StatelessWidget {
 
   final ConnectivityController connectivityController =
       Get.find<ConnectivityController>();
-  final WordsService _wordsService = Get.find<WordsService>();
-  final AuthController _authController = Get.find<AuthController>();
   late SoundPlayer soundPlayer;
 
   @override
@@ -68,7 +66,7 @@ class ShowWordScreen extends StatelessWidget {
                                       onPressed: () {
                                         // todo: play audio
                                         String audioUrl =
-                                            "https://tabwa.smirltech.com/audio/words/${_wordsService.word.value!.id}.aac";
+                                            "https://tabwa.smirltech.com/audio/words/${WordsService.of.word.value!.id}.aac";
                                         // logcat('audioUrl: $audioUrl');
                                         soundPlayer.playFromNet(audioUrl,
                                             whenFinished: () {
@@ -86,7 +84,7 @@ class ShowWordScreen extends StatelessWidget {
                                     ),
                                     Expanded(
                                       child: Text(
-                                        _wordsService.word.value!.word,
+                                        WordsService.of.word.value!.word,
                                         style: GoogleFonts.oswald(
                                           fontSize: ThemeSetting.big,
                                         ),
@@ -104,7 +102,7 @@ class ShowWordScreen extends StatelessWidget {
                                     IconButton(
                                       onPressed: () {
                                         Get.bottomSheet(EditWord(
-                                            wordy: _wordsService.word.value!));
+                                            wordy: WordsService.of.word.value!));
                                       },
                                       icon: const Icon(
                                         Icons.edit,
@@ -116,8 +114,8 @@ class ShowWordScreen extends StatelessWidget {
                                 showCredit(
                                     context,
                                     'word or expression'.tr,
-                                    _wordsService.word.value!.user,
-                                    _wordsService.word.value!.updater);
+                                    WordsService.of.word.value!.user,
+                                    WordsService.of.word.value!.updater);
                               },
                             ),
                           ],
@@ -132,7 +130,7 @@ class ShowWordScreen extends StatelessWidget {
                     child: ListView.builder(
                         itemBuilder: (context, index) {
                           Translation tranz =
-                              _wordsService.word.value!.translations[index];
+                              WordsService.of.word.value!.translations[index];
                           return Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -321,7 +319,7 @@ class ShowWordScreen extends StatelessWidget {
                           );
                         },
                         itemCount:
-                            _wordsService.word.value!.translations.length),
+                            WordsService.of.word.value!.translations.length),
                   ),
                 ),
               ],

@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tabwa_french/app/controllers/translations_controller.dart';
-import 'package:tabwa_french/app/models/type.dart';
 import 'package:tabwa_french/system/helpers/audio_recorder/audio_recorder.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 import 'package:tabwa_french/system/themes/theme_setting.dart';
 
-import '../../../../../system/configs/configs.dart';
-import '../../../../../system/helpers/log_cat.dart';
 import '../../../../controllers/auth_controller.dart';
-import '../../../../controllers/types_controller.dart';
 import '../../../../models/word.dart';
 import '../../../../services/words_service.dart';
 
 class EditWord extends StatelessWidget {
-  final AuthController _authController = Get.find<AuthController>();
-  final WordsService _wordsService = Get.find<WordsService>();
+  //final AuthController _authController = Get.find<AuthController>();
+  //final WordsService WordsService.of = Get.find<WordsService>();
   final Word wordy;
 
   EditWord({Key? key, required this.wordy}) : super(key: key) {
@@ -76,7 +71,7 @@ class EditWord extends StatelessWidget {
                             if (value!.isEmpty) {
                               return 'word is required'.tr;
                             }
-                            if (_wordsService.key_words.value
+                            if (WordsService.of.key_words.value
                                 .contains(value.toLowerCase())) {
                               return 'word already exists'.tr;
                             }
@@ -123,8 +118,8 @@ class EditWord extends StatelessWidget {
                   child: ElevatedButton(
                     child: Text('edit'.tr),
                     onPressed: () {
-                      word['user_id'] = _authController.user.value!.id;
-                      _wordsService.editWord(word);
+                      word['user_id'] = AuthController.of.user.value!.id;
+                      WordsService.of.editWord(word);
                     },
                   ),
                 ),
