@@ -78,7 +78,7 @@ class WordsService extends GetxService {
   void onInit() {
     GetStorage().writeIfNull('categorie', categorie.value);
     categorie.value = GetStorage().read('categorie');
-    loop(getAll, duration: const Duration(seconds: 3));
+    //loop(getAll, duration: const Duration(seconds: 3));
     super.onInit();
     GetStorage().listenKey('categorie', (value) {
       logcat("categorie: $value");
@@ -167,10 +167,10 @@ class WordsService extends GetxService {
     word.value = null;
   }
 
-  Future<void> getsAll() async {
+  Future<void> getAll() async {
     // logcat("You are in WordsService");
-    List<Word> ll = await Word.getAll();
-    if (ll != null) {
+    /*List<Word> ll =*/ await Word.getAll();
+   /* if (ll != null) {
       key_words.clear();
       ll.forEach((element) {
         key_words.add(element.word.toLowerCase());
@@ -192,15 +192,33 @@ class WordsService extends GetxService {
     }
     // if (ll.isNotEmpty) {_updateContributionList();}
     if (word.value != null) updateActiveWord();
-
+*/
     isLoading.value = false;
   }
 
    Future<void> getAllLocal() async {
     GetStorage().listenKey('words', (value) {
       List<Word> vv = Word.listFromMap(value);
+      if (vv.isNotEmpty) {
+        key_words.clear();
+        vv.forEach((element) {
+          key_words.add(element.word.toLowerCase());
+        });
+        // logcat(key_words.toString());
+      }
       vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
       words.value = vv;
+      if (searchedWord.value.length == 0) {
+        filteredWords.value =
+            words.value.where((word) => wordOfCategory(word)).toList();
+        filteredProverbs.value = filteredWords.value
+            .where(
+              (word) => word.translations
+              .any((trans) => trans.type.toLowerCase().contains("prov")),
+        )
+            .toList();
+      }
+      if (word.value != null) updateActiveWord();
     });
   }
 
