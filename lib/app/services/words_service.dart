@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:easy_table/easy_table.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -91,7 +93,7 @@ class WordsService extends GetxService {
   @override
   void onReady() {
     super.onReady();
-    debounce(
+   /* debounce(
       searchedWord,
       (v) {
         if (words.value != null) {
@@ -120,9 +122,9 @@ class WordsService extends GetxService {
         }
       },
       time: const Duration(milliseconds: 500),
-    );
+    );*/
 
-    debounce(
+   /* debounce(
       categorie,
       (v) {
         if (words.value != null) {
@@ -151,7 +153,7 @@ class WordsService extends GetxService {
         }
       },
       time: const Duration(milliseconds: 500),
-    );
+    );*/
   }
 
   void suggestAddingWord() async {
@@ -196,7 +198,39 @@ class WordsService extends GetxService {
     isLoading.value = false;
   }
 
-   Future<void> getAllLocal() async {
+  updateFilters(){
+    if (searchedWord.value.length == 0) {
+      filteredWords.value =
+          words.value.where((word) => wordOfCategory(word)).toList();
+      filteredProverbs.value = filteredWords.value
+          .where(
+            (word) => word.translations
+            .any((trans) => trans.type.toLowerCase().contains("prov")),
+      )
+          .toList();
+    }
+    if (word.value != null) updateActiveWord();
+  }
+
+  getAllLocalInit() {
+
+      List<Word> vv = Word.listFromMap(GetStorage().read('words'));
+      if (vv.isNotEmpty) {
+        key_words.clear();
+        vv.forEach((element) {
+          key_words.add(element.word.toLowerCase());
+        });
+        // logcat(key_words.toString());
+      }
+      //log(vv.toString());
+      vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+      words.value = vv;
+     updateFilters();
+
+      isLoading.value = false;
+  }
+    getAllLocal() {
+    getAllLocalInit();
     GetStorage().listenKey('words', (value) {
       List<Word> vv = Word.listFromMap(value);
       if (vv.isNotEmpty) {
@@ -206,19 +240,11 @@ class WordsService extends GetxService {
         });
         // logcat(key_words.toString());
       }
+      log("aa");
       vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
       words.value = vv;
-      if (searchedWord.value.length == 0) {
-        filteredWords.value =
-            words.value.where((word) => wordOfCategory(word)).toList();
-        filteredProverbs.value = filteredWords.value
-            .where(
-              (word) => word.translations
-              .any((trans) => trans.type.toLowerCase().contains("prov")),
-        )
-            .toList();
-      }
-      if (word.value != null) updateActiveWord();
+     updateFilters();
+      isLoading.value = false;
     });
   }
 
