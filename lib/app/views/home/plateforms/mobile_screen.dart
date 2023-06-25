@@ -86,10 +86,10 @@ class MobileScreen extends StatelessWidget {
                   horizontal: 0,
                 ),
                 badgeStyle: badges.BadgeStyle(
-                  badgeColor: Theme.of(context).primaryColor,
+                  badgeColor: Theme.of(context).secondaryHeaderColor,
                 ),
                 //badgeColor: Theme.of(context).primaryColor,
-                position: badges.BadgePosition.topEnd(top: -20, end: -30),
+                position: badges.BadgePosition.topEnd(top: -10, end: -30),
                 child: Text(
                     _wordsService.categorie.value.substring(0, 1).toUpperCase(),
                     style: GoogleFonts.oswald(

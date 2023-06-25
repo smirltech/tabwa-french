@@ -19,8 +19,8 @@ class SettingsScreen extends StatelessWidget {
   var selectedCategorie = 'tabwa'.obs;
   List<DropdownMenuItem<String>> dm = [
     const DropdownMenuItem(
-      child: Text('Tabwa'),
       value: 'tabwa',
+      child: Text('Tabwa'),
     ),
     const DropdownMenuItem(
       child: Text('Français'),
@@ -31,23 +31,23 @@ class SettingsScreen extends StatelessWidget {
   var selectedthemy = 'system'.obs;
   List<DropdownMenuItem<String>> themy = [
     const DropdownMenuItem(
-      child: Text('Light'),
       value: 'light',
+      child: Text('Light'),
     ),
     const DropdownMenuItem(
-      child: Text('Dark'),
       value: 'dark',
+      child: Text('Dark'),
     ),
     const DropdownMenuItem(
-      child: Text('System'),
       value: 'system',
+      child: Text('System'),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         elevation: 0,
         iconTheme: IconThemeData(color: Theme.of(context).hintColor),

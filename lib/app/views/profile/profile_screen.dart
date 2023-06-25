@@ -63,13 +63,19 @@ class ProfileScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ElevatedButton(
-                  child: Text('edit email'.tr),
-                  onPressed: null,
+
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: null,
+                    child: Text('edit email'.tr,),
+                  ),
                 ),
-                ElevatedButton(
-                  child: Text('edit password'.tr),
-                  onPressed: null,
+               const SizedBox(width: 10,),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: null,
+                    child: Text('edit password'.tr),
+                  ),
                 ),
               ],
             ).paddingSymmetric(horizontal: getShortSide(20)),
