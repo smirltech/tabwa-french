@@ -9,7 +9,7 @@ import '../../../routes/routes.dart';
 
 class MainMenu extends StatelessWidget {
   MainMenu({Key? key}) : super(key: key);
-  final AuthController _authController = Get.find<AuthController>();
+ // final AuthController _authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -118,12 +118,12 @@ class MainMenu extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Builder(builder: (context) {
-                  if (_authController.user.value != null) {
+                  if (AuthController.of.user.value != null) {
                     return Flexible(
                       child: OutlinedButton.icon(
                         onPressed: () {
                           Get.back();
-                          _authController.logout();
+                          AuthController.of.logout();
                         },
                         style: OutlinedButton.styleFrom(
                           primary: Colors.red,
@@ -151,7 +151,7 @@ class MainMenu extends StatelessWidget {
                     );
                   }
                 }),
-                if (_authController.user.value == null)
+                if (AuthController.of.user.value == null)
                   Flexible(
                     child: OutlinedButton.icon(
                       onPressed: () {

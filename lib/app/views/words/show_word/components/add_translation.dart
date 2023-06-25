@@ -15,12 +15,12 @@ import '../../../../services/words_service.dart';
 class AddTranslation extends StatelessWidget {
  // final AuthController _authController = Get.find<AuthController>();
  // final WordsService _wordsService = Get.find<WordsService>();
-  final TypesController _typesController = Get.find<TypesController>();
-  final TranslationsController _translationsController =
-  Get.find<TranslationsController>();
+ // final TypesController _typesController = Get.find<TypesController>();
+ // final TranslationsController _translationsController =
+  //Get.find<TranslationsController>();
 
   AddTranslation({Key? key}) : super(key: key) {
-    tty = _typesController.types.value.map((e) {
+    tty = TypesController.of.types.value.map((e) {
       return DropdownMenuItem<Type>(
         value: e,
         child: Text(e.type),
@@ -114,7 +114,7 @@ class AddTranslation extends StatelessWidget {
                 onPressed: () {
                   translation['word_id'] = WordsService.of.word.value!.id;
                   translation['user_id'] = AuthController.of.user.value!.id;
-                  _translationsController.addTranslation(translation);
+                  TranslationsController.of.addTranslation(translation);
                 },
               ),
             ),

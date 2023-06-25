@@ -11,12 +11,12 @@ import 'package:tabwa_french/system/helpers/log_cat.dart';
 import '../../../../system/helpers/sizes.dart';
 
 class AddWordScreen extends StatelessWidget {
-  final AuthController _authController = Get.find<AuthController>();
-  final WordsService _wordsService = Get.find<WordsService>();
-  final TypesController _typesController = Get.find<TypesController>();
+ // final AuthController _authController = Get.find<AuthController>();
+  //final WordsService _wordsService = Get.find<WordsService>();
+ // final TypesController _typesController = Get.find<TypesController>();
 
   AddWordScreen({Key? key}) : super(key: key) {
-    tty = _typesController.types.value.map((e) {
+    tty = TypesController.of.types.value.map((e) {
       return DropdownMenuItem<Type>(
         value: e,
         child: Text(e.type),
@@ -24,7 +24,7 @@ class AddWordScreen extends StatelessWidget {
     }).toList();
     if (tty.isNotEmpty) selectedType.value = tty[0].value;
 
-    word["word"] = _wordsService.searchedWord.value;
+    word["word"] =WordsService.of.searchedWord.value;
   }
 
   var word = <String, dynamic>{
@@ -67,8 +67,8 @@ class AddWordScreen extends StatelessWidget {
               onPressed: word.value['word'].toString().isEmpty
                   ? null
                   : () {
-                      word.value['user_id'] = _authController.user.value!.id;
-                      _wordsService.addWord(word.value);
+                      word.value['user_id'] = AuthController.of.user.value!.id;
+                      WordsService.of.addWord(word.value);
                     },
             );
           }).paddingOnly(right: getShortSide(10)),
@@ -91,7 +91,7 @@ class AddWordScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return 'word is required'.tr;
                       }
-                      if (_wordsService.key_words.value
+                      if (WordsService.of.key_words.value
                           .contains(value.toLowerCase())) {
                         return 'word already exists'.tr;
                       }

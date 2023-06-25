@@ -8,12 +8,12 @@ import '../../../system/helpers/helpers.dart';
 import '../../services/words_service.dart';
 
 class SettingsScreen extends StatelessWidget {
-  final WordsService _wordsService = Get.find<WordsService>();
-  final AuthController _authController = Get.find<AuthController>();
+ // final WordsService _wordsService = Get.find<WordsService>();
+ // final AuthController _authController = Get.find<AuthController>();
 
   SettingsScreen({Key? key}) : super(key: key) {
-    selectedCategorie.value = _wordsService.categorie.value;
-    selectedthemy.value = _authController.themy.value;
+    selectedCategorie.value = WordsService.of.categorie.value;
+    selectedthemy.value = AuthController.of.themy.value;
   }
 
   var selectedCategorie = 'tabwa'.obs;
@@ -69,7 +69,7 @@ class SettingsScreen extends StatelessWidget {
                       value: selectedCategorie.value,
                       onChanged: (value) {
                         selectedCategorie.value = value.toString();
-                        _wordsService.setCategorie(value.toString());
+                        WordsService.of.setCategorie(value.toString());
                       }),
                 );
               }),
@@ -86,7 +86,7 @@ class SettingsScreen extends StatelessWidget {
                       value: selectedthemy.value,
                       onChanged: (value) {
                         selectedthemy.value = value.toString();
-                        _authController.storeTheme(value.toString());
+                        AuthController.of.storeTheme(value.toString());
                       }),
                 );
               }),

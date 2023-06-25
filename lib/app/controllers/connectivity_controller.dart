@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import '../../system/helpers/log_cat.dart';
 
 class ConnectivityController extends GetxController {
+  static ConnectivityController get of=> Get.find<ConnectivityController>();
+  static ConnectivityController init()=> Get.put<ConnectivityController>(ConnectivityController());
   // late StreamSubscription<ConnectivityResult> _subscription;
   // var connectivityResult = Rxn<ConnectivityResult>();
 

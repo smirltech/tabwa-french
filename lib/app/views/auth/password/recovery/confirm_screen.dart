@@ -15,7 +15,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
     }
   }
 
-  final AuthController _authController = Get.find<AuthController>();
+  //final AuthController _authController = Get.find<AuthController>();
   Map<String, dynamic> creds = {
     'email': '',
     'code': '',
@@ -71,7 +71,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {
-                return _authController.isRequestForgotPassword.isFalse
+                return AuthController.of.isRequestForgotPassword.isFalse
                     ? const SizedBox.shrink()
                     : const LinearProgressIndicator();
               }),
@@ -83,7 +83,7 @@ class PasswordRecoveryConfirmScreen extends StatelessWidget {
                     onPressed: canRequest.isFalse
                         ? null
                         : () {
-                            _authController.passwordResetConfirmCode(creds);
+                            AuthController.of.passwordResetConfirmCode(creds);
                           },
                     style: ElevatedButton.styleFrom(
                         textStyle: TextStyle(fontSize: ThemeSetting.normal)),

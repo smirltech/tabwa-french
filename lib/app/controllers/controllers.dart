@@ -11,10 +11,10 @@ class Controllers {
   * Append all the controllers inside init() for them to be initialized
   */
   static Future<void> init() async {
-    Get.put<ConnectivityController>(ConnectivityController());
+    ConnectivityController.init();
     AuthController.init();
-    Get.put<TypesController>(TypesController());
-    Get.put<TranslationsController>(TranslationsController());
-    Get.put<AudioController>(AudioController());
+   TypesController.init();
+    TranslationsController.init();
+    AudioController.init();
   }
 }

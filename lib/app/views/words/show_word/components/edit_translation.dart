@@ -15,9 +15,9 @@ import '../../../../controllers/types_controller.dart';
 class EditTranslation extends StatelessWidget {
  // final AuthController _authController = Get.find<AuthController>();
   //final WordsService _wordsService = Get.find<WordsService>();
-  final TypesController _typesController = Get.find<TypesController>();
-  final TranslationsController _translationsController =
-      Get.find<TranslationsController>();
+  //final TypesController _typesController = Get.find<TypesController>();
+ // final TranslationsController _translationsController =
+ //     Get.find<TranslationsController>();
   final Translation translaty;
 
   EditTranslation({Key? key, required this.translaty}) : super(key: key) {
@@ -30,14 +30,14 @@ class EditTranslation extends StatelessWidget {
       "example_translation": translaty.example_translation,
     };
 
-    tty = _typesController.types.value.map((e) {
+    tty = TypesController.of.types.value.map((e) {
       return DropdownMenuItem<Type>(
         value: e,
         child: Text(e.type),
       );
     }).toList();
 
-    selectedType.value = _typesController.types.value.firstWhere((Type e) {
+    selectedType.value = TypesController.of.types.value.firstWhere((Type e) {
       return e.id == int.parse(translaty.type_id);
     });
   }
@@ -158,7 +158,7 @@ class EditTranslation extends StatelessWidget {
                 child: Text('edit'.tr),
                 onPressed: () {
                   translation['user_id'] = AuthController.of.user.value!.id;
-                  _translationsController.editTranslation(translation);
+                  TranslationsController.of.editTranslation(translation);
                 },
               ),
             ),

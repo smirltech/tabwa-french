@@ -16,8 +16,8 @@ import '../components/main_menu.dart';
 
 class MobileScreen extends StatelessWidget {
   MobileScreen({Key? key}) : super(key: key);
-  final ConnectivityController connectivityController =
-      Get.find<ConnectivityController>();
+  // final ConnectivityController connectivityController =
+  //     Get.find<ConnectivityController>();
   //final WordsService WordsService.of = Get.find<WordsService>();
   //final AuthController _authController = Get.find<AuthController>();
 

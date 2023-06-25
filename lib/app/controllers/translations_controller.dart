@@ -5,6 +5,8 @@ import 'package:tabwa_french/app/services/words_service.dart';
 import 'package:tabwa_french/system/helpers/log_cat.dart';
 
 class TranslationsController extends GetxController {
+  static TranslationsController get of=> Get.find<TranslationsController>();
+  static TranslationsController init()=> Get.put<TranslationsController>(TranslationsController());
   void addTranslation(Map<String, dynamic> translation) async {
     await Translation.add(translation);
     Get.find<WordsService>().updateActiveWord();

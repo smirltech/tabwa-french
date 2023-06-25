@@ -27,10 +27,10 @@ class DesktopScreen extends StatelessWidget {
     soundPlayer.init();
   }
 
-  final ConnectivityController connectivityController =
-      Get.find<ConnectivityController>();
-  final WordsService _wordsService = Get.find<WordsService>();
-  final AuthController _authController = Get.find<AuthController>();
+  // final ConnectivityController connectivityController =
+  //     Get.find<ConnectivityController>();
+  // final WordsService WordsService.of = Get.find<WordsService>();
+  // final AuthController _authController = Get.find<AuthController>();
   late SoundPlayer soundPlayer;
 
   @override
@@ -42,9 +42,9 @@ class DesktopScreen extends StatelessWidget {
           iconTheme: IconThemeData(color: Theme.of(context).hintColor),
           title: Obx(() {
             return CupertinoSearchTextField(
-              controller: _wordsService.searchEditingController.value,
+              controller: WordsService.of.searchEditingController.value,
               onChanged: (value) {
-                _wordsService.searchedWord.value = value;
+                WordsService.of.searchedWord.value = value;
               },
               style: TextStyle(
                   fontSize: ThemeSetting.large,
@@ -60,7 +60,7 @@ class DesktopScreen extends StatelessWidget {
                   " " +
                   "in".tr +
                   ' ' +
-                  _wordsService.categorie.value,
+                  WordsService.of.categorie.value,
             );
           }),
           actions: [
@@ -68,15 +68,15 @@ class DesktopScreen extends StatelessWidget {
               int cnt = 0;
               String cntStr = cnt.toString();
               try {
-                cnt = _wordsService.filteredWords.value.length;
+                cnt = WordsService.of.filteredWords.value.length;
                 cntStr = cnt > 999 ? '999+' : cnt.toString();
               } on Exception catch (_) {}
               return IconButton(
                 onPressed: () {
-                  final String v = _wordsService.categorie.value == 'tabwa'
+                  final String v = WordsService.of.categorie.value == 'tabwa'
                       ? 'français'
                       : 'tabwa';
-                  _wordsService.setCategorie(v);
+                  WordsService.of.setCategorie(v);
                 },
                 // color: Theme.of(context).hintColor,
                 icon: badges.Badge(
@@ -92,7 +92,7 @@ class DesktopScreen extends StatelessWidget {
                   ),
                   position: badges.BadgePosition.topEnd(top: -20, end: -30),
                   child: Text(
-                      _wordsService.categorie.value
+                      WordsService.of.categorie.value
                           .substring(0, 1)
                           .toUpperCase(),
                       style: GoogleFonts.oswald(
@@ -136,7 +136,7 @@ class DesktopScreen extends StatelessWidget {
                   ),
                   Expanded(
                     child: Obx(() {
-                      if (_wordsService.isLoading.isTrue) {
+                      if (WordsService.of.isLoading.isTrue) {
                         return Center(
                           child: Padding(
                             padding: EdgeInsets.all(getShortSide(30)),
@@ -153,8 +153,8 @@ class DesktopScreen extends StatelessWidget {
                             ),
                           ),
                         );
-                      } else if (_wordsService.filteredWords.isEmpty) {
-                        if (_wordsService.searchedWord.isNotEmpty) {
+                      } else if (WordsService.of.filteredWords.isEmpty) {
+                        if (WordsService.of.searchedWord.isNotEmpty) {
                           return Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -164,10 +164,10 @@ class DesktopScreen extends StatelessWidget {
                                         .tr,
                                     style: TextStyle(
                                         fontSize: ThemeSetting.normal)),
-                                if (_authController.isAuthenticated())
+                                if (AuthController.of.isAuthenticated())
                                   OutlinedButton(
                                       onPressed: () {
-                                        _wordsService.suggestAddingWord();
+                                        WordsService.of.suggestAddingWord();
                                       },
                                       child: Text("add".tr,
                                           style: TextStyle(
@@ -184,15 +184,15 @@ class DesktopScreen extends StatelessWidget {
                                   style:
                                       TextStyle(fontSize: ThemeSetting.normal)),
                               /*Text('the dictionnary has'.tr +
-                              ' ${_wordsService.words.length} ' +
-                              '${_wordsService.words.length > 1 ? 'words' : 'word'}'.tr),*/
+                              ' ${WordsService.of.words.length} ' +
+                              '${WordsService.of.words.length > 1 ? 'words' : 'word'}'.tr),*/
                             ],
                           ),
                         );
                       }
                       return ListView.builder(
                         itemBuilder: (context, index) {
-                          Word word = _wordsService.filteredWords[index];
+                          Word word = WordsService.of.filteredWords[index];
                           List<Translation> _translations = word.translations;
                           List<String> _traas = [];
                           if (_translations.isNotEmpty) {
@@ -204,7 +204,7 @@ class DesktopScreen extends StatelessWidget {
                             // elevation: 0,
                             child: InkWell(
                               onTap: () {
-                                _wordsService.setActiveWord(word);
+                                WordsService.of.setActiveWord(word);
                                 //  Get.toNamed(Routes.showWord);
                               },
                               child: Column(
@@ -222,7 +222,7 @@ class DesktopScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        itemCount: _wordsService.filteredWords.length,
+                        itemCount: WordsService.of.filteredWords.length,
                       ).paddingSymmetric(horizontal: getShortSide(2.0));
                     }),
                   ),
@@ -233,7 +233,7 @@ class DesktopScreen extends StatelessWidget {
               child: Stack(
                 children: [
                   Obx(() {
-                    if (_wordsService.word.value == null) {
+                    if (WordsService.of.word.value == null) {
                       return Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -265,7 +265,7 @@ class DesktopScreen extends StatelessWidget {
                                               onPressed: () {
                                                 // todo: play audio
                                                 String audioUrl =
-                                                    "https://tabwa.smirltech.com/audio/words/${_wordsService.word.value!.id}.aac";
+                                                    "https://tabwa.smirltech.com/audio/words/${WordsService.of.word.value!.id}.aac";
                                                 // logcat('audioUrl: $audioUrl');
                                                 soundPlayer.playFromNet(
                                                     audioUrl, whenFinished: () {
@@ -283,7 +283,7 @@ class DesktopScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                _wordsService.word.value!.word,
+                                                WordsService.of.word.value!.word,
                                                 style: GoogleFonts.oswald(
                                                   fontSize: ThemeSetting.big,
                                                 ),
@@ -303,7 +303,7 @@ class DesktopScreen extends StatelessWidget {
                                             IconButton(
                                               onPressed: () {
                                                 Get.bottomSheet(EditWord(
-                                                    wordy: _wordsService
+                                                    wordy: WordsService.of
                                                         .word.value!));
                                               },
                                               icon: const Icon(
@@ -316,8 +316,8 @@ class DesktopScreen extends StatelessWidget {
                                         showCredit(
                                             context,
                                             'word or expression'.tr,
-                                            _wordsService.word.value!.user,
-                                            _wordsService.word.value!.updater);
+                                            WordsService.of.word.value!.user,
+                                            WordsService.of.word.value!.updater);
                                       },
                                     ),
                                   ],
@@ -331,7 +331,7 @@ class DesktopScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(2.0),
                             child: ListView.builder(
                                 itemBuilder: (context, index) {
-                                  Translation tranz = _wordsService
+                                  Translation tranz = WordsService.of
                                       .word.value!.translations[index];
                                   return Row(
                                     crossAxisAlignment:
@@ -552,7 +552,7 @@ class DesktopScreen extends StatelessWidget {
                                     ],
                                   );
                                 },
-                                itemCount: _wordsService
+                                itemCount: WordsService.of
                                     .word.value!.translations.length),
                           ),
                         ),

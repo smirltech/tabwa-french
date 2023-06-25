@@ -10,7 +10,7 @@ import '../../../routes/routes.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({Key? key}) : super(key: key);
-  final AuthController _authController = Get.find<AuthController>();
+  //final AuthController _authController = Get.find<AuthController>();
   Map<String, dynamic> user = {
     'name': '',
     'email': '',
@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
               onPressed: _accept.isFalse
                   ? null
                   : () {
-                      _authController.register(user);
+                      AuthController.of.register(user);
                     },
               icon: const Icon(Icons.person_add_alt),
             );
@@ -45,7 +45,7 @@ class RegisterScreen extends StatelessWidget {
         child: ListView(
           children: [
             Text(
-              "register to the dictionnary to be able to contribute to the community with your precious knowledge"
+              "register to the dictionary to be able to contribute to the community with your precious knowledge"
                   .tr,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -145,7 +145,7 @@ class RegisterScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(getShortSide(10)),
               child: Obx(() {
-                return _authController.isConnecting.isFalse
+                return AuthController.of.isConnecting.isFalse
                     ? const SizedBox.shrink()
                     : const LinearProgressIndicator();
               }),
@@ -157,7 +157,7 @@ class RegisterScreen extends StatelessWidget {
                     onPressed: _accept.isFalse
                         ? null
                         : () {
-                            _authController.register(user);
+                            AuthController.of.register(user);
                           },
                     child: Text('register'.tr,
                         style: TextStyle(fontSize: getTextSize(12))));

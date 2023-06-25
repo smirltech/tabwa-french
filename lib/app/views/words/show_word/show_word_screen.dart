@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/views/words/show_word/components/add_translation.dart';
 import 'package:tabwa_french/app/views/words/show_word/components/edit_translation.dart';
 import 'package:tabwa_french/app/views/words/show_word/components/edit_word.dart';
@@ -10,7 +9,6 @@ import 'package:tabwa_french/system/helpers/helpers.dart';
 import 'package:tabwa_french/system/themes/theme_setting.dart';
 
 import '../../../../system/helpers/sizes.dart';
-import '../../../controllers/connectivity_controller.dart';
 import '../../../models/translation.dart';
 import '../../../services/words_service.dart';
 
@@ -20,8 +18,8 @@ class ShowWordScreen extends StatelessWidget {
     soundPlayer.init();
   }
 
-  final ConnectivityController connectivityController =
-      Get.find<ConnectivityController>();
+ // final ConnectivityController connectivityController =
+ //     Get.find<ConnectivityController>();
   late SoundPlayer soundPlayer;
 
   @override

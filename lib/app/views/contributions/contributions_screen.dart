@@ -11,7 +11,7 @@ import '../../models/buggy.dart';
 
 class ContributionsScreen extends StatelessWidget {
   ContributionsScreen({Key? key}) : super(key: key);
-  final WordsService _wordsService = Get.find<WordsService>();
+  //final WordsService _wordsService = Get.find<WordsService>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class ContributionsScreen extends StatelessWidget {
             Expanded(child: Obx(() {
               return EasyTable<Buggy>(
                 EasyTableModel<Buggy>(
-                    rows: _wordsService.contributions.value,
+                    rows: WordsService.of.contributions.value,
                     columns: [
                       EasyTableColumn(
                         name: 'name'.tr,

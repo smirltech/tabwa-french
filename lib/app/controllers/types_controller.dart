@@ -5,6 +5,8 @@ import 'package:tabwa_french/system/helpers/log_cat.dart';
 import '../../system/helpers/helpers.dart';
 
 class TypesController extends GetxController {
+  static TypesController get of=> Get.find<TypesController>();
+  static TypesController init()=> Get.put<TypesController>(TypesController());
   var types = <Type>[].obs;
 
   void getAll() async {

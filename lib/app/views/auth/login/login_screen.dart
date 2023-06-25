@@ -11,7 +11,7 @@ import '../../../../system/helpers/sizes.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
-  final AuthController _authController = Get.find<AuthController>();
+  //final AuthController _authController = Get.find<AuthController>();
   Map<String, dynamic> creds = {
     'email': '',
     'password': '',
@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               if (creds['email'].isNotEmpty && creds['password'].isNotEmpty) {
-                _authController.login(creds);
+                AuthController.of.login(creds);
               } else {
                 snackItOldWarning(
                   'email and password are required'.tr,
@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(getShortSide(10)),
                     child: Obx(() {
-                      return _authController.isConnecting.isFalse
+                      return AuthController.of.isConnecting.isFalse
                           ? const SizedBox.shrink()
                           : const LinearProgressIndicator();
                     }),
@@ -97,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                   onPressed: () {
                     if (creds['email'].isNotEmpty &&
                         creds['password'].isNotEmpty) {
-                      _authController.login(creds);
+                      AuthController.of.login(creds);
                     } else {
                       snackItOldWarning(
                         'email and password are required'.tr,

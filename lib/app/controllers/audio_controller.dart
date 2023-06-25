@@ -11,6 +11,8 @@ import 'package:tabwa_french/system/helpers/audio_recorder/components/sound_reco
 import '../../system/helpers/log_cat.dart';
 
 class AudioController extends GetxController {
+  static AudioController get of=> Get.find<AudioController>();
+  static AudioController init()=> Get.put<AudioController>(AudioController());
   void addAudio(Map<String, String> map, VoidCallback callback) async {
     String token = GetStorage().read("token");
     String f = await FilePath.pathToSaveAudio;

@@ -1,21 +1,10 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'package:tabwa_french/app/controllers/auth_controller.dart';
-import 'package:tabwa_french/app/services/words_service.dart';
-import 'package:tabwa_french/app/views/home/components/main_menu.dart';
 import 'package:tabwa_french/app/views/home/plateforms/desktop_screen.dart';
 import 'package:tabwa_french/app/views/home/plateforms/mobile_screen.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
-import 'package:tabwa_french/system/themes/theme_setting.dart';
 
-import '../../controllers/connectivity_controller.dart';
-import '../../models/translation.dart';
-import '../../models/word.dart';
-import '../../routes/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -27,10 +16,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<HomeScreen> {
-  final ConnectivityController connectivityController =
-      Get.find<ConnectivityController>();
-  final WordsService _wordsService = Get.find<WordsService>();
-  final AuthController _authController = Get.find<AuthController>();
+  // final ConnectivityController connectivityController =
+  //     Get.find<ConnectivityController>();
+  // final WordsService _wordsService = Get.find<WordsService>();
+  // final AuthController _authController = Get.find<AuthController>();
 
   initState() {
     super.initState();

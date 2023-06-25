@@ -18,7 +18,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
     }
   }
 
-  final AuthController _authController = Get.find<AuthController>();
+ // final AuthController _authController = Get.find<AuthController>();
   Map<String, dynamic> creds = {
     'email': '',
     'code': '',
@@ -74,7 +74,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Obx(() {
-                return _authController.isRequestForgotPassword.isFalse
+                return AuthController.of.isRequestForgotPassword.isFalse
                     ? const SizedBox.shrink()
                     : const LinearProgressIndicator();
               }),
@@ -86,7 +86,7 @@ class PasswordRecoveryResetScreen extends StatelessWidget {
                     onPressed: canRequest.isFalse
                         ? null
                         : () {
-                            _authController.forgotPasswordReset(creds);
+                            AuthController.of.forgotPasswordReset(creds);
                           },
                     style: ElevatedButton.styleFrom(
                         textStyle: TextStyle(fontSize: ThemeSetting.normal)),

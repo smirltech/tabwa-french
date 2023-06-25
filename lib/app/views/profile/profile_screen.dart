@@ -7,7 +7,7 @@ import '../../../system/themes/theme_setting.dart';
 import '../../controllers/auth_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final AuthController _authController = Get.find<AuthController>();
+ // final AuthController _authController = Get.find<AuthController>();
 
   ProfileScreen({Key? key}) : super(key: key);
 
@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              _authController.logout();
+              AuthController.of.logout();
             },
             icon: const Icon(Icons.logout),
           ).paddingOnly(right: getShortSide(10)),
@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                   ).paddingSymmetric(vertical: getShortSide(20)),
                   ListTile(
                     leading: const Icon(Icons.account_circle),
-                    title: Text(_authController.user.value!.name!,
+                    title: Text(AuthController.of.user.value!.name!,
                         style: TextStyle(
                             fontSize: ThemeSetting.large,
                             fontWeight: FontWeight.bold)),
@@ -50,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.email),
-                    title: Text(_authController.user.value!.email!,
+                    title: Text(AuthController.of.user.value!.email!,
                         style: TextStyle(
                             fontSize: ThemeSetting.large,
                             fontWeight: FontWeight.bold)),
