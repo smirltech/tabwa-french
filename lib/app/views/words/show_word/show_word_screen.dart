@@ -98,7 +98,7 @@ class ShowWordScreen extends StatelessWidget {
                                                       .value!
                                                       .name !=
                                                   'none'))*/
-                                    IconButton(
+                                  if(AuthController.of.isAuthenticated())  IconButton(
                                       onPressed: () {
                                         Get.bottomSheet(EditWord(
                                             wordy: WordsService.of.word.value!));
@@ -211,7 +211,7 @@ class ShowWordScreen extends StatelessWidget {
                                                                 .value!
                                                                 .name !=
                                                             'none'))*/
-                                              IconButton(
+                                              if(AuthController.of.isAuthenticated())    IconButton(
                                                 onPressed: () {
                                                   Get.bottomSheet(
                                                     EditTranslation(
