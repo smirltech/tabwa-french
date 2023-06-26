@@ -264,9 +264,22 @@ class WordsService extends GetxService {
 
   void addWord(Map<String, dynamic> word) async {
     isLoading.value = true;
-    await Word.add(word);
+  //  log(word.toString());
+  Response? response =  await Word.add(word);
+  int? statusCode = response?.statusCode;
+  String? statusText = response?.statusText;
+  log(statusCode.toString());
+  log(statusText.toString());
+  if(statusCode == 401){
+    toastItError(msg: statusText.toString().tr);
+  }
+
     getAll();
-    Get.back();
+    if(statusCode == 200){
+      toastItSuccess(msg: statusText.toString().tr);
+       Get.back();
+    }
+
   }
 
   void editWord(Map<String, dynamic> word) async {

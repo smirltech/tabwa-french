@@ -12,7 +12,7 @@ class AuthMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    isAuthenticated = Get.find<AuthController>().isAuthenticated();
+    isAuthenticated = AuthController.of.isAuthenticated();
     if (!isAuthenticated) {
       //  snackItOld("you're not logged in".tr);
       return RouteSettings(name: Routes.login);

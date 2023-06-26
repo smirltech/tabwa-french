@@ -15,6 +15,7 @@ const String PASSWORD_RESET_CONFIRM_CODE_URL =
 // USERS
 const String USER_URL = BASE_URL + "/users";
 const String LOGIN = BASE_URL + "/login";
+const String AUTH_TEST = BASE_URL + "/authtest";
 const String REGISTER = BASE_URL + "/register";
 
 // WORDS

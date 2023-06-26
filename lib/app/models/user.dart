@@ -33,6 +33,10 @@ class User {
     return 'User{id: $id, name: $name, email: $email}';
   }
 
+  static Future<Response?> authTest(String token) async {
+    return await AuthApi.authTest(token);
+  }
+
   static Future<User?> login(Map<String, dynamic> creds) async {
     Response response = await AuthApi.login(creds);
     // logcat('login response: ${response.statusCode}');

@@ -6,6 +6,9 @@ import '../../app/models/word.dart';
 class AuthApi {
   static final GetConnect _gc = GetConnect();
 
+  static Future<dynamic> authTest(String token) =>
+      _gc.post(AUTH_TEST, null, headers: headers(token: token));
+
   static Future<dynamic> login(Map<String, dynamic> creds) =>
       _gc.post(LOGIN, creds, headers: headers());
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -62,6 +64,29 @@ class AuthController extends GetxController {
       toastItSuccess(msg: "user is connected now".tr);
     } else {
       toastItError(msg: "user connection failed".tr);
+    }
+  }
+
+  initOnlineLogin() async {
+
+    var storage = GetStorage();
+    var token;
+    try {
+      token = await storage.read('token');
+    } on Exception catch (e) {
+      // TODO
+    }
+    var _user;
+
+    if (token != null) {
+      Response? response = await User.authTest(token);
+      log(response?.statusCode.toString()??'');
+
+     // user.value = User.fromMap(_user);
+      //logcat('User found in storage');
+     // toastItSuccess(msg: "user is connected now".tr);
+    } else {
+      //toastItError(msg: "user connection failed".tr);
     }
   }
 

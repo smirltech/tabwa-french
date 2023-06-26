@@ -118,23 +118,13 @@ class Word {
     }
   }
 
-  static Future<Word?> add(Map<String, dynamic> word) async {
-    // logcat(word.toString());
+  static Future<Response?> add(Map<String, dynamic> word) async {
     String token = GetStorage().read("token");
-    Response ddd = await WordsApi.add(token, word);
-    // logcat(ddd.body.toString());
-    // logcat(ddd.body['data'].toString());
-
-    return null;
+    return await WordsApi.add(token, word);
   }
 
-  static Future<Word?> edit(Map<String, dynamic> word, int id) async {
-    // logcat(word.toString());
+  static Future<Response?> edit(Map<String, dynamic> word, int id) async {
     String token = GetStorage().read("token");
-    Response ddd = await WordsApi.edit(token, word, id);
-    // logcat(ddd.body.toString());
-    // logcat(ddd.body['data'].toString());
-
-    return null;
+    return await WordsApi.edit(token, word, id);
   }
 }

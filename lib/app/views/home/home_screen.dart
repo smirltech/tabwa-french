@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:tabwa_french/app/views/home/plateforms/desktop_screen.dart';
-import 'package:tabwa_french/app/views/home/plateforms/mobile_screen.dart';
+import 'package:tabwa_french/app/views/home/plateforms/mobile/mobile_screen.dart';
 import 'package:tabwa_french/system/helpers/sizes.dart';
 
 

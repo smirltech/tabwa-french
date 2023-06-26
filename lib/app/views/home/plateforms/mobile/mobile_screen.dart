@@ -3,23 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tabwa_french/app/views/home/plateforms/mobile/components/item_card.dart';
 
-import '../../../../system/helpers/sizes.dart';
-import '../../../../system/themes/theme_setting.dart';
-import '../../../controllers/auth_controller.dart';
-import '../../../controllers/connectivity_controller.dart';
-import '../../../models/translation.dart';
-import '../../../models/word.dart';
-import '../../../routes/routes.dart';
-import '../../../services/words_service.dart';
-import '../components/main_menu.dart';
+import '../../../../../system/helpers/sizes.dart';
+import '../../../../../system/themes/theme_setting.dart';
+import '../../../../controllers/auth_controller.dart';
+import '../../../../routes/routes.dart';
+import '../../../../services/words_service.dart';
+import '../../components/main_menu.dart';
 
 class MobileScreen extends StatelessWidget {
-  MobileScreen({Key? key}) : super(key: key);
-  // final ConnectivityController connectivityController =
-  //     Get.find<ConnectivityController>();
-  //final WordsService WordsService.of = Get.find<WordsService>();
-  //final AuthController _authController = Get.find<AuthController>();
+  const MobileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +83,7 @@ class MobileScreen extends StatelessWidget {
                   badgeColor: Theme.of(context).secondaryHeaderColor,
                 ),
                 //badgeColor: Theme.of(context).primaryColor,
-                position: badges.BadgePosition.topEnd(top: -10, end: -30),
+                position: badges.BadgePosition.topEnd(top: -10, end: -25),
                 child: Text(
                     WordsService.of.categorie.value.substring(0, 1).toUpperCase(),
                     style: GoogleFonts.oswald(
@@ -103,8 +97,10 @@ class MobileScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: AuthController.of.isAuthenticated() ? FloatingActionButton(
+        backgroundColor: ThemeSetting.green,
         onPressed: () {
-          Get.toNamed(Routes.addWord);
+          AuthController.of.initOnlineLogin();
+          //Get.toNamed(Routes.addWord);
         },
         child: const Icon(Icons.add),
       ):null,
@@ -151,7 +147,7 @@ class MobileScreen extends StatelessWidget {
                 children: [
                   Text('no words or expressions yet'.tr,
                       style: TextStyle(fontSize: ThemeSetting.normal)),
-                  /*Text('the dictionnary has'.tr +
+                  /*Text('the dictionary has'.tr +
                         ' ${WordsService.of.words.length} ' +
                         '${WordsService.of.words.length > 1 ? 'words' : 'word'}'.tr),*/
                 ],
@@ -160,54 +156,7 @@ class MobileScreen extends StatelessWidget {
           }
           return ListView.builder(
             itemBuilder: (context, index) {
-              Word word = WordsService.of.filteredWords[index];
-              List<Translation> _translations = word.translations;
-              List<String> _traas = [];
-              if (_translations.isNotEmpty) {
-                _traas = _translations
-                    .map((t) => "[${t.type_ab}] ${t.translation}")
-                    .toList();
-              }
-              return Card(
-                // elevation: 0,
-                child: InkWell(
-                  onTap: () {
-                    WordsService.of.setActiveWord(word);
-                    Get.toNamed(Routes.showWord);
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        word.word,
-                        style: GoogleFonts.oswald(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ThemeSetting.large,
-                        ),
-                      ),
-                      Wrap(
-                        children: [
-                          ..._traas.map(
-                            (tra) => Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 5, vertical: 2),
-                              color: Theme.of(context).highlightColor,
-                              child: Text(
-                                tra,
-                                style: GoogleFonts.oswald(
-                                  fontSize: ThemeSetting.big,
-                                ),
-                              ),
-                            ).paddingSymmetric(
-                                horizontal: getShortSide(2),
-                                vertical: getShortSide(2)),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ).paddingAll(getShortSide(5.0)),
-                ),
-              );
+              return ItemCard(word: WordsService.of.filteredWords[index]);
             },
             itemCount: WordsService.of.filteredWords.length,
           ).paddingSymmetric(horizontal: getShortSide(2.0));

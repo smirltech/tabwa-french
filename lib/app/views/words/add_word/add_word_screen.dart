@@ -4,16 +4,11 @@ import 'package:tabwa_french/app/controllers/auth_controller.dart';
 import 'package:tabwa_french/app/controllers/types_controller.dart';
 import 'package:tabwa_french/app/models/type.dart';
 import 'package:tabwa_french/app/services/words_service.dart';
-import 'package:tabwa_french/system/configs/configs.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
-import 'package:tabwa_french/system/helpers/log_cat.dart';
 
 import '../../../../system/helpers/sizes.dart';
 
 class AddWordScreen extends StatelessWidget {
- // final AuthController _authController = Get.find<AuthController>();
-  //final WordsService _wordsService = Get.find<WordsService>();
- // final TypesController _typesController = Get.find<TypesController>();
 
   AddWordScreen({Key? key}) : super(key: key) {
     tty = TypesController.of.types.value.map((e) {
@@ -37,12 +32,12 @@ class AddWordScreen extends StatelessWidget {
 
   List<DropdownMenuItem<String>> dm = [
     const DropdownMenuItem(
-      child: Text('Tabwa'),
       value: 'tabwa',
+      child: Text('Tabwa'),
     ),
     const DropdownMenuItem(
-      child: Text('Français'),
       value: 'français',
+      child: Text('Français'),
     ),
   ];
 
@@ -60,16 +55,16 @@ class AddWordScreen extends StatelessWidget {
         actions: [
           Obx(() {
             return TextButton(
-              child: Text(
-                'add'.tr,
-                style: TextStyle(color: Theme.of(context).hintColor),
-              ),
               onPressed: word.value['word'].toString().isEmpty
                   ? null
                   : () {
                       word.value['user_id'] = AuthController.of.user.value!.id;
                       WordsService.of.addWord(word.value);
                     },
+              child: Text(
+                'add'.tr,
+                style: TextStyle(color: Theme.of(context).hintColor),
+              ),
             );
           }).paddingOnly(right: getShortSide(10)),
         ],
