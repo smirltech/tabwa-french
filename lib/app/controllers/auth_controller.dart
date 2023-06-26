@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ import '../models/user.dart';
 import '../routes/routes.dart';
 
 class AuthController extends GetxController {
-  static AuthController get of=> Get.find<AuthController>();
-  static AuthController init()=> Get.put<AuthController>(AuthController());
+  static AuthController get of => Get.find<AuthController>();
+  static AuthController init() => Get.put<AuthController>(AuthController());
   var user = Rxn<User>();
   var themy = "system".obs;
   var isRequestForgotPassword = false.obs;
@@ -43,7 +44,7 @@ class AuthController extends GetxController {
     Get.offAllNamed('/');
   }
 
-  prelogin() async {
+  prelogin2() async {
     toastItInfo(msg: "user initiate login successfully".tr);
     var storage = GetStorage();
     var token;
@@ -55,6 +56,7 @@ class AuthController extends GetxController {
     var _user;
     try {
       _user = await storage.read('user');
+      //log('ME : ' + _user.toString());
     } on Exception catch (e) {
       // TODO
     }
@@ -68,7 +70,6 @@ class AuthController extends GetxController {
   }
 
   initOnlineLogin() async {
-
     var storage = GetStorage();
     var token;
     try {
@@ -77,16 +78,34 @@ class AuthController extends GetxController {
       // TODO
     }
     var _user;
+    try {
+      _user = await storage.read('user');
+      // user.value = User.fromMap(_user);
+    } on Exception catch (e) {
+      // TODO
+    }
 
     if (token != null) {
       Response? response = await User.authTest(token);
-      log(response?.statusCode.toString()??'');
-
-     // user.value = User.fromMap(_user);
+     // log(response?.statusCode.toString() ?? '');
+      if (response?.statusCode == 200) {
+        try {
+          User u = User.fromMap(jsonDecode(response?.body));
+          storage.write('user', u.toMap());
+          user.value = u;
+          toastItSuccess(msg: "user is connected now".tr);
+        } catch (ee) {
+          //  log('rrrrr : ' + ee.toString());
+          user.value = null;
+          toastItError(msg: "user connection failed".tr);
+        }
+      }else{
+        toastItError(msg: "user connection failed".tr);
+      }
       //logcat('User found in storage');
-     // toastItSuccess(msg: "user is connected now".tr);
+      // toastItSuccess(msg: "user is connected now".tr);
     } else {
-      //toastItError(msg: "user connection failed".tr);
+      toastItError(msg: "user connection failed".tr);
     }
   }
 
@@ -119,11 +138,16 @@ class AuthController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    prelogin();
+    // prelogin();
+    initOnlineLogin();
   }
 
   bool isAuthenticated() {
     return user.value != null;
+  }
+
+  bool hasToken() {
+    return GetStorage().hasData('token');
   }
 
 // todo: password resetting implementation

@@ -11,6 +11,7 @@ import '../../../../system/helpers/sizes.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
+
   //final AuthController _authController = Get.find<AuthController>();
   Map<String, dynamic> creds = {
     'email': '',
@@ -24,9 +25,18 @@ class LoginScreen extends StatelessWidget {
       //backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         elevation: 0,
-        iconTheme: IconThemeData(color: Theme.of(context).hintColor),
+        iconTheme: IconThemeData(color: Theme
+            .of(context)
+            .hintColor),
         title: Text('login'.tr, style: TextStyle(fontSize: ThemeSetting.big)),
         actions: [
+          if (AuthController.of.hasToken())    IconButton(
+            onPressed: () {
+              toastItSuccess(msg: "trying to reconnect".tr);
+              AuthController.of.initOnlineLogin();
+            },
+            icon: const Icon(Icons.refresh),
+          ).paddingOnly(right: getShortSide(10)),
           IconButton(
             onPressed: () {
               if (creds['email'].isNotEmpty && creds['password'].isNotEmpty) {
@@ -65,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                         creds['email'] = value;
                       },
                       decoration:
-                          roundedTextInputDecoration(labelText: 'email'.tr),
+                      roundedTextInputDecoration(labelText: 'email'.tr),
                     ),
                   ),
                   Padding(
@@ -77,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                         creds['password'] = value;
                       },
                       decoration:
-                          roundedTextInputDecoration(labelText: 'password'.tr),
+                      roundedTextInputDecoration(labelText: 'password'.tr),
                     ),
                   ),
                   Padding(
@@ -107,6 +117,7 @@ class LoginScreen extends StatelessWidget {
                   child: Text('login'.tr,
                       style: TextStyle(fontSize: ThemeSetting.normal))),
             ),
+
             const Spacer(),
             Container(
               padding: const EdgeInsets.all(10.0),

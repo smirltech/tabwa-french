@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tabwa_french/system/database/auth_api.dart';
@@ -5,7 +6,7 @@ import 'package:tabwa_french/system/helpers/helpers.dart';
 
 import '../../system/helpers/log_cat.dart';
 
-class User {
+class User extends Equatable {
   int? id;
   String? name;
   String? email;
@@ -93,4 +94,8 @@ class User {
     Response response = await AuthApi.forgotPasswordReset(creds);
     return response;
   }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id, name, email];
 }
