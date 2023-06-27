@@ -126,12 +126,14 @@ toastItInfo({
         : toastIt(msg: msg, backgroundColor: Colors.teal);
 
 InputDecoration roundedTextInputDecoration(
-    {String? hintText, String? labelText}) {
+    {String? hintText, String? labelText, Color? borderColor}) {
+
   return InputDecoration(
     hintText: hintText,
     labelText: labelText,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
+     borderSide:  BorderSide(color: borderColor ?? Colors.transparent),
     ),
   );
 }

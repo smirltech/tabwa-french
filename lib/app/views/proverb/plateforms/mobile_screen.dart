@@ -61,7 +61,7 @@ class MobileScreen extends StatelessWidget {
               badgeStyle: badges.BadgeStyle(
                 badgeColor: Theme.of(context).primaryColor,
               ),
-              position: badges.BadgePosition.topEnd(top: 0, end: -1),
+              position: badges.BadgePosition.topEnd(top: 10, end: 10),
               child: TextButton(
                 onPressed: () {
                   final String v = WordsService.of.categorie.value == 'tabwa'
@@ -144,7 +144,7 @@ class MobileScreen extends StatelessWidget {
                 _traas = _translations.map((t) => t.translation).toList();
               }
               return Card(
-                elevation: 0.5,
+                elevation: 0.2,
                 child: InkWell(
                   onTap: () {
                     WordsService.of.setActiveWord(word);

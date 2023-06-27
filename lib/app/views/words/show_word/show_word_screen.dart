@@ -19,8 +19,8 @@ class ShowWordScreen extends StatelessWidget {
     soundPlayer.init();
   }
 
- // final ConnectivityController connectivityController =
- //     Get.find<ConnectivityController>();
+  // final ConnectivityController connectivityController =
+  //     Get.find<ConnectivityController>();
   late SoundPlayer soundPlayer;
 
   @override
@@ -38,12 +38,14 @@ class ShowWordScreen extends StatelessWidget {
           title: Text('word or expression'.tr,
               style: TextStyle(color: Theme.of(context).hintColor)),
         ),
-        floatingActionButton: AuthController.of.isAuthenticated()? FloatingActionButton(
-          child: const Icon(Icons.add),
-          onPressed: () {
-            Get.bottomSheet(AddTranslation());
-          },
-        ):null,
+        floatingActionButton: AuthController.of.isAuthenticated()
+            ? FloatingActionButton(
+                child: const Icon(Icons.add),
+                onPressed: () {
+                  Get.bottomSheet(AddTranslation());
+                },
+              )
+            : null,
         body: SafeArea(
           child: Obx(() {
             return CustomScrollView(
@@ -98,16 +100,18 @@ class ShowWordScreen extends StatelessWidget {
                                                       .value!
                                                       .name !=
                                                   'none'))*/
-                                  if(AuthController.of.isAuthenticated())  IconButton(
-                                      onPressed: () {
-                                        Get.bottomSheet(EditWord(
-                                            wordy: WordsService.of.word.value!));
-                                      },
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        color: Colors.blue,
+                                    if (AuthController.of.isAuthenticated())
+                                      IconButton(
+                                        onPressed: () {
+                                          Get.bottomSheet(EditWord(
+                                              wordy:
+                                                  WordsService.of.word.value!));
+                                        },
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          color: Colors.blue,
+                                        ),
                                       ),
-                                    ),
                                   ]),
                               onTap: () {
                                 showCredit(
@@ -211,105 +215,112 @@ class ShowWordScreen extends StatelessWidget {
                                                                 .value!
                                                                 .name !=
                                                             'none'))*/
-                                              if(AuthController.of.isAuthenticated())    IconButton(
-                                                onPressed: () {
-                                                  Get.bottomSheet(
-                                                    EditTranslation(
-                                                        translaty: tranz),
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                  Icons.edit,
-                                                  color: Colors.blue,
+                                              if (AuthController.of
+                                                  .isAuthenticated())
+                                                IconButton(
+                                                  onPressed: () {
+                                                    Get.bottomSheet(
+                                                      EditTranslation(
+                                                          translaty: tranz),
+                                                    );
+                                                  },
+                                                  icon: const Icon(
+                                                    Icons.edit,
+                                                    color: Colors.blue,
+                                                  ),
                                                 ),
-                                              ),
                                             ],
                                           ),
-                                          if (tranz
-                                              .example.isNotEmpty)   const Divider(
-                                            thickness: 0.5,
-                                            color: Colors.grey,
-                                          ),
-                                          if (tranz
-                                              .example.isNotEmpty)  IntrinsicHeight(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Expanded(
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      if (tranz
-                                                          .example.isNotEmpty)
-                                                        IconButton(
-                                                          onPressed: () {
-                                                            // todo: play audio
-                                                            String audioUrl =
-                                                                "https://tabwa.smirltech.com/audio/examples/${tranz.id}.aac";
-                                                            //  logcat('audioUrl: $audioUrl');
-                                                            soundPlayer
-                                                                .playFromNet(
-                                                                    audioUrl,
-                                                                    whenFinished:
-                                                                        () {
-                                                              toastItInfo(
-                                                                  msg: 'done'
-                                                                      .tr);
-                                                            }, error: () {
-                                                              toastItError(
-                                                                msg:
-                                                                    "no audio found"
-                                                                        .tr,
-                                                              );
-                                                            });
-                                                          },
-                                                          icon: const Icon(
-                                                            Icons
-                                                                .volume_up_outlined,
-                                                            color: Colors.blue,
+                                          if (tranz.example.isNotEmpty)
+                                            const Divider(
+                                              thickness: 0.5,
+                                              color: Colors.grey,
+                                            ),
+                                          if (tranz.example.isNotEmpty)
+                                            IntrinsicHeight(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        if (tranz
+                                                            .example.isNotEmpty)
+                                                          IconButton(
+                                                            onPressed: () {
+                                                              // todo: play audio
+                                                              String audioUrl =
+                                                                  "https://tabwa.smirltech.com/audio/examples/${tranz.id}.aac";
+                                                              //  logcat('audioUrl: $audioUrl');
+                                                              soundPlayer
+                                                                  .playFromNet(
+                                                                      audioUrl,
+                                                                      whenFinished:
+                                                                          () {
+                                                                toastItInfo(
+                                                                    msg: 'done'
+                                                                        .tr);
+                                                              }, error: () {
+                                                                toastItError(
+                                                                  msg:
+                                                                      "no audio found"
+                                                                          .tr,
+                                                                );
+                                                              });
+                                                            },
+                                                            icon: const Icon(
+                                                              Icons
+                                                                  .volume_up_outlined,
+                                                              color:
+                                                                  Colors.blue,
+                                                            ),
+                                                          ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            tranz.example,
+                                                            style: GoogleFonts
+                                                                .oswald(
+                                                              fontSize:
+                                                                  ThemeSetting
+                                                                      .normal,
+                                                            ),
                                                           ),
                                                         ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          tranz.example,
-                                                          style: GoogleFonts
-                                                              .oswald(
-                                                            fontSize:
-                                                                ThemeSetting
-                                                                    .normal,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const VerticalDivider(
-                                                  thickness: 0.5,
-                                                  color: Colors.grey,
-                                                  width: 0.0,
-                                                ).paddingOnly(
-                                                    right: getShortSide(10)),
-                                                Expanded(
-                                                  child: Text(
-                                                    tranz.example_translation,
-                                                    style: GoogleFonts.oswald(
-                                                      color: ThemeSetting.green,
-                                                      fontSize:
-                                                          ThemeSetting.normal,
+                                                      ],
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                  if (tranz.example_translation.isNotEmpty)
+                                                    const VerticalDivider(
+                                                      thickness: 0.5,
+                                                      color: Colors.grey,
+                                                      width: 0.0,
+                                                    ).paddingOnly(
+                                                        right:
+                                                            getShortSide(10)),
+                                                  Expanded(
+                                                    child: Text(
+                                                      tranz.example_translation,
+                                                      style: GoogleFonts.oswald(
+                                                        color:
+                                                            ThemeSetting.green,
+                                                        fontSize:
+                                                            ThemeSetting.normal,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
                                         ],
                                       ),
                                     ),

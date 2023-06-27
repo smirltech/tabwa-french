@@ -70,7 +70,9 @@ class SettingsScreen extends StatelessWidget {
                       onChanged: (value) {
                         selectedCategorie.value = value.toString();
                         WordsService.of.setCategorie(value.toString());
-                      }),
+                      },
+
+                  ),
                 );
               }),
             ),
@@ -81,7 +83,7 @@ class SettingsScreen extends StatelessWidget {
                   width: double.infinity,
                   child: DropdownButtonFormField(
                       decoration:
-                          roundedTextInputDecoration(labelText: 'theme'.tr),
+                          roundedTextInputDecoration(labelText: 'theme'.tr,),
                       items: themy,
                       value: selectedthemy.value,
                       onChanged: (value) {
