@@ -13,8 +13,8 @@ import '../views/contributions/contributions_screen.dart';
 import 'dart:math' as math;
 
 class WordsService extends GetxService {
-  static WordsService get of=> Get.find<WordsService>();
-  static WordsService init()=> Get.put<WordsService>(WordsService());
+  static WordsService get of => Get.find<WordsService>();
+  static WordsService init() => Get.put<WordsService>(WordsService());
   var words = <Word>[].obs;
   var key_words = <String>[].obs;
   var word = Rxn<Word>();
@@ -38,7 +38,7 @@ class WordsService extends GetxService {
       Buggy(name: 'Delmar', wa: 72)
     ];
 */
-    debounce(words, (v) {
+
       Map<String, Buggy> map = {};
 
       words.value.forEach((word) {
@@ -75,7 +75,7 @@ class WordsService extends GetxService {
         //  var y = b.wa + b.wm + b.ta + b.tm;
         return y - x;
       });
-    });
+
   }
 
   @override
@@ -89,7 +89,7 @@ class WordsService extends GetxService {
       if (value != null) categorie.value = value;
     });
     getAllLocal();
-    updateContributionList();
+   // updateContributionList();
   }
 
   @override
@@ -126,7 +126,7 @@ class WordsService extends GetxService {
       time: const Duration(milliseconds: 500),
     );
 
-   /* debounce(
+    /* debounce(
       categorie,
       (v) {
         if (words.value != null) {
@@ -174,7 +174,7 @@ class WordsService extends GetxService {
   Future<void> getAll() async {
     // logcat("You are in WordsService");
     /*List<Word> ll =*/ await Word.getAll();
-   /* if (ll != null) {
+    /* if (ll != null) {
       key_words.clear();
       ll.forEach((element) {
         key_words.add(element.word.toLowerCase());
@@ -200,40 +200,41 @@ class WordsService extends GetxService {
     isLoading.value = false;
   }
 
-  updateFilters(){
+  updateFilters() {
     if (searchedWord.value.length == 0) {
       filteredWords.value =
           words.value.where((word) => wordOfCategory(word)).toList();
       filteredProverbs.value = filteredWords.value
           .where(
             (word) => word.translations
-            .any((trans) => trans.type.toLowerCase().contains("prov")),
-      )
+                .any((trans) => trans.type.toLowerCase().contains("prov")),
+          )
           .toList();
     }
     if (word.value != null) updateActiveWord();
   }
 
   getAllLocalInit() {
+    List<Word> vv = Word.listFromMap(GetStorage().read('words'));
+    if (vv.isNotEmpty) {
+      key_words.clear();
+      vv.forEach((element) {
+        key_words.add(element.word.toLowerCase());
+      });
+      // logcat(key_words.toString());
+    }
+    //log(vv.toString());
+    vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
+    words.value = vv;
+    updateFilters();
 
-      List<Word> vv = Word.listFromMap(GetStorage().read('words'));
-      if (vv.isNotEmpty) {
-        key_words.clear();
-        vv.forEach((element) {
-          key_words.add(element.word.toLowerCase());
-        });
-        // logcat(key_words.toString());
-      }
-      //log(vv.toString());
-      vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
-      words.value = vv;
-     updateFilters();
-
-      isLoading.value = false;
+    isLoading.value = false;
+    updateContributionList();
   }
-    getAllLocal() {
+
+  getAllLocal() {
     getAllLocalInit();
-    GetStorage().listenKey('words', (value) {
+    GetStorage().listenKey('words', (value) async {
       List<Word> vv = Word.listFromMap(value);
       if (vv.isNotEmpty) {
         key_words.clear();
@@ -242,11 +243,12 @@ class WordsService extends GetxService {
         });
         // logcat(key_words.toString());
       }
-      log("aa");
+     // log("aa");
       vv.sort((a, b) => a.word.toLowerCase().compareTo(b.word.toLowerCase()));
       words.value = vv;
-     updateFilters();
+      updateFilters();
       isLoading.value = false;
+       updateContributionList();
     });
   }
 
@@ -264,22 +266,21 @@ class WordsService extends GetxService {
 
   void addWord(Map<String, dynamic> word) async {
     isLoading.value = true;
-  //  log(word.toString());
-  Response? response =  await Word.add(word);
-  int? statusCode = response?.statusCode;
-  String? statusText = response?.statusText;
-  log(statusCode.toString());
-  log(statusText.toString());
-  if(statusCode == 401){
-    toastItError(msg: statusText.toString().tr);
-  }
-
-    getAll();
-    if(statusCode == 200){
-      toastItSuccess(msg: statusText.toString().tr);
-       Get.back();
+    //  log(word.toString());
+    Response? response = await Word.add(word);
+    int? statusCode = response?.statusCode;
+    String? statusText = response?.statusText;
+    log(statusCode.toString());
+    log(statusText.toString());
+    if (statusCode == 401) {
+      toastItError(msg: statusText.toString().tr);
     }
 
+    getAll();
+    if (statusCode == 200) {
+      toastItSuccess(msg: statusText.toString().tr);
+      Get.back();
+    }
   }
 
   void editWord(Map<String, dynamic> word) async {

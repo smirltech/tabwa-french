@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart' show Level;
 import 'package:http/http.dart' as http;
 import 'package:tabwa_french/system/helpers/audio_recorder/components/sound_recorder.dart';
 import 'package:tabwa_french/system/helpers/helpers.dart';
@@ -13,8 +14,7 @@ class SoundPlayer {
   bool get isPlaying => _audioPlayer!.isPlaying;
 
   Future init() async {
-    _audioPlayer = FlutterSoundPlayer();
-
+    _audioPlayer = FlutterSoundPlayer(logLevel: Level.error);
     await _audioPlayer!.openAudioSession();
   }
 

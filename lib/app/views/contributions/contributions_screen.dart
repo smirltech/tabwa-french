@@ -34,6 +34,74 @@ class ContributionsScreen extends StatelessWidget {
                     style: TextStyle(fontSize: getTextSize(20)))
                 .paddingOnly(bottom: getShortSide(10.0)),
             Expanded(child: Obx(() {
+              return ListView.builder(
+                  itemCount: WordsService.of.contributions.length,
+                  itemBuilder: (_, index) {
+                    Buggy buggy = WordsService.of.contributions[index];
+                    return ListTile(
+                      leading: CircleAvatar(
+                        child: Text((index + 1).toString()),
+                      ),
+                      title: Text(buggy.name),
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text.rich(
+                                  TextSpan(text: '${'words'.tr} : ', children: [
+                                    TextSpan(
+                                        text: buggy.wa.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold))
+                                  ]),
+                                ),
+                                Text.rich(
+                                  TextSpan(text: '${'edition'.tr} : ', children: [
+                                    TextSpan(
+                                        text: buggy.wm.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold))
+                                  ]),
+                                ),
+                              ],
+                            ).paddingOnly(right: 5),
+                          ),
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text.rich(
+                                  TextSpan(text: '${'translations'.tr} : ', children: [
+                                    TextSpan(
+                                        text: buggy.ta.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold))
+                                  ]),
+                                ),
+                                Text.rich(
+                                  TextSpan(text: '${'edition'.tr} : ', children: [
+                                    TextSpan(
+                                        text: buggy.tm.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold))
+                                  ]),
+                                ),
+                              ],
+                            ).paddingOnly(left: 5),
+                          ),
+                        ],
+                      ),
+                    ).paddingOnly(bottom: 10);
+                  });
+            })),
+            /*Expanded(child: Obx(() {
               return EasyTable<Buggy>(
                 EasyTableModel<Buggy>(
                     rows: WordsService.of.contributions.value,
@@ -68,7 +136,7 @@ class ContributionsScreen extends StatelessWidget {
                     ]),
                 //  columnsFit: true,
               );
-            })),
+            })),*/
             SizedBox(height: getShortSide(10)),
           ],
         ),
