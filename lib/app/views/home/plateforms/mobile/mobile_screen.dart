@@ -114,7 +114,7 @@ class MobileScreen extends StatelessWidget {
         ),
         floatingActionButton: AuthController.of.isAuthenticated()
             ? FloatingActionButton(
-          backgroundColor: ThemeSetting.green,
+          backgroundColor: ThemeSetting.base,
           onPressed: () {
            // AuthController.of.initOnlineLogin();
             Get.toNamed(Routes.addWord);

@@ -533,7 +533,7 @@ class DesktopScreen extends StatelessWidget {
                                                                 .oswald(
                                                               color:
                                                                   ThemeSetting
-                                                                      .green,
+                                                                      .base,
                                                               fontSize:
                                                                   ThemeSetting
                                                                       .normal,

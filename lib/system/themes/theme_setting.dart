@@ -10,7 +10,9 @@ import 'package:tabwa_french/system/themes/theme_light.dart';
 class ThemeSetting {
   /// Theme colors
   static const Color gray = Color(0xFFE0E0E0);
-  static const Color green = Colors.green;
+  static const Color dark = Colors.black12;
+  static const Color light = Colors.white;
+  static const Color base = Colors.blue;
 
   /// Theme sizes
   static final double veryTiny = getTextSize(8.0);

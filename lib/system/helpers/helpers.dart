@@ -131,6 +131,7 @@ InputDecoration roundedTextInputDecoration(
   return InputDecoration(
     hintText: hintText,
     labelText: labelText,
+    filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
      borderSide:  BorderSide(color: borderColor ?? Colors.transparent),

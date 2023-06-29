@@ -312,7 +312,7 @@ class ShowWordScreen extends StatelessWidget {
                                                       tranz.example_translation,
                                                       style: GoogleFonts.oswald(
                                                         color:
-                                                            ThemeSetting.green,
+                                                            ThemeSetting.base,
                                                         fontSize:
                                                             ThemeSetting.normal,
                                                       ),
